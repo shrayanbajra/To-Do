@@ -1,0 +1,38 @@
+package com.example.todo.home
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.todo.R
+
+class HomeFragment : Fragment() {
+
+    private lateinit var rvTasks: RecyclerView
+    private val homeAdapter = HomeAdapter()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        rvTasks = view.findViewById(R.id.rv_tasks)
+        rvTasks.adapter = homeAdapter
+        rvTasks.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val values = listOf("Hello", "There", "How", "Are", "You", "?")
+        homeAdapter.update(values)
+    }
+}

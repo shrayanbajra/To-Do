@@ -1,12 +1,13 @@
-package com.example.todo
+package com.example.todo.home
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todo.R
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MainViewHolder>() {
 
     private val tasks = arrayListOf<String>()
 
