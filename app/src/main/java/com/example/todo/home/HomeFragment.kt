@@ -13,6 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
 
+    // TODO: Use Database to store tasks which are added in Add Task Fragment
+
     private lateinit var rvTasks: RecyclerView
     private val homeAdapter = HomeAdapter()
 
