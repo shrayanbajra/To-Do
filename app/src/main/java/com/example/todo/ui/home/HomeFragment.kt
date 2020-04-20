@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,12 +15,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
 
-    // TODO: Use Database to store tasks which are added in Add Task Fragment
-
     private lateinit var rvTasks: RecyclerView
     private val homeAdapter = HomeAdapter()
 
     private lateinit var btnAddTask: FloatingActionButton
+
+    private val viewModel by lazy {
+        ViewModelProvider(this)[HomeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,19 +34,37 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerView(view)
+
+        btnAddTask = view.findViewById(R.id.btn_add_task)
+    }
+
+    private fun initRecyclerView(view: View) {
         rvTasks = view.findViewById(R.id.rv_tasks)
         rvTasks.adapter = homeAdapter
         rvTasks.layoutManager = LinearLayoutManager(context)
-
-        btnAddTask = view.findViewById(R.id.btn_add_task)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val values = listOf("Hello", "There", "How", "Are", "You", "?")
-        homeAdapter.update(values)
+        fetchTasks()
+        observeTasks()
 
+        navigateToAddTaskFragment()
+    }
+
+    private fun fetchTasks() {
+        viewModel.fetchTasks()
+    }
+
+    private fun observeTasks() {
+        viewModel.getTasks().observe(viewLifecycleOwner, Observer { tasks ->
+            homeAdapter.update(tasks)
+        })
+    }
+
+    private fun navigateToAddTaskFragment() {
         btnAddTask.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
         }

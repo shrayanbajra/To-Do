@@ -12,5 +12,5 @@ data class TaskEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "Task ID")
-    var id: Int = -1
+    var id: Int = 0
 }

@@ -22,10 +22,4 @@ class AddTaskRepository private constructor() : BaseRepository() {
             taskDao.insert(task)
         }
     }
-
-    suspend fun getAllTasks() {
-        withContext(IO) {
-            taskDao.getAll()
-        }
-    }
 }

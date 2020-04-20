@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.db.task.TaskEntity
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MainViewHolder>() {
 
-    private val tasks = arrayListOf<String>()
+    private val tasks = arrayListOf<TaskEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -18,14 +19,15 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MainViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.taskTitle.text = tasks[position]
+        val task = tasks[position]
+        holder.taskTitle.text = task.taskTitle
     }
 
     override fun getItemCount(): Int {
         return tasks.size
     }
 
-    fun update(tasks: List<String>) {
+    fun update(tasks: List<TaskEntity>) {
         this.tasks.clear()
         this.tasks.addAll(tasks)
         notifyDataSetChanged()
