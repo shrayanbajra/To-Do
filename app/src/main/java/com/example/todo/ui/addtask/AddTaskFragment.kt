@@ -1,4 +1,4 @@
-package com.example.todo
+package com.example.todo.ui.addtask
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.todo.R
+import com.example.todo.db.task.TaskEntity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -16,6 +19,10 @@ class AddTaskFragment : Fragment() {
     private lateinit var etTaskTitle: TextInputEditText
 
     private lateinit var btnSubmitTask: Button
+
+    private val viewModel by lazy {
+        ViewModelProvider(this)[AddTaskViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +58,12 @@ class AddTaskFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            Toast.makeText(context, taskTitle, Toast.LENGTH_SHORT).show()
+            val task = TaskEntity(taskTitle)
+
+            Toast.makeText(context, "Task inserted in Database", Toast.LENGTH_SHORT).show()
+            viewModel.insertTask(task)
+
+            etTaskTitle.text?.clear()
         }
     }
 }
