@@ -17,8 +17,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var rvTasks: RecyclerView
     private val homeAdapter = HomeAdapter(object : HomeAdapter.OnItemClickListener {
-        override fun onItemClick(itemID: Int) {
 
+        override fun onItemClick(itemID: Int) {
+            // TODO: Use Safe-args for passing Task ID to View Task Fragment
             navigateToViewTaskFragment()
         }
     })
