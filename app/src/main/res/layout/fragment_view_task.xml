@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.viewtask.ViewTaskFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/et_task_title_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:hint="@string/task_title"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:minHeight="48dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/hello_blank_fragment"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
 </FrameLayout>
