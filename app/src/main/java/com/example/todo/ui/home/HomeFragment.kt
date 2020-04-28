@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,8 +18,8 @@ class HomeFragment : Fragment() {
     private lateinit var rvTasks: RecyclerView
     private val homeAdapter = HomeAdapter(object : HomeAdapter.OnItemClickListener {
         override fun onItemClick(itemID: Int) {
-            // Navigate to View Item Fragment
-            Toast.makeText(context, "Item ID -> $itemID", Toast.LENGTH_SHORT).show()
+
+            navigateToViewTaskFragment()
         }
     })
 
@@ -57,7 +56,7 @@ class HomeFragment : Fragment() {
         fetchTasks()
         observeTasks()
 
-        navigateToAddTaskFragment()
+        btnAddTaskListener()
     }
 
     private fun fetchTasks() {
@@ -70,9 +69,17 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun navigateToAddTaskFragment() {
+    private fun btnAddTaskListener() {
         btnAddTask.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
+            navigateToAddTaskFragment()
         }
+    }
+
+    private fun navigateToViewTaskFragment() {
+        findNavController().navigate(R.id.action_homeFragment_to_viewTaskFragment)
+    }
+
+    private fun navigateToAddTaskFragment() {
+        findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
     }
 }

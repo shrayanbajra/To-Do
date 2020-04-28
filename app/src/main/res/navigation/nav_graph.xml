@@ -14,6 +14,10 @@
         <action
             android:id="@+id/action_homeFragment_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_viewTaskFragment"
+            app:destination="@id/viewTaskFragment" />
     </fragment>
 
     <fragment
@@ -21,4 +25,10 @@
         android:name="com.example.todo.ui.addtask.AddTaskFragment"
         android:label="fragment_add_task"
         tools:layout="@layout/fragment_add_task" />
+
+    <fragment
+        android:id="@+id/viewTaskFragment"
+        android:name="com.example.todo.ui.ViewTaskFragment"
+        android:label="fragment_view_task"
+        tools:layout="@layout/fragment_view_task" />
 </navigation>
