@@ -20,7 +20,8 @@ class ViewTaskViewModel : ViewModel() {
 
     fun getTask(id: Int) {
         viewModelScope.launch(IO) {
-            task.postValue(repository.getTask(id))
+            val taskEntity = repository.getTask(id) ?: TaskEntity()
+            task.postValue(taskEntity)
         }
     }
 }
