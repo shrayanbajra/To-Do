@@ -36,13 +36,14 @@ class HomeAdapter(private val listener: OnItemClickListener) :
 
     class MainViewHolder(itemView: View, listener: OnItemClickListener) :
         RecyclerView.ViewHolder(itemView) {
+
         private val taskTitle: TextView = itemView.findViewById(R.id.tv_task_title)
-        val onItemClickListener: OnItemClickListener = listener
+        private val onItemClickListener: OnItemClickListener = listener
 
         fun bind(task: TaskEntity, listener: OnItemClickListener) {
             taskTitle.text = task.taskTitle
             itemView.setOnClickListener {
-                listener.onItemClick(task.id)
+                onItemClickListener.onItemClick(task.id)
             }
         }
     }
