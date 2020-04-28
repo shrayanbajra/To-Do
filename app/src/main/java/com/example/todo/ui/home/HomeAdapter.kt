@@ -8,19 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MainViewHolder>() {
+class HomeAdapter(private val listener: OnItemClickListener) :
+    RecyclerView.Adapter<HomeAdapter.MainViewHolder>() {
 
     private val tasks = arrayListOf<TaskEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_task, parent, false)
-        return MainViewHolder(view)
+        return MainViewHolder(view, listener)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val task = tasks[position]
-        holder.taskTitle.text = task.taskTitle
+        holder.bind(task, listener)
     }
 
     override fun getItemCount(): Int {
@@ -33,7 +34,20 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MainViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val taskTitle: TextView = itemView.findViewById(R.id.tv_task_title)
+    class MainViewHolder(itemView: View, listener: OnItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
+        private val taskTitle: TextView = itemView.findViewById(R.id.tv_task_title)
+        val onItemClickListener: OnItemClickListener = listener
+
+        fun bind(task: TaskEntity, listener: OnItemClickListener) {
+            taskTitle.text = task.taskTitle
+            itemView.setOnClickListener {
+                listener.onItemClick(task.id)
+            }
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(itemID: Int)
     }
 }
