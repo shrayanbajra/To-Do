@@ -10,16 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.todo.R
+import com.example.todo.db.task.TaskEntity
 
 class ViewTaskFragment : Fragment() {
 
     companion object {
-
         private const val NO_ID = -1
     }
 
     private var taskID: Int = NO_ID
+
     private lateinit var etTaskTitle: EditText
+    private lateinit var etTaskContent: EditText
 
     private val viewModel by lazy {
         ViewModelProvider(this)[ViewTaskViewModel::class.java]
@@ -41,6 +43,7 @@ class ViewTaskFragment : Fragment() {
         }
 
         etTaskTitle = view.findViewById(R.id.et_task_title_view)
+        etTaskContent = view.findViewById(R.id.et_task_content)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -60,8 +63,13 @@ class ViewTaskFragment : Fragment() {
 
     private fun observeTask() {
         viewModel.getTaskLiveData().observe(viewLifecycleOwner, Observer { task ->
-            etTaskTitle.setText(task.taskTitle)
+            populateEditTexts(task)
         })
+    }
+
+    private fun populateEditTexts(task: TaskEntity) {
+        etTaskTitle.setText(task.taskTitle)
+        etTaskContent.setText(task.taskContent)
     }
 }
 
