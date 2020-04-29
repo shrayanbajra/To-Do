@@ -15,12 +15,15 @@ import com.google.android.material.textfield.TextInputLayout
 
 class AddTaskFragment : Fragment() {
 
+    // Views for Task Title
     private lateinit var tilTaskTitle: TextInputLayout
     private lateinit var etTaskTitle: TextInputEditText
 
+    // Views for Task Content
     private lateinit var tilTaskContent: TextInputLayout
     private lateinit var etTaskContent: TextInputEditText
 
+    // Views for Save Button
     private lateinit var btnSaveTask: Button
 
     private val viewModel by lazy {
@@ -41,12 +44,15 @@ class AddTaskFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
+        // Task Title
         tilTaskTitle = view.findViewById(R.id.til_task_title)
         etTaskTitle = view.findViewById(R.id.et_task_title)
 
+        // Task Content
         tilTaskContent = view.findViewById(R.id.til_task_content)
         etTaskContent = view.findViewById(R.id.et_task_content)
 
+        // Save Button
         btnSaveTask = view.findViewById(R.id.btn_save_task)
     }
 
