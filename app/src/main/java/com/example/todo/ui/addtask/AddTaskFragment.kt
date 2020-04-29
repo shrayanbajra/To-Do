@@ -21,7 +21,7 @@ class AddTaskFragment : Fragment() {
     private lateinit var tilTaskContent: TextInputLayout
     private lateinit var etTaskContent: TextInputEditText
 
-    private lateinit var btnSubmitTask: Button
+    private lateinit var btnSaveTask: Button
 
     private val viewModel by lazy {
         ViewModelProvider(this)[AddTaskViewModel::class.java]
@@ -47,17 +47,20 @@ class AddTaskFragment : Fragment() {
         tilTaskContent = view.findViewById(R.id.til_task_content)
         etTaskContent = view.findViewById(R.id.et_task_content)
 
-        btnSubmitTask = view.findViewById(R.id.btn_submit_task)
+        btnSaveTask = view.findViewById(R.id.btn_save_task)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btnSubmitTask.setOnClickListener {
+        btnSaveTaskListener()
+    }
+
+    private fun btnSaveTaskListener() {
+        btnSaveTask.setOnClickListener {
 
             // Clear previously set errors
-            if (hasErrorSet(tilTaskTitle)) clearError(tilTaskTitle)
-            if (hasErrorSet(tilTaskContent)) clearError(tilTaskContent)
+            clearErrorsInTextInputLayout()
 
             // Get inputs
             val taskTitle: String = etTaskTitle.text.toString().trim()
@@ -86,6 +89,11 @@ class AddTaskFragment : Fragment() {
         }
     }
 
+    private fun clearErrorsInTextInputLayout() {
+        if (hasErrorSet(tilTaskTitle)) clearError(tilTaskTitle)
+        if (hasErrorSet(tilTaskContent)) clearError(tilTaskContent)
+    }
+
     private fun clearError(taskInputLayout: TextInputLayout) {
         taskInputLayout.isErrorEnabled = false
     }
@@ -100,7 +108,7 @@ class AddTaskFragment : Fragment() {
     }
 
     private fun showSuccessMessage() {
-        Toast.makeText(context, "Task inserted in Database", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
     }
 
     private fun clearInputFields() {

@@ -2,7 +2,7 @@
     <string name="app_name">To Do</string>
 
     <string name="task_title">Task Title</string>
-    <string name="submit_task">Submit Task</string>
+    <string name="save_task">Save Task</string>
 
     <string name="task_content">Type Here</string>
 
