@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_submit_task"
+        app:layout_constraintBottom_toTopOf="@id/til_task_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/task_title"
-            android:inputType="textCapSentences" />
+            android:inputType="textCapSentences"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_task_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_submit_task"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_task_title"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_task_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/task_content"
+            android:inputType="textMultiLine"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -31,9 +52,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit_task"
+        app:layout_constraintTop_toBottomOf="@id/til_task_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_task_title" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
