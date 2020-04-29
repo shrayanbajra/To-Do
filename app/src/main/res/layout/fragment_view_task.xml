@@ -4,20 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.viewtask.ViewTaskFragment">
 
     <EditText
         android:id="@+id/et_task_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:gravity="bottom|start"
         android:hint="@string/task_title"
         android:importantForAutofill="no"
         android:inputType="textCapWords"
         android:minHeight="48dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <EditText
         android:id="@+id/et_task_content"
@@ -28,7 +30,7 @@
         android:hint="@string/task_content"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 </LinearLayout>
