@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "task_table")
 data class TaskEntity(
     @ColumnInfo(name = "Task Title")
-    var taskTitle: String = ""
+    var taskTitle: String = "",
+
+    @ColumnInfo(name = "Task Content")
+    var taskContent: String = ""
 ) {
 
     @PrimaryKey(autoGenerate = true)
