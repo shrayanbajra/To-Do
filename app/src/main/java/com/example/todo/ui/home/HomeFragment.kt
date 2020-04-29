@@ -19,8 +19,7 @@ class HomeFragment : Fragment() {
     private val homeAdapter = HomeAdapter(object : HomeAdapter.OnItemClickListener {
 
         override fun onItemClick(itemID: Int) {
-            // TODO: Use Safe-args for passing Task ID to View Task Fragment
-            navigateToViewTaskFragment()
+            navigateToViewTaskFragment(itemID)
         }
     })
 
@@ -76,8 +75,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun navigateToViewTaskFragment() {
-        findNavController().navigate(R.id.action_homeFragment_to_viewTaskFragment)
+    private fun navigateToViewTaskFragment(itemID: Int) {
+        val action = HomeFragmentDirections
+            .actionHomeFragmentToViewTaskFragment(taskID = itemID)
+        findNavController().navigate(action)
     }
 
     private fun navigateToAddTaskFragment() {

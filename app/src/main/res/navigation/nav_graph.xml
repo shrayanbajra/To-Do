@@ -30,5 +30,10 @@
         android:id="@+id/viewTaskFragment"
         android:name="com.example.todo.ui.viewtask.ViewTaskFragment"
         android:label="fragment_view_task"
-        tools:layout="@layout/fragment_view_task" />
+        tools:layout="@layout/fragment_view_task">
+        <argument
+            android:name="taskID"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>
