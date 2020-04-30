@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
@@ -134,6 +135,11 @@ class ViewTaskFragment : Fragment() {
     private fun deleteTask() {
         viewModel.deleteTask(taskID)
         Toast.makeText(context, "Task Deleted", Toast.LENGTH_SHORT).show()
+        navigateToHomeFragment()
+    }
+
+    private fun navigateToHomeFragment() {
+        findNavController().navigate(R.id.action_viewTaskFragment_to_homeFragment)
     }
 }
 
