@@ -12,6 +12,10 @@ class NavHostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        enableNavigateUp()
+    }
+
+    private fun enableNavigateUp() {
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
     }

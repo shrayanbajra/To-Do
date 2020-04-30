@@ -1,6 +1,6 @@
 package com.example.todo.ui
 
-import com.example.todo.AppUtils
+import com.example.todo.app.AppUtils
 import com.example.todo.db.AppDatabase
 
 abstract class BaseRepository {

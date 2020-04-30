@@ -1,4 +1,4 @@
-package com.example.todo
+package com.example.todo.app
 
 import android.app.Application
 
