@@ -1,9 +1,7 @@
 package com.example.todo.ui.viewtask
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -25,6 +23,11 @@ class ViewTaskFragment : Fragment() {
 
     private val viewModel by lazy {
         ViewModelProvider(this)[ViewTaskViewModel::class.java]
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -70,6 +73,22 @@ class ViewTaskFragment : Fragment() {
     private fun populateEditTexts(task: TaskEntity) {
         etTaskTitle.setText(task.taskTitle)
         etTaskContent.setText(task.taskContent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.menu_view_task_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return if (item.itemId == R.id.item_save_task) {
+            Toast.makeText(context, "Save", Toast.LENGTH_SHORT).show()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 }
 
