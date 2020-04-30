@@ -132,7 +132,8 @@ class ViewTaskFragment : Fragment() {
     }
 
     private fun deleteTask() {
-        // TODO: Delete Task
+        viewModel.deleteTask(taskID)
+        Toast.makeText(context, "Task Deleted", Toast.LENGTH_SHORT).show()
     }
 }
 

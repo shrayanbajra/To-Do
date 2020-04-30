@@ -30,4 +30,10 @@ class ViewTaskViewModel : ViewModel() {
             repository.updateTask(task)
         }
     }
+
+    fun deleteTask(taskID: Int) {
+        viewModelScope.launch(IO) {
+            repository.deleteTask(taskID)
+        }
+    }
 }
