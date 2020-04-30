@@ -100,7 +100,23 @@ class ViewTaskFragment : Fragment() {
     }
 
     private fun saveChanges() {
-        Toast.makeText(context, "Save", Toast.LENGTH_SHORT).show()
+
+        val taskTitle = etTaskTitle.text.toString().trim()
+        val taskContent = etTaskContent.text.toString().trim()
+
+        if (taskTitle.isBlank()) {
+            Toast.makeText(context, "Title can't be blank", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        updateTask(taskTitle, taskContent)
+        Toast.makeText(context, "Changes Saved", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateTask(taskTitle: String, taskContent: String) {
+        val task = TaskEntity(taskTitle, taskContent)
+        task.id = taskID
+        viewModel.updateTask(task)
     }
 }
 

@@ -16,4 +16,8 @@ class ViewTaskRepository : BaseRepository() {
     suspend fun getTask(id: Int): TaskEntity? {
         return taskDao.get(id)
     }
+
+    suspend fun updateTask(task: TaskEntity) {
+        taskDao.update(task)
+    }
 }

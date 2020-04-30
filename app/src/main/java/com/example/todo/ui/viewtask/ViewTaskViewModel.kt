@@ -27,7 +27,7 @@ class ViewTaskViewModel : ViewModel() {
 
     fun updateTask(task: TaskEntity) {
         viewModelScope.launch(IO) {
-            // TODO: Update task here
+            repository.updateTask(task)
         }
     }
 }
