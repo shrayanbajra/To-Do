@@ -24,4 +24,10 @@ class ViewTaskViewModel : ViewModel() {
             task.postValue(taskEntity)
         }
     }
+
+    fun updateTask(task: TaskEntity) {
+        viewModelScope.launch(IO) {
+            // TODO: Update task here
+        }
+    }
 }

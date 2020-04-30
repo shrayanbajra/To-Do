@@ -92,11 +92,15 @@ class ViewTaskFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return if (item.itemId == R.id.item_save_task) {
-            Toast.makeText(context, "Save", Toast.LENGTH_SHORT).show()
+            saveChanges()
             true
         } else {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun saveChanges() {
+        Toast.makeText(context, "Save", Toast.LENGTH_SHORT).show()
     }
 }
 
