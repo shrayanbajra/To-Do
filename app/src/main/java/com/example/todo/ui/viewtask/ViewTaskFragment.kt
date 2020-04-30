@@ -63,8 +63,6 @@ class ViewTaskFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
-
         getTask()
         observeTask()
     }
