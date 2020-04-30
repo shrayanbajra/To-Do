@@ -95,12 +95,19 @@ class ViewTaskFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        return if (item.itemId == R.id.item_save_task) {
-            saveChanges()
-            true
-        } else {
-            NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                    || super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.item_save_task -> {
+                saveChanges()
+                true
+            }
+            R.id.item_delete_task -> {
+                deleteTask()
+                true
+            }
+            else -> {
+                NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                        || super.onOptionsItemSelected(item)
+            }
         }
     }
 
@@ -122,6 +129,10 @@ class ViewTaskFragment : Fragment() {
         val task = TaskEntity(taskTitle, taskContent)
         task.id = taskID
         viewModel.updateTask(task)
+    }
+
+    private fun deleteTask() {
+        // TODO: Delete Task
     }
 }
 

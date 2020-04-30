@@ -20,4 +20,8 @@ class ViewTaskRepository : BaseRepository() {
     suspend fun updateTask(task: TaskEntity) {
         taskDao.update(task)
     }
+
+    suspend fun deleteTask(task: TaskEntity) {
+        // Delete Task
+    }
 }
