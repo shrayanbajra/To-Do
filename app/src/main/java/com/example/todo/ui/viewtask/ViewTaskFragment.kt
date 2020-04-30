@@ -40,11 +40,19 @@ class ViewTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getArgumentsFromBundle()
+
+        initViews(view)
+    }
+
+    private fun getArgumentsFromBundle() {
         val args: ViewTaskFragmentArgs? = arguments?.let { ViewTaskFragmentArgs.fromBundle(it) }
         args?.let {
             taskID = it.taskID
         }
+    }
 
+    private fun initViews(view: View) {
         etTaskTitle = view.findViewById(R.id.et_task_title_view)
         etTaskContent = view.findViewById(R.id.et_task_content)
     }
