@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 
@@ -60,6 +62,8 @@ class ViewTaskFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+
         getTask()
         observeTask()
     }
@@ -95,7 +99,8 @@ class ViewTaskFragment : Fragment() {
             saveChanges()
             true
         } else {
-            super.onOptionsItemSelected(item)
+            NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                    || super.onOptionsItemSelected(item)
         }
     }
 
