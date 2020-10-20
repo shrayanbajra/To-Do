@@ -1,5 +1,6 @@
 package com.example.todo.db.task
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -18,7 +19,7 @@ interface TaskDao {
     suspend fun get(id: Int): TaskEntity?
 
     @Query("SELECT * FROM task_table")
-    suspend fun getAll(): List<TaskEntity>
+    fun getAll(): LiveData<List<TaskEntity>>
 
     @Query("DELETE FROM task_table WHERE `Task ID` = :taskID")
     suspend fun delete(taskID: Int)

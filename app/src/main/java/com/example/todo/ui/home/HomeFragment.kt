@@ -15,10 +15,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class HomeFragment : Fragment() {
 
     private lateinit var rvTasks: RecyclerView
-    private val homeAdapter = HomeAdapter(getOnItemClickListener())
+    private val tasksAdapter = TasksAdapter(getOnItemClickListener())
 
-    private fun getOnItemClickListener(): HomeAdapter.OnItemClickListener {
-        return object : HomeAdapter.OnItemClickListener {
+    private fun getOnItemClickListener(): TasksAdapter.OnItemClickListener {
+        return object : TasksAdapter.OnItemClickListener {
 
             override fun onItemClick(itemID: Int) {
                 navigateToViewTaskFragment(itemID)
@@ -55,26 +55,21 @@ class HomeFragment : Fragment() {
 
     private fun initRvTasks(view: View) {
         rvTasks = view.findViewById(R.id.rv_tasks)
-        rvTasks.adapter = homeAdapter
         rvTasks.layoutManager = LinearLayoutManager(context)
+        rvTasks.adapter = tasksAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fetchTasks()
         observeTasks()
 
         btnAddTaskListener()
     }
 
-    private fun fetchTasks() {
-        viewModel.fetchTasks()
-    }
-
     private fun observeTasks() {
         viewModel.getTasks().observe(viewLifecycleOwner, { tasks ->
-            homeAdapter.update(tasks)
+            tasksAdapter.update(tasks)
         })
     }
 

@@ -1,5 +1,6 @@
 package com.example.todo.ui.home
 
+import androidx.lifecycle.LiveData
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.ui.BaseRepository
@@ -12,11 +13,9 @@ class HomeRepository private constructor() : BaseRepository() {
         fun getInstance() = instance ?: HomeRepository()
     }
 
-    private val taskDao: TaskDao by lazy {
-        getDatabase().taskDao()
-    }
+    private val taskDao: TaskDao by lazy { getDatabase().taskDao() }
 
-    suspend fun getAllTasks(): List<TaskEntity> {
+    fun getAllTasks(): LiveData<List<TaskEntity>> {
         return taskDao.getAll()
     }
 
