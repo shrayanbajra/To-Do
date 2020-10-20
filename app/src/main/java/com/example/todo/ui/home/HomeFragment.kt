@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,12 +15,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class HomeFragment : Fragment() {
 
     private lateinit var rvTasks: RecyclerView
-    private val homeAdapter = HomeAdapter(object : HomeAdapter.OnItemClickListener {
+    private val homeAdapter = HomeAdapter(getOnItemClickListener())
 
-        override fun onItemClick(itemID: Int) {
-            navigateToViewTaskFragment(itemID)
+    private fun getOnItemClickListener(): HomeAdapter.OnItemClickListener {
+        return object : HomeAdapter.OnItemClickListener {
+
+            override fun onItemClick(itemID: Int) {
+                navigateToViewTaskFragment(itemID)
+            }
         }
-    })
+    }
+
+    private fun navigateToViewTaskFragment(itemID: Int) {
+        val action = HomeFragmentDirections
+            .actionHomeFragmentToViewTaskFragment(taskID = itemID)
+        findNavController().navigate(action)
+    }
 
     private lateinit var btnAddTask: FloatingActionButton
 
@@ -39,12 +48,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView(view)
+        initRvTasks(view)
 
         btnAddTask = view.findViewById(R.id.btn_add_task)
     }
 
-    private fun initRecyclerView(view: View) {
+    private fun initRvTasks(view: View) {
         rvTasks = view.findViewById(R.id.rv_tasks)
         rvTasks.adapter = homeAdapter
         rvTasks.layoutManager = LinearLayoutManager(context)
@@ -64,21 +73,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeTasks() {
-        viewModel.getTasks().observe(viewLifecycleOwner, Observer { tasks ->
+        viewModel.getTasks().observe(viewLifecycleOwner, { tasks ->
             homeAdapter.update(tasks)
         })
     }
 
     private fun btnAddTaskListener() {
-        btnAddTask.setOnClickListener {
-            navigateToAddTaskFragment()
-        }
-    }
-
-    private fun navigateToViewTaskFragment(itemID: Int) {
-        val action = HomeFragmentDirections
-            .actionHomeFragmentToViewTaskFragment(taskID = itemID)
-        findNavController().navigate(action)
+        btnAddTask.setOnClickListener { navigateToAddTaskFragment() }
     }
 
     private fun navigateToAddTaskFragment() {
