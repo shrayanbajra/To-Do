@@ -21,9 +21,9 @@ class ViewTaskViewModel : ViewModel() {
         }
     }
 
-    fun deleteTask(taskID: Int) {
+    fun deleteTask(taskId: Int) {
         viewModelScope.launch(IO) {
-            repository.deleteTask(taskID)
+            repository.deleteTask(taskId)
         }
     }
 }

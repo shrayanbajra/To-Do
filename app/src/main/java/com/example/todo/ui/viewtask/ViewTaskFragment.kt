@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
+import com.example.todo.db.task.TaskStatus
 import com.example.todo.utils.shortToast
 
 class ViewTaskFragment : Fragment() {
@@ -77,8 +78,8 @@ class ViewTaskFragment : Fragment() {
     }
 
     private fun populateEditTexts(task: TaskEntity) {
-        etTaskTitle.setText(task.taskTitle)
-        etTaskContent.setText(task.taskContent)
+        etTaskTitle.setText(task.title)
+        etTaskContent.setText(task.description)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -121,7 +122,11 @@ class ViewTaskFragment : Fragment() {
     }
 
     private fun updateTask(taskTitle: String, taskContent: String) {
-        val task = TaskEntity(taskTitle, taskContent)
+        val task = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = taskTitle,
+            description = taskContent
+        )
         task.id = taskId
         viewModel.updateTask(task)
     }

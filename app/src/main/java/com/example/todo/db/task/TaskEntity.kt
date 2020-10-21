@@ -7,11 +7,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "task_table")
 data class TaskEntity(
 
+    @ColumnInfo(name = "Status")
+    var status: Int = TaskStatus.NOT_DONE.value,
+
     @ColumnInfo(name = "Task Title")
-    var taskTitle: String = "",
+    var title: String = "",
 
     @ColumnInfo(name = "Task Description")
-    var taskContent: String = ""
+    var description: String = ""
 
 ) {
 

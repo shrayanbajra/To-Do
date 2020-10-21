@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
+import com.example.todo.db.task.TaskStatus
+import com.example.todo.utils.shortToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 
@@ -44,26 +45,27 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btnSaveTaskListener()
+        btnSaveListener()
     }
 
-    private fun btnSaveTaskListener() {
+    private fun btnSaveListener() {
         btnSave.setOnClickListener {
 
             clearErrorsInInputFields()
 
-            val taskTitle: String = tilTaskTitle.editText?.text.toString().trim()
-            val taskContent: String = tilTaskDescription.editText?.text.toString().trim()
+            val title: String = tilTaskTitle.editText?.text.toString().trim()
+            val description: String = tilTaskDescription.editText?.text.toString().trim()
 
-            if (taskTitle.isBlank()) {
+            if (title.isBlank()) {
 
                 showErrorMessage()
 
             } else {
 
-                insertTask(taskTitle, taskContent)
+                insertTask(title, description)
                 showSuccessMessage()
 
+                closeBottomSheet()
                 clearInputFields()
 
             }
@@ -78,21 +80,29 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         return textInputLayout.isErrorEnabled
     }
 
-    private fun clearError(taskInputLayout: TextInputLayout) {
-        taskInputLayout.error = ""
+    private fun clearError(textInputLayout: TextInputLayout) {
+        textInputLayout.error = ""
     }
 
     private fun showErrorMessage() {
         tilTaskTitle.error = getString(R.string.please_enter_task_title)
     }
 
-    private fun insertTask(taskTitle: String, taskContent: String) {
-        val task = TaskEntity(taskTitle, taskContent)
+    private fun insertTask(title: String, description: String) {
+        val task = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = title,
+            description = description
+        )
         viewModel.insertTask(task)
     }
 
     private fun showSuccessMessage() {
-        Toast.makeText(context, getString(R.string.task_saved), Toast.LENGTH_SHORT).show()
+        shortToast(getString(R.string.task_saved))
+    }
+
+    private fun closeBottomSheet() {
+        dialog?.dismiss()
     }
 
     private fun clearInputFields() {

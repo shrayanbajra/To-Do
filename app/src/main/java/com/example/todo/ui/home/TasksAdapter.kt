@@ -43,7 +43,7 @@ class TasksAdapter(
         private val cbTask: TextView = itemView.findViewById(R.id.cb_task)
 
         fun bind(task: TaskEntity) {
-            cbTask.text = task.taskTitle
+            cbTask.text = task.title
             itemView.setOnClickListener { clickListener.onItemClick(task.id) }
         }
     }
