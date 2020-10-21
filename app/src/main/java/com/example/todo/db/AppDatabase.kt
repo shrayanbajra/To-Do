@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.todo.app.Constants
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
 
@@ -27,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
 
             synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext, AppDatabase::class.java, "todo_database"
+                    context.applicationContext, AppDatabase::class.java, Constants.DATABASE_NAME
                 ).build()
                 INSTANCE = instance
                 return instance

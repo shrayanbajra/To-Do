@@ -10,25 +10,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     // Views for Task Title
     private lateinit var tilTaskTitle: TextInputLayout
-    private lateinit var etTaskTitle: TextInputEditText
 
     // Views for Task Content
     private lateinit var tilTaskContent: TextInputLayout
-    private lateinit var etTaskContent: TextInputEditText
 
     // Views for Save Button
     private lateinit var btnSaveTask: Button
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[AddTaskViewModel::class.java]
-    }
+    private val viewModel by lazy { ViewModelProvider(this)[AddTaskViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,15 +39,8 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun initViews(view: View) {
-        // Task Title
         tilTaskTitle = view.findViewById(R.id.til_task_title)
-        etTaskTitle = view.findViewById(R.id.et_task_title)
-
-        // Task Content
         tilTaskContent = view.findViewById(R.id.til_task_content)
-        etTaskContent = view.findViewById(R.id.et_task_content)
-
-        // Save Button
         btnSaveTask = view.findViewById(R.id.btn_save_task)
     }
 
@@ -65,47 +53,36 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     private fun btnSaveTaskListener() {
         btnSaveTask.setOnClickListener {
 
-            // Clear previously set errors
-            clearErrorsInTextInputLayout()
+            clearErrorsInInputFields()
 
-            // Get inputs
-            val taskTitle: String = etTaskTitle.text.toString().trim()
-            val taskContent: String = etTaskContent.text.toString().trim()
+            val taskTitle: String = tilTaskTitle.editText?.text.toString().trim()
+            val taskContent: String = tilTaskContent.editText?.text.toString().trim()
 
-            var hasInvalidField = false
-
-            // Check for validity
             if (taskTitle.isBlank()) {
-                tilTaskTitle.error = "Please enter task title"
-                hasInvalidField = true
+
+                tilTaskTitle.error = getString(R.string.please_enter_task_title)
+                return@setOnClickListener
+
             }
 
-            if (taskContent.isBlank()) {
-                tilTaskContent.error = "Please enter task content"
-                hasInvalidField = true
-            }
-
-            if (hasInvalidField) return@setOnClickListener
-
-            // Insert task into database
             insertTask(taskTitle, taskContent)
             showSuccessMessage()
 
             clearInputFields()
+
         }
     }
 
-    private fun clearErrorsInTextInputLayout() {
+    private fun clearErrorsInInputFields() {
         if (hasErrorSet(tilTaskTitle)) clearError(tilTaskTitle)
-        if (hasErrorSet(tilTaskContent)) clearError(tilTaskContent)
-    }
-
-    private fun clearError(taskInputLayout: TextInputLayout) {
-        taskInputLayout.isErrorEnabled = false
     }
 
     private fun hasErrorSet(textInputLayout: TextInputLayout): Boolean {
         return textInputLayout.isErrorEnabled
+    }
+
+    private fun clearError(taskInputLayout: TextInputLayout) {
+        taskInputLayout.error = ""
     }
 
     private fun insertTask(taskTitle: String, taskContent: String) {
@@ -114,11 +91,11 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun showSuccessMessage() {
-        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getString(R.string.task_saved), Toast.LENGTH_SHORT).show()
     }
 
     private fun clearInputFields() {
-        etTaskTitle.text?.clear()
-        etTaskContent.text?.clear()
+        tilTaskTitle.editText?.text?.clear()
+        tilTaskContent.editText?.text?.clear()
     }
 }
