@@ -16,8 +16,8 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         lifecycleScope.launch(Main) {
-            val twoSeconds = 2000L
-            delay(twoSeconds)
+            val oneSecond = 1000L
+            delay(oneSecond)
             navigateToNavHostActivity()
             finish()
         }
