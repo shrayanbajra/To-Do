@@ -14,13 +14,9 @@ import com.google.android.material.textfield.TextInputLayout
 
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
-    // Views for Task Title
     private lateinit var tilTaskTitle: TextInputLayout
-
-    // Views for Task Content
     private lateinit var tilTaskContent: TextInputLayout
 
-    // Views for Save Button
     private lateinit var btnSaveTask: Button
 
     private val viewModel by lazy { ViewModelProvider(this)[AddTaskViewModel::class.java] }
@@ -41,6 +37,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     private fun initViews(view: View) {
         tilTaskTitle = view.findViewById(R.id.til_task_title)
         tilTaskContent = view.findViewById(R.id.til_task_content)
+
         btnSaveTask = view.findViewById(R.id.btn_save_task)
     }
 
@@ -60,16 +57,16 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
             if (taskTitle.isBlank()) {
 
-                tilTaskTitle.error = getString(R.string.please_enter_task_title)
-                return@setOnClickListener
+                showErrorMessage()
+
+            } else {
+
+                insertTask(taskTitle, taskContent)
+                showSuccessMessage()
+
+                clearInputFields()
 
             }
-
-            insertTask(taskTitle, taskContent)
-            showSuccessMessage()
-
-            clearInputFields()
-
         }
     }
 
@@ -83,6 +80,10 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     private fun clearError(taskInputLayout: TextInputLayout) {
         taskInputLayout.error = ""
+    }
+
+    private fun showErrorMessage() {
+        tilTaskTitle.error = getString(R.string.please_enter_task_title)
     }
 
     private fun insertTask(taskTitle: String, taskContent: String) {
