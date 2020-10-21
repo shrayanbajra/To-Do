@@ -49,6 +49,6 @@ class TasksAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(itemID: Int)
+        fun onItemClick(itemId: Int)
     }
 }

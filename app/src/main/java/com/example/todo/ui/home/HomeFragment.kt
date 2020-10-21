@@ -21,15 +21,15 @@ class HomeFragment : Fragment() {
     private fun getOnItemClickListener(): TasksAdapter.OnItemClickListener {
         return object : TasksAdapter.OnItemClickListener {
 
-            override fun onItemClick(itemID: Int) {
-                navigateToViewTaskFragment(itemID)
+            override fun onItemClick(itemId: Int) {
+                navigateToViewTaskFragment(itemId)
             }
         }
     }
 
-    private fun navigateToViewTaskFragment(itemID: Int) {
+    private fun navigateToViewTaskFragment(itemId: Int) {
         val action = HomeFragmentDirections
-            .actionHomeFragmentToViewTaskFragment(taskID = itemID)
+            .actionHomeFragmentToViewTaskFragment(taskID = itemId)
         findNavController().navigate(action)
     }
 

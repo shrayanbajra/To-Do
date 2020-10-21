@@ -1,7 +1,6 @@
 package com.example.todo.ui.viewtask
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo.db.task.TaskEntity
@@ -12,17 +11,8 @@ class ViewTaskViewModel : ViewModel() {
 
     private val repository = ViewTaskRepository.getInstance()
 
-    private val task = MutableLiveData<TaskEntity>()
-
-    fun getTaskLiveData(): LiveData<TaskEntity> {
-        return task
-    }
-
-    fun getTask(id: Int) {
-        viewModelScope.launch(IO) {
-            val taskEntity = repository.getTask(id) ?: TaskEntity()
-            task.postValue(taskEntity)
-        }
+    fun getTask(id: Int): LiveData<TaskEntity?> {
+        return repository.getTask(id)
     }
 
     fun updateTask(task: TaskEntity) {

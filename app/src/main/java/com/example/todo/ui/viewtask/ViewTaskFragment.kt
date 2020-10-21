@@ -3,7 +3,6 @@ package com.example.todo.ui.viewtask
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -11,14 +10,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
+import com.example.todo.utils.shortToast
 
 class ViewTaskFragment : Fragment() {
 
     companion object {
-        private const val NO_ID = -1
+        private const val NO_TASK_ID = -1
     }
 
-    private var taskID: Int = NO_ID
+    private var taskId: Int = NO_TASK_ID
 
     private lateinit var etTaskTitle: EditText
     private lateinit var etTaskContent: EditText
@@ -42,16 +42,7 @@ class ViewTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getArgumentsFromBundle()
-
         initViews(view)
-    }
-
-    private fun getArgumentsFromBundle() {
-        val args: ViewTaskFragmentArgs? = arguments?.let { ViewTaskFragmentArgs.fromBundle(it) }
-        args?.let {
-            taskID = it.taskID
-        }
     }
 
     private fun initViews(view: View) {
@@ -62,21 +53,26 @@ class ViewTaskFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        getTask()
-        observeTask()
-    }
-
-    private fun getTask() {
-        if (taskID == NO_ID) {
-            Toast.makeText(context, "Couldn't get task details", Toast.LENGTH_SHORT).show()
-            return
+        taskId = getTaskFromArgumentBundle()
+        if (taskId == NO_TASK_ID) {
+            shortToast("Couldn't get task details")
+        } else {
+            observeTask(taskId)
         }
-        viewModel.getTask(taskID)
+
     }
 
-    private fun observeTask() {
-        viewModel.getTaskLiveData().observe(viewLifecycleOwner, { task ->
-            populateEditTexts(task)
+    private fun getTaskFromArgumentBundle(): Int {
+        val args: ViewTaskFragmentArgs? = arguments?.let { ViewTaskFragmentArgs.fromBundle(it) }
+        return args?.taskID ?: NO_TASK_ID
+    }
+
+    private fun observeTask(taskId: Int) {
+        viewModel.getTask(taskId).observe(viewLifecycleOwner, { task ->
+            if (task == null)
+                shortToast("Couldn't get task details")
+            else
+                populateEditTexts(task)
         })
     }
 
@@ -103,8 +99,9 @@ class ViewTaskFragment : Fragment() {
                 true
             }
             else -> {
-                NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                        || super.onOptionsItemSelected(item)
+                NavigationUI.onNavDestinationSelected(
+                    item, requireView().findNavController()
+                ) || super.onOptionsItemSelected(item)
             }
         }
     }
@@ -115,23 +112,23 @@ class ViewTaskFragment : Fragment() {
         val taskContent = etTaskContent.text.toString().trim()
 
         if (taskTitle.isBlank()) {
-            Toast.makeText(context, "Title can't be blank", Toast.LENGTH_SHORT).show()
+            shortToast("Title can't be blank")
             return
         }
 
         updateTask(taskTitle, taskContent)
-        Toast.makeText(context, "Changes Saved", Toast.LENGTH_SHORT).show()
+        shortToast("Changes Saved")
     }
 
     private fun updateTask(taskTitle: String, taskContent: String) {
         val task = TaskEntity(taskTitle, taskContent)
-        task.id = taskID
+        task.id = taskId
         viewModel.updateTask(task)
     }
 
     private fun deleteTask() {
-        viewModel.deleteTask(taskID)
-        Toast.makeText(context, "Task Deleted", Toast.LENGTH_SHORT).show()
+        viewModel.deleteTask(taskId)
+        shortToast("Task Deleted")
         navigateToHomeFragment()
     }
 
