@@ -15,7 +15,7 @@ import com.google.android.material.textfield.TextInputLayout
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var tilTaskTitle: TextInputLayout
-    private lateinit var tilTaskContent: TextInputLayout
+    private lateinit var tilTaskDescription: TextInputLayout
 
     private lateinit var btnSave: Button
 
@@ -36,7 +36,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     private fun initViews(view: View) {
         tilTaskTitle = view.findViewById(R.id.til_task_title)
-        tilTaskContent = view.findViewById(R.id.til_task_content)
+        tilTaskDescription = view.findViewById(R.id.til_task_description)
 
         btnSave = view.findViewById(R.id.btn_save)
     }
@@ -53,7 +53,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
             clearErrorsInInputFields()
 
             val taskTitle: String = tilTaskTitle.editText?.text.toString().trim()
-            val taskContent: String = tilTaskContent.editText?.text.toString().trim()
+            val taskContent: String = tilTaskDescription.editText?.text.toString().trim()
 
             if (taskTitle.isBlank()) {
 
@@ -97,6 +97,6 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     private fun clearInputFields() {
         tilTaskTitle.editText?.text?.clear()
-        tilTaskContent.editText?.text?.clear()
+        tilTaskDescription.editText?.text?.clear()
     }
 }

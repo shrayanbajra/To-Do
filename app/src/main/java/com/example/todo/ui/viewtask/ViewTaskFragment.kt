@@ -5,7 +5,6 @@ import android.view.*
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -57,7 +56,7 @@ class ViewTaskFragment : Fragment() {
 
     private fun initViews(view: View) {
         etTaskTitle = view.findViewById(R.id.et_task_title_view)
-        etTaskContent = view.findViewById(R.id.et_task_content)
+        etTaskContent = view.findViewById(R.id.et_task_description)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -76,7 +75,7 @@ class ViewTaskFragment : Fragment() {
     }
 
     private fun observeTask() {
-        viewModel.getTaskLiveData().observe(viewLifecycleOwner, Observer { task ->
+        viewModel.getTaskLiveData().observe(viewLifecycleOwner, { task ->
             populateEditTexts(task)
         })
     }
