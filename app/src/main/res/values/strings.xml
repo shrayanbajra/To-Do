@@ -10,5 +10,6 @@
     <string name="please_enter_task_title">Please enter task title</string>
     <string name="task_saved">Task Saved</string>
     <string name="add_task">Add Task</string>
+    <string name="app_logo">App logo</string>
 
 </resources>
