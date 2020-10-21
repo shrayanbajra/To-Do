@@ -17,7 +17,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     private lateinit var tilTaskTitle: TextInputLayout
     private lateinit var tilTaskContent: TextInputLayout
 
-    private lateinit var btnSaveTask: Button
+    private lateinit var btnSave: Button
 
     private val viewModel by lazy { ViewModelProvider(this)[AddTaskViewModel::class.java] }
 
@@ -38,7 +38,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         tilTaskTitle = view.findViewById(R.id.til_task_title)
         tilTaskContent = view.findViewById(R.id.til_task_content)
 
-        btnSaveTask = view.findViewById(R.id.btn_save_task)
+        btnSave = view.findViewById(R.id.btn_save)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun btnSaveTaskListener() {
-        btnSaveTask.setOnClickListener {
+        btnSave.setOnClickListener {
 
             clearErrorsInInputFields()
 

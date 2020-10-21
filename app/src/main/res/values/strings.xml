@@ -4,6 +4,7 @@
     <string name="task_title">Task Title</string>
     <string name="task_description">Description</string>
     <string name="save_task">Save Task</string>
+    <string name="save">Save</string>
     <string name="delete_task">Delete Task</string>
     <string name="please_enter_task_description">Please enter task description</string>
     <string name="please_enter_task_title">Please enter task title</string>
