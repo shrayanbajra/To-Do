@@ -7,13 +7,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
+import com.google.android.material.checkbox.MaterialCheckBox
+
 
 class TasksAdapter(
-    private val listener: OnItemClickListener
+    private val listener: TaskListener
 ) :
     RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
 
     private val tasks = arrayListOf<TaskEntity>()
+
+    fun setTasks(tasks: List<TaskEntity>) {
+        this.tasks.clear()
+        this.tasks.addAll(tasks)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -28,27 +36,29 @@ class TasksAdapter(
 
     override fun getItemCount() = tasks.size
 
-    fun update(tasks: List<TaskEntity>) {
-        this.tasks.clear()
-        this.tasks.addAll(tasks)
-        notifyDataSetChanged()
-    }
-
     class TaskViewHolder(
         itemView: View,
-        private val clickListener: OnItemClickListener
+        private val listener: TaskListener
     ) :
         RecyclerView.ViewHolder(itemView) {
 
-        private val cbTask: TextView = itemView.findViewById(R.id.cb_task)
+        private val cbTaskStatus: MaterialCheckBox = itemView.findViewById(R.id.cb_task_status)
+        private val tvTaskTitle: TextView = itemView.findViewById(R.id.tv_task_title)
 
         fun bind(task: TaskEntity) {
-            cbTask.text = task.title
-            itemView.setOnClickListener { clickListener.onItemClick(task.id) }
+            cbTaskStatus.isChecked = task.isTaskDone()
+            cbTaskStatus.setOnCheckedChangeListener { _, isChecked ->
+                task.setTaskStatus(isChecked = isChecked)
+                listener.onCheckboxToggled(task = task)
+            }
+
+            tvTaskTitle.text = task.title
+            tvTaskTitle.setOnClickListener { listener.onTaskClicked(task.id) }
         }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(itemId: Int)
+    interface TaskListener {
+        fun onTaskClicked(taskId: Int)
+        fun onCheckboxToggled(task: TaskEntity)
     }
 }

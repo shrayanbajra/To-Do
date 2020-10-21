@@ -9,14 +9,20 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
+    private val repository = HomeRepository.getInstance()
+
     fun getTasks(): LiveData<List<TaskEntity>> {
-        val repository = HomeRepository.getInstance()
         return repository.getAllTasks()
+    }
+
+    fun updateTask(task: TaskEntity) {
+        viewModelScope.launch(IO) {
+            repository.updateTask(task)
+        }
     }
 
     fun deleteAllTasks() {
         viewModelScope.launch(IO) {
-            val repository = HomeRepository.getInstance()
             repository.deleteAllTasks()
         }
     }

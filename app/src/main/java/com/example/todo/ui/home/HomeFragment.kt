@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.db.task.TaskEntity
 import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -18,11 +19,15 @@ class HomeFragment : Fragment() {
     private lateinit var rvTasks: RecyclerView
     private val tasksAdapter = TasksAdapter(getOnItemClickListener())
 
-    private fun getOnItemClickListener(): TasksAdapter.OnItemClickListener {
-        return object : TasksAdapter.OnItemClickListener {
+    private fun getOnItemClickListener(): TasksAdapter.TaskListener {
+        return object : TasksAdapter.TaskListener {
 
-            override fun onItemClick(itemId: Int) {
-                navigateToViewTaskFragment(itemId)
+            override fun onTaskClicked(taskId: Int) {
+                navigateToViewTaskFragment(taskId)
+            }
+
+            override fun onCheckboxToggled(task: TaskEntity) {
+                viewModel.updateTask(task = task)
             }
         }
     }
@@ -70,7 +75,7 @@ class HomeFragment : Fragment() {
 
     private fun observeTasks() {
         viewModel.getTasks().observe(viewLifecycleOwner, { tasks ->
-            tasksAdapter.update(tasks)
+            tasksAdapter.setTasks(tasks)
         })
     }
 

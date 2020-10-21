@@ -19,6 +19,10 @@ class HomeRepository private constructor() : BaseRepository() {
         return taskDao.getAll()
     }
 
+    suspend fun updateTask(taskEntity: TaskEntity) {
+        taskDao.update(taskEntity)
+    }
+
     suspend fun deleteAllTasks() {
         taskDao.deleteAll()
     }
