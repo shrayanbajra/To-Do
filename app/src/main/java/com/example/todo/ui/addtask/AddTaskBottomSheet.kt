@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class AddTaskFragment : Fragment() {
+class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     // Views for Task Title
     private lateinit var tilTaskTitle: TextInputLayout
@@ -34,7 +34,7 @@ class AddTaskFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_task, container, false)
+        return inflater.inflate(R.layout.bottom_sheet_add_task, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

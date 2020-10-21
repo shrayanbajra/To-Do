@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
@@ -74,10 +75,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun btnAddTaskListener() {
-        btnAddTask.setOnClickListener { navigateToAddTaskFragment() }
+        btnAddTask.setOnClickListener { showAddTaskBottomSheet() }
     }
 
-    private fun navigateToAddTaskFragment() {
-        findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
+    private fun showAddTaskBottomSheet() {
+        val bottomSheet = AddTaskBottomSheet()
+        bottomSheet.show(activity?.supportFragmentManager!!, bottomSheet.javaClass.name)
     }
 }

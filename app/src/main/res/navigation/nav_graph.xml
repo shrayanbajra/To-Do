@@ -22,9 +22,9 @@
 
     <fragment
         android:id="@+id/addTaskFragment"
-        android:name="com.example.todo.ui.addtask.AddTaskFragment"
+        android:name="com.example.todo.ui.addtask.AddTaskBottomSheet"
         android:label="Add Task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/bottom_sheet_add_task" />
 
     <fragment
         android:id="@+id/viewTaskFragment"

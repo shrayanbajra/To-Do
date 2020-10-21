@@ -5,19 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.addtask.AddTaskFragment">
+    tools:context=".ui.addtask.AddTaskBottomSheet">
+
+    <Button
+        android:id="@+id/btn_save_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_task_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@id/til_task_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed">
+        app:layout_constraintTop_toBottomOf="@id/btn_save_task">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_task_title"
@@ -31,32 +36,23 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_task_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_save_task"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_task_title"
-        app:layout_constraintVertical_chainStyle="packed">
+        app:layout_constraintVertical_bias="0.00">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_task_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:minHeight="96dp"
             android:gravity="start|top"
-            android:hint="@string/task_content"
+            android:hint="@string/task_description"
             android:inputType="textMultiLine"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/btn_save_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_task"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_task_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

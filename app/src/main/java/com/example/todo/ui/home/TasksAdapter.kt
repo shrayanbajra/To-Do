@@ -40,10 +40,10 @@ class TasksAdapter(
     ) :
         RecyclerView.ViewHolder(itemView) {
 
-        private val tvTaskTitle: TextView = itemView.findViewById(R.id.tv_task_title)
+        private val cbTask: TextView = itemView.findViewById(R.id.cb_task)
 
         fun bind(task: TaskEntity) {
-            tvTaskTitle.text = task.taskTitle
+            cbTask.text = task.taskTitle
             itemView.setOnClickListener { clickListener.onItemClick(task.id) }
         }
     }
