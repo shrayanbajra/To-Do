@@ -12,19 +12,13 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_homeFragment_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
-
-        <action
             android:id="@+id/action_homeFragment_to_viewTaskFragment"
-            app:destination="@id/viewTaskFragment" />
+            app:destination="@id/viewTaskFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-    <fragment
-        android:id="@+id/addTaskFragment"
-        android:name="com.example.todo.ui.addtask.AddTaskBottomSheet"
-        android:label="Add Task"
-        tools:layout="@layout/bottom_sheet_add_task" />
 
     <fragment
         android:id="@+id/viewTaskFragment"
