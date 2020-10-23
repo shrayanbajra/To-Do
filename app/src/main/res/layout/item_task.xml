@@ -19,7 +19,8 @@
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/cb_task_status"
-            android:layout_width="32dp"
+            style="@style/CustomCheckbox"
+            android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical" />
 
