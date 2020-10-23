@@ -18,11 +18,11 @@ interface TaskDao {
     @Query("SELECT * FROM task_table WHERE `Task ID` = :id")
     fun get(id: Int): LiveData<TaskEntity?>
 
-    @Query("SELECT * FROM task_table")
+    @Query("SELECT * FROM task_table ORDER BY `Task Title` ASC")
     fun getAll(): LiveData<List<TaskEntity>>
 
-    @Query("DELETE FROM task_table WHERE `Task ID` = :taskID")
-    suspend fun delete(taskID: Int)
+    @Query("DELETE FROM task_table WHERE `Task ID` = :taskId")
+    suspend fun delete(taskId: Int)
 
     @Query("DELETE FROM task_table")
     suspend fun deleteAll()

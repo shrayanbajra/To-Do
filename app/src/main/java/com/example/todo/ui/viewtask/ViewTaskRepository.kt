@@ -22,7 +22,7 @@ class ViewTaskRepository : BaseRepository() {
         taskDao.update(task)
     }
 
-    suspend fun deleteTask(taskID: Int) {
-        taskDao.delete(taskID)
+    suspend fun deleteTask(taskId: Int) {
+        taskDao.delete(taskId)
     }
 }
