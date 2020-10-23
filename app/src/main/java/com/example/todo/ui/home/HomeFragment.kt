@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class HomeFragment : Fragment() {
 
@@ -62,6 +64,7 @@ class HomeFragment : Fragment() {
     private fun initRvTasks(view: View) {
         rvTasks = view.findViewById(R.id.rv_tasks)
         rvTasks.layoutManager = LinearLayoutManager(context)
+        rvTasks.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         rvTasks.adapter = tasksAdapter
     }
 
