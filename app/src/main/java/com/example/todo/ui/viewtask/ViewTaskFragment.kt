@@ -12,7 +12,6 @@ import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.utils.shortSnackbar
-import com.example.todo.utils.shortToast
 
 class ViewTaskFragment : Fragment() {
 
@@ -56,11 +55,10 @@ class ViewTaskFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         taskId = getTaskIdFromArgumentBundle()
-        if (taskId == NO_TASK_ID) {
-            shortToast("Couldn't get task details")
-        } else {
+        if (taskId == NO_TASK_ID)
+            shortSnackbar(getString(R.string.couldnt_get_task_details))
+        else
             observeTask(taskId)
-        }
 
     }
 
@@ -72,7 +70,7 @@ class ViewTaskFragment : Fragment() {
     private fun observeTask(taskId: Int) {
         viewModel.getTask(taskId).observe(viewLifecycleOwner, { task ->
             if (task == null)
-                shortToast("Couldn't get task details")
+                shortSnackbar(getString(R.string.couldnt_get_task_details))
             else
                 populateEditTexts(task)
         })
@@ -114,7 +112,7 @@ class ViewTaskFragment : Fragment() {
 
         val taskTitle = etTaskTitle.text.toString().trim()
         if (taskTitle.isBlank())
-            shortSnackbar("Title can't be blank")
+            shortSnackbar(getString(R.string.title_cant_be_blank))
         else {
             val taskDescription = etTaskDescription.text.toString().trim()
             saveChanges(taskTitle, taskDescription)
@@ -124,7 +122,7 @@ class ViewTaskFragment : Fragment() {
 
     private fun saveChanges(taskTitle: String, taskDescription: String) {
         updateTask(taskTitle, taskDescription)
-        shortSnackbar("Changes Saved")
+        shortSnackbar(getString(R.string.changes_saved))
     }
 
     private fun updateTask(taskTitle: String, taskDescription: String) {
