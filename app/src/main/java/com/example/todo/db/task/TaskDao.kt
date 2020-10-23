@@ -16,7 +16,7 @@ interface TaskDao {
     suspend fun update(task: TaskEntity)
 
     @Query("SELECT * FROM task_table WHERE `Task ID` = :id")
-    fun get(id: Int): LiveData<TaskEntity?>
+    suspend fun get(id: Int): TaskEntity?
 
     @Query("SELECT * FROM task_table ORDER BY `Task Title` ASC")
     fun getAll(): LiveData<List<TaskEntity>>
