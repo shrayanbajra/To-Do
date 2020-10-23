@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
     private fun navigateToViewTaskFragment(itemId: Int) {
         val action = HomeFragmentDirections
-            .actionHomeFragmentToViewTaskFragment(taskID = itemId)
+            .actionHomeFragmentToViewTaskFragment(taskId = itemId)
         findNavController().navigate(action)
     }
 

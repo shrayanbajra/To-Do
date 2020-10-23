@@ -65,7 +65,7 @@ class ViewTaskFragment : Fragment() {
 
     private fun getTaskFromArgumentBundle(): Int {
         val args: ViewTaskFragmentArgs? = arguments?.let { ViewTaskFragmentArgs.fromBundle(it) }
-        return args?.taskID ?: NO_TASK_ID
+        return args?.taskId ?: NO_TASK_ID
     }
 
     private fun observeTask(taskId: Int) {
