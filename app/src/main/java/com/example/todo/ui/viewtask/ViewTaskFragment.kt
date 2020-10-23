@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
+import com.example.todo.utils.shortSnackbar
 import com.example.todo.utils.shortToast
 
 class ViewTaskFragment : Fragment() {
@@ -22,7 +23,7 @@ class ViewTaskFragment : Fragment() {
     private var taskId: Int = NO_TASK_ID
 
     private lateinit var etTaskTitle: EditText
-    private lateinit var etTaskContent: EditText
+    private lateinit var etTaskDescription: EditText
 
     private val viewModel by lazy {
         ViewModelProvider(this)[ViewTaskViewModel::class.java]
@@ -48,13 +49,13 @@ class ViewTaskFragment : Fragment() {
 
     private fun initViews(view: View) {
         etTaskTitle = view.findViewById(R.id.et_task_title_view)
-        etTaskContent = view.findViewById(R.id.et_task_description)
+        etTaskDescription = view.findViewById(R.id.et_task_description)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        taskId = getTaskFromArgumentBundle()
+        taskId = getTaskIdFromArgumentBundle()
         if (taskId == NO_TASK_ID) {
             shortToast("Couldn't get task details")
         } else {
@@ -63,7 +64,7 @@ class ViewTaskFragment : Fragment() {
 
     }
 
-    private fun getTaskFromArgumentBundle(): Int {
+    private fun getTaskIdFromArgumentBundle(): Int {
         val args: ViewTaskFragmentArgs? = arguments?.let { ViewTaskFragmentArgs.fromBundle(it) }
         return args?.taskId ?: NO_TASK_ID
     }
@@ -79,7 +80,7 @@ class ViewTaskFragment : Fragment() {
 
     private fun populateEditTexts(task: TaskEntity) {
         etTaskTitle.setText(task.title)
-        etTaskContent.setText(task.description)
+        etTaskDescription.setText(task.description)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -92,11 +93,13 @@ class ViewTaskFragment : Fragment() {
 
         return when (item.itemId) {
             R.id.item_save_task -> {
-                saveChanges()
+                proceedToSaveTask()
                 true
             }
             R.id.item_delete_task -> {
                 deleteTask()
+                shortSnackbar("Task Deleted")
+                navigateToHomeFragment()
                 true
             }
             else -> {
@@ -107,25 +110,28 @@ class ViewTaskFragment : Fragment() {
         }
     }
 
-    private fun saveChanges() {
+    private fun proceedToSaveTask() {
 
         val taskTitle = etTaskTitle.text.toString().trim()
-        val taskContent = etTaskContent.text.toString().trim()
-
-        if (taskTitle.isBlank()) {
-            shortToast("Title can't be blank")
-            return
+        if (taskTitle.isBlank())
+            shortSnackbar("Title can't be blank")
+        else {
+            val taskDescription = etTaskDescription.text.toString().trim()
+            saveChanges(taskTitle, taskDescription)
         }
 
-        updateTask(taskTitle, taskContent)
-        shortToast("Changes Saved")
     }
 
-    private fun updateTask(taskTitle: String, taskContent: String) {
+    private fun saveChanges(taskTitle: String, taskDescription: String) {
+        updateTask(taskTitle, taskDescription)
+        shortSnackbar("Changes Saved")
+    }
+
+    private fun updateTask(taskTitle: String, taskDescription: String) {
         val task = TaskEntity(
             status = TaskStatus.NOT_DONE.value,
             title = taskTitle,
-            description = taskContent
+            description = taskDescription
         )
         task.id = taskId
         viewModel.updateTask(task)
@@ -133,8 +139,6 @@ class ViewTaskFragment : Fragment() {
 
     private fun deleteTask() {
         viewModel.deleteTask(taskId)
-        shortToast("Task Deleted")
-        navigateToHomeFragment()
     }
 
     private fun navigateToHomeFragment() {

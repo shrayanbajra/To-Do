@@ -1,15 +1,23 @@
 <resources>
     <string name="app_name">To Do</string>
 
+    <string name="empty_string" />
+
     <string name="task_title">Task Title</string>
-    <string name="task_description">Description</string>
+    <string name="description">Description</string>
     <string name="save_task">Save Task</string>
     <string name="save">Save</string>
     <string name="delete_task">Delete Task</string>
-    <string name="please_enter_task_description">Please enter task description</string>
+
     <string name="please_enter_task_title">Please enter task title</string>
+    <string name="please_enter_task_description">Please enter task description</string>
+
+    <string name="enter_task_title">Enter task title</string>
+    <string name="enter_task_description">Enter task description</string>
+
     <string name="task_saved">Task Saved</string>
     <string name="add_task">Add Task</string>
     <string name="app_logo">App logo</string>
+    <string name="task">Task</string>
 
 </resources>
