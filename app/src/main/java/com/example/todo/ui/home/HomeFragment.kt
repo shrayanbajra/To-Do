@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
-import com.example.todo.di.app.ViewModelProviderFactory
+import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment

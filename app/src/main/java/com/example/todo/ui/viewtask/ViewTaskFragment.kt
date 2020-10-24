@@ -10,7 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
-import com.example.todo.di.app.ViewModelProviderFactory
+import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.utils.shortSnackbar
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject

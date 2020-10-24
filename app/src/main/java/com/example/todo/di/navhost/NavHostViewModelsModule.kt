@@ -1,7 +1,7 @@
 package com.example.todo.di.navhost
 
 import androidx.lifecycle.ViewModel
-import com.example.todo.di.app.ViewModelKey
+import com.example.todo.di.app.utils.ViewModelKey
 import com.example.todo.ui.home.HomeViewModel
 import com.example.todo.ui.viewtask.ViewTaskViewModel
 import dagger.Binds

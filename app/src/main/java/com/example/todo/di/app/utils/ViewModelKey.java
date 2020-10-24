@@ -1,4 +1,4 @@
-package com.example.todo.di.app;
+package com.example.todo.di.app.utils;
 
 import androidx.lifecycle.ViewModel;
 
