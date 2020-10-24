@@ -1,4 +1,4 @@
-package com.example.todo.di
+package com.example.todo.di.app.modules
 
 import com.example.todo.ui.NavHostActivity
 import dagger.Module

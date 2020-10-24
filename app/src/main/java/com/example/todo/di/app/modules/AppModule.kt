@@ -1,4 +1,4 @@
-package com.example.todo.di
+package com.example.todo.di.app.modules
 
 import android.app.Application
 import androidx.room.Room

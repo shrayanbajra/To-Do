@@ -1,6 +1,9 @@
-package com.example.todo.di
+package com.example.todo.di.app
 
 import android.app.Application
+import com.example.todo.di.BaseApplication
+import com.example.todo.di.app.modules.ActivityBuildersModule
+import com.example.todo.di.app.modules.AppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
