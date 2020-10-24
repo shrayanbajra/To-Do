@@ -8,11 +8,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class NavHostFragmentBuildersModule {
 
-    @ContributesAndroidInjector(
-        modules = [
-            NavHostViewModelsModule::class
-        ]
-    )
+    @ContributesAndroidInjector
     abstract fun contributeHomeFragment(): HomeFragment
 
 }
