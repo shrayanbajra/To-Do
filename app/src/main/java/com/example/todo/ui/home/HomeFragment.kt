@@ -20,9 +20,6 @@ import javax.inject.Inject
 
 class HomeFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
-
     private lateinit var rvTasks: RecyclerView
     private val tasksAdapter = TasksAdapter(getOnItemClickListener())
 
@@ -47,7 +44,12 @@ class HomeFragment : DaggerFragment() {
 
     private lateinit var btnAddTask: FloatingActionButton
 
-    private lateinit var viewModel: HomeViewModel
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    private val viewModel: HomeViewModel by lazy {
+        ViewModelProvider(this, providerFactory)[HomeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +76,6 @@ class HomeFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this, providerFactory)[HomeViewModel::class.java]
         observeTasks()
 
         btnAddTaskListener()

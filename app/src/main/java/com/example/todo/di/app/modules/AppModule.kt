@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.example.todo.app.Constants
 import com.example.todo.db.AppDatabase
+import com.example.todo.db.task.TaskDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,6 +18,12 @@ class AppModule {
         return Room.databaseBuilder(
             application, AppDatabase::class.java, Constants.DATABASE_NAME
         ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTaskDao(database: AppDatabase): TaskDao {
+        return database.taskDao()
     }
 
     @Singleton
