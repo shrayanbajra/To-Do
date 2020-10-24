@@ -1,6 +1,7 @@
 package com.example.todo.di
 
 import com.example.todo.app.AppUtils
+import com.example.todo.di.app.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 

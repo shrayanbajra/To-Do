@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,11 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
+import com.example.todo.di.app.ViewModelProviderFactory
 import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
 
     private lateinit var rvTasks: RecyclerView
     private val tasksAdapter = TasksAdapter(getOnItemClickListener())
@@ -42,9 +47,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var btnAddTask: FloatingActionButton
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
-    }
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +74,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        viewModel = ViewModelProvider(this, providerFactory)[HomeViewModel::class.java]
         observeTasks()
 
         btnAddTaskListener()

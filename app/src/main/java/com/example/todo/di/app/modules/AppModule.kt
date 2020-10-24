@@ -19,4 +19,8 @@ class AppModule {
         ).build()
     }
 
+    @Singleton
+    @Provides
+    fun provideSomeString() = "Dagger is working properly"
+
 }
