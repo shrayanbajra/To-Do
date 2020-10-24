@@ -1,17 +1,14 @@
 package com.example.todo.ui.viewtask
 
+import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
-import com.example.todo.ui.BaseRepository
+import javax.inject.Inject
 
-class ViewTaskRepository : BaseRepository() {
-
-    companion object {
-        private var instance: ViewTaskRepository? = null
-
-        fun getInstance() = instance ?: ViewTaskRepository()
-    }
-
-    private val taskDao = getDatabase().taskDao()
+class ViewTaskRepository
+@Inject
+constructor(
+    val taskDao: TaskDao
+) {
 
     suspend fun getTask(id: Int): TaskEntity? {
         return taskDao.get(id)

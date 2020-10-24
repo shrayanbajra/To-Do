@@ -3,7 +3,6 @@ package com.example.todo.ui.viewtask
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -11,9 +10,12 @@ import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
+import com.example.todo.di.app.ViewModelProviderFactory
 import com.example.todo.utils.shortSnackbar
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class ViewTaskFragment : Fragment() {
+class ViewTaskFragment : DaggerFragment() {
 
     companion object {
         private const val NO_TASK_ID = -1
@@ -24,8 +26,11 @@ class ViewTaskFragment : Fragment() {
     private lateinit var etTaskTitle: EditText
     private lateinit var etTaskDescription: EditText
 
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
     private val viewModel by lazy {
-        ViewModelProvider(this)[ViewTaskViewModel::class.java]
+        ViewModelProvider(this, providerFactory)[ViewTaskViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
