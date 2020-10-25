@@ -17,8 +17,12 @@ constructor(
 
     private val repository = HomeRepository(taskDao)
 
-    fun getTasks(): LiveData<List<TaskEntity>> {
-        return repository.getAllTasks()
+    fun getRemainingTasks(): LiveData<List<TaskEntity>> {
+        return repository.getRemainingTasks()
+    }
+
+    fun getCompletedTasks(): LiveData<List<TaskEntity>> {
+        return repository.getCompletedTasks()
     }
 
     fun updateTask(task: TaskEntity) {

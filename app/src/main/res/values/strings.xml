@@ -22,5 +22,7 @@
     <string name="couldnt_get_task_details">Couldn\'t get task details</string>
     <string name="changes_saved">Changes Saved</string>
     <string name="title_cant_be_blank">Title can\'t be blank</string>
+    <string name="tasks">Tasks</string>
+    <string name="completed">Completed</string>
 
 </resources>

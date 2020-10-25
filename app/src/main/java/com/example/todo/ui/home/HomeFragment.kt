@@ -20,8 +20,11 @@ import javax.inject.Inject
 
 class HomeFragment : DaggerFragment() {
 
-    private lateinit var rvTasks: RecyclerView
-    private val tasksAdapter = TasksAdapter(getOnItemClickListener())
+    private lateinit var rvRemainingTasks: RecyclerView
+    private val remainingTasksAdapter = TasksAdapter(getOnItemClickListener())
+
+    private lateinit var rvCompletedTasks: RecyclerView
+    private val completedTasksAdapter = TasksAdapter(getOnItemClickListener())
 
     private fun getOnItemClickListener(): TasksAdapter.TaskListener {
         return object : TasksAdapter.TaskListener {
@@ -61,29 +64,54 @@ class HomeFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRvTasks(view)
+        initRvRemainingTasks(view)
+        initRvCompletedTasks(view)
 
         btnAddTask = view.findViewById(R.id.btn_add_task)
     }
 
-    private fun initRvTasks(view: View) {
-        rvTasks = view.findViewById(R.id.rv_tasks)
-        rvTasks.layoutManager = LinearLayoutManager(context)
-        rvTasks.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        rvTasks.adapter = tasksAdapter
+    private fun initRvRemainingTasks(view: View) {
+        rvRemainingTasks = view.findViewById(R.id.rv_remaining_tasks)
+        rvRemainingTasks.layoutManager = LinearLayoutManager(context)
+        rvRemainingTasks.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        rvRemainingTasks.adapter = remainingTasksAdapter
+    }
+
+    private fun initRvCompletedTasks(view: View) {
+        rvCompletedTasks = view.findViewById(R.id.rv_completed_tasks)
+        rvCompletedTasks.layoutManager = LinearLayoutManager(context)
+        rvCompletedTasks.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        rvCompletedTasks.adapter = completedTasksAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        observeTasks()
+        observeRemainingTasks()
+        observeCompletedTasks()
 
         btnAddTaskListener()
     }
 
-    private fun observeTasks() {
-        viewModel.getTasks().observe(viewLifecycleOwner, { tasks ->
-            tasksAdapter.setTasks(tasks)
+    private fun observeRemainingTasks() {
+        viewModel.getRemainingTasks().observe(viewLifecycleOwner, { tasks ->
+            remainingTasksAdapter.setTasks(tasks)
+        })
+    }
+
+    private fun observeCompletedTasks() {
+        viewModel.getCompletedTasks().observe(viewLifecycleOwner, { tasks ->
+            completedTasksAdapter.setTasks(tasks)
         })
     }
 
