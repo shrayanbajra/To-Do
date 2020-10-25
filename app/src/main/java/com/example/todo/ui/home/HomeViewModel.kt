@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
+import com.example.todo.utils.SingleEventLiveData
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,11 +19,19 @@ constructor(
     private val repository = HomeRepository(taskDao)
 
     fun getRemainingTasks(): LiveData<List<TaskEntity>> {
-        return repository.getRemainingTasks()
+        val remainingTasks = SingleEventLiveData<List<TaskEntity>>()
+        viewModelScope.launch(IO) {
+            remainingTasks.postValue(repository.getRemainingTasks())
+        }
+        return remainingTasks
     }
 
     fun getCompletedTasks(): LiveData<List<TaskEntity>> {
-        return repository.getCompletedTasks()
+        val completedTasks = SingleEventLiveData<List<TaskEntity>>()
+        viewModelScope.launch(IO) {
+            completedTasks.postValue(repository.getCompletedTasks())
+        }
+        return completedTasks
     }
 
     fun updateTask(task: TaskEntity) {

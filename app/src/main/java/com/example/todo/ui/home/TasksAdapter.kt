@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
@@ -18,9 +19,16 @@ class TasksAdapter(
     private val tasks = arrayListOf<TaskEntity>()
 
     fun setTasks(tasks: List<TaskEntity>) {
+        val diffCallback = TasksDiffCallback(this.tasks, tasks)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.tasks.clear()
         this.tasks.addAll(tasks)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun removeAt(position: Int) {
+        tasks.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -49,7 +57,7 @@ class TasksAdapter(
             cbTaskStatus.isChecked = task.isTaskDone()
             cbTaskStatus.setOnCheckedChangeListener { _, isChecked ->
                 task.setTaskStatus(isChecked = isChecked)
-                listener.onCheckboxToggled(task = task)
+                listener.onCheckboxToggled(task = task, adapterPosition)
             }
 
             tvTaskTitle.text = task.title
@@ -59,6 +67,6 @@ class TasksAdapter(
 
     interface TaskListener {
         fun onTaskClicked(taskId: Int)
-        fun onCheckboxToggled(task: TaskEntity)
+        fun onCheckboxToggled(task: TaskEntity, adapterPosition: Int)
     }
 }
