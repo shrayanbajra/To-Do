@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
+import com.google.android.material.appbar.MaterialToolbar
 import dagger.android.support.DaggerAppCompatActivity
 
 class NavHostActivity : DaggerAppCompatActivity() {
@@ -11,6 +12,8 @@ class NavHostActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         enableNavigateUp()
     }
