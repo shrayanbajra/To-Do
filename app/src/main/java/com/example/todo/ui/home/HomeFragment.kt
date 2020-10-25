@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -21,28 +20,11 @@ import javax.inject.Inject
 
 class HomeFragment : DaggerFragment() {
 
-    private lateinit var mTvRemainingTasksTitle: TextView
-    private lateinit var mRvRemainingTasks: RecyclerView
-    private val mRemainingTasksAdapter = TasksAdapter(getRemainingTaskClickListener())
+    private lateinit var mTvTasksTitle: TextView
+    private lateinit var mRvTasks: RecyclerView
+    private val mTasksAdapter = TasksAdapter(getTaskClickListener())
 
-    private lateinit var mTvCompletedTasksTitle: TextView
-    private lateinit var mRvCompletedTasks: RecyclerView
-    private val mCompletedTasksAdapter = TasksAdapter(getCompletedTaskClickListener())
-
-    private fun getRemainingTaskClickListener(): TasksAdapter.TaskListener {
-        return object : TasksAdapter.TaskListener {
-
-            override fun onTaskClicked(taskId: Int) {
-                navigateToViewTaskFragment(taskId)
-            }
-
-            override fun onCheckboxToggled(task: TaskEntity, adapterPosition: Int) {
-                mViewModel.updateTask(task = task)
-            }
-        }
-    }
-
-    private fun getCompletedTaskClickListener(): TasksAdapter.TaskListener {
+    private fun getTaskClickListener(): TasksAdapter.TaskListener {
         return object : TasksAdapter.TaskListener {
 
             override fun onTaskClicked(taskId: Int) {
@@ -80,90 +62,48 @@ class HomeFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mTvRemainingTasksTitle = view.findViewById(R.id.tv_remaining_tasks_title)
-        initRvRemainingTasks(view)
-
-        mTvCompletedTasksTitle = view.findViewById(R.id.tv_completed_tasks_title)
-        initRvCompletedTasks(view)
+        mTvTasksTitle = view.findViewById(R.id.tv_tasks_title)
+        initRvTasks(view)
 
         mBtnAddTask = view.findViewById(R.id.btn_add_task)
     }
 
-    private fun initRvRemainingTasks(view: View) {
-        mRvRemainingTasks = view.findViewById(R.id.rv_remaining_tasks)
-        mRvRemainingTasks.layoutManager = LinearLayoutManager(context)
-        mRvRemainingTasks.addItemDecoration(
-            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        )
-        mRvRemainingTasks.adapter = mRemainingTasksAdapter
-    }
-
-    private fun initRvCompletedTasks(view: View) {
-        mRvCompletedTasks = view.findViewById(R.id.rv_completed_tasks)
-        mRvCompletedTasks.layoutManager = LinearLayoutManager(context)
-        mRvCompletedTasks.addItemDecoration(
-            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        )
-        mRvCompletedTasks.adapter = mCompletedTasksAdapter
+    private fun initRvTasks(view: View) {
+        mRvTasks = view.findViewById(R.id.rv_remaining_tasks)
+        mRvTasks.layoutManager = LinearLayoutManager(context)
+        mRvTasks.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        mRvTasks.adapter = mTasksAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        observeRemainingTasks()
-        observeCompletedTasks()
+        observeTasks()
 
         btnAddTaskListener()
     }
 
-    private fun observeRemainingTasks() {
-        mViewModel.getRemainingTasks().observe(viewLifecycleOwner, mRemainingTasksObserver)
-    }
+    private fun observeTasks() {
+        mViewModel.getAll().observe(viewLifecycleOwner, { tasks ->
 
-    private val mRemainingTasksObserver = Observer<List<TaskEntity>> { tasks ->
+            if (tasks.isEmpty()) {
+                hideRemainingTasksSection()
+            } else {
+                showRemainingTasksSection()
+                mTasksAdapter.setTasks(tasks)
+            }
 
-        if (tasks.isEmpty()) {
-            hideRemainingTasksSection()
-        } else {
-            showRemainingTasksSection()
-            mRemainingTasksAdapter.setTasks(tasks)
-        }
-
+        })
     }
 
     private fun hideRemainingTasksSection() {
-        mTvRemainingTasksTitle.visibility = View.GONE
-        mRvRemainingTasks.visibility = View.GONE
+        mTvTasksTitle.visibility = View.GONE
+        mRvTasks.visibility = View.GONE
     }
 
     private fun showRemainingTasksSection() {
-        mTvRemainingTasksTitle.visibility = View.VISIBLE
-        mRvRemainingTasks.visibility = View.VISIBLE
-    }
-
-    private fun observeCompletedTasks() {
-        mViewModel.getCompletedTasks().observe(viewLifecycleOwner, mCompletedTasksObserver)
-    }
-
-    private val mCompletedTasksObserver = Observer<List<TaskEntity>> { tasks ->
-
-        if (tasks.isEmpty()) {
-            hideCompletedTasksSection()
-        } else {
-            showCompletedTasksSection()
-            mCompletedTasksAdapter.setTasks(tasks)
-        }
-
-    }
-
-    private fun hideCompletedTasksSection() {
-        mTvCompletedTasksTitle.visibility = View.GONE
-        mRvCompletedTasks.visibility = View.GONE
-    }
-
-    private fun showCompletedTasksSection() {
-        mTvCompletedTasksTitle.visibility = View.VISIBLE
-        mRvCompletedTasks.visibility = View.VISIBLE
+        mTvTasksTitle.visibility = View.VISIBLE
+        mRvTasks.visibility = View.VISIBLE
     }
 
     private fun btnAddTaskListener() {
