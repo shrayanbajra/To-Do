@@ -1,5 +1,6 @@
 package com.example.todo.di.navhost
 
+import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.example.todo.ui.home.HomeFragment
 import com.example.todo.ui.viewtask.ViewTaskFragment
 import dagger.Module
@@ -14,5 +15,8 @@ abstract class NavHostFragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeViewTaskFragment(): ViewTaskFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeAddTaskBottomSheet(): AddTaskBottomSheet
 
 }

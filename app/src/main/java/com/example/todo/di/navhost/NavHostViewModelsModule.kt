@@ -2,6 +2,7 @@ package com.example.todo.di.navhost
 
 import androidx.lifecycle.ViewModel
 import com.example.todo.di.app.utils.ViewModelKey
+import com.example.todo.ui.addtask.AddTaskViewModel
 import com.example.todo.ui.home.HomeViewModel
 import com.example.todo.ui.viewtask.ViewTaskViewModel
 import dagger.Binds
@@ -20,5 +21,10 @@ abstract class NavHostViewModelsModule {
     @IntoMap
     @ViewModelKey(ViewTaskViewModel::class)
     abstract fun bindViewTaskViewModel(viewModel: ViewTaskViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddTaskViewModel::class)
+    abstract fun bindAddTaskViewModel(viewModel: AddTaskViewModel): ViewModel
 
 }

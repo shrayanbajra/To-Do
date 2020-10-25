@@ -1,5 +1,6 @@
 package com.example.todo.ui.addtask
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
+import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.utils.shortToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
@@ -20,7 +24,17 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var btnSave: Button
 
-    private val viewModel by lazy { ViewModelProvider(this)[AddTaskViewModel::class.java] }
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, providerFactory)[AddTaskViewModel::class.java]
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
