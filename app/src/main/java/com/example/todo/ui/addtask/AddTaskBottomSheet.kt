@@ -123,4 +123,5 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         tilTaskTitle.editText?.text?.clear()
         tilTaskDescription.editText?.text?.clear()
     }
+
 }

@@ -38,8 +38,6 @@ class HomeFragment : DaggerFragment() {
 
             override fun onCheckboxToggled(task: TaskEntity, adapterPosition: Int) {
                 mViewModel.updateTask(task = task)
-                getCompletedTasks()
-                getRemainingTasks()
             }
         }
     }
@@ -53,8 +51,6 @@ class HomeFragment : DaggerFragment() {
 
             override fun onCheckboxToggled(task: TaskEntity, adapterPosition: Int) {
                 mViewModel.updateTask(task = task)
-                getRemainingTasks()
-                getCompletedTasks()
             }
         }
     }
@@ -114,13 +110,13 @@ class HomeFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        getRemainingTasks()
-        getCompletedTasks()
+        observeRemainingTasks()
+        observeCompletedTasks()
 
         btnAddTaskListener()
     }
 
-    private fun getRemainingTasks() {
+    private fun observeRemainingTasks() {
         mViewModel.getRemainingTasks().observe(viewLifecycleOwner, mRemainingTasksObserver)
     }
 
@@ -145,7 +141,7 @@ class HomeFragment : DaggerFragment() {
         mRvRemainingTasks.visibility = View.VISIBLE
     }
 
-    private fun getCompletedTasks() {
+    private fun observeCompletedTasks() {
         mViewModel.getCompletedTasks().observe(viewLifecycleOwner, mCompletedTasksObserver)
     }
 
