@@ -102,7 +102,7 @@ class ViewTaskFragment : DaggerFragment() {
             R.id.item_delete_task -> {
                 deleteTask()
                 shortSnackbar("Task Deleted")
-                navigateToHomeFragment()
+                findNavController().popBackStack()
                 true
             }
             else -> {
@@ -144,8 +144,5 @@ class ViewTaskFragment : DaggerFragment() {
         viewModel.deleteTask(taskId)
     }
 
-    private fun navigateToHomeFragment() {
-        findNavController().navigate(R.id.action_viewTaskFragment_to_homeFragment)
-    }
 }
 
