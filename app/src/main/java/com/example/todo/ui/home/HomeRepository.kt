@@ -3,14 +3,8 @@ package com.example.todo.ui.home
 import androidx.lifecycle.LiveData
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
-import javax.inject.Inject
 
-@Suppress("MemberVisibilityCanBePrivate")
-class HomeRepository
-@Inject
-constructor(
-    val taskDao: TaskDao
-) {
+class HomeRepository(private val taskDao: TaskDao) {
 
     fun getAllTasks(): LiveData<List<TaskEntity>> {
         return taskDao.getAll()
@@ -23,4 +17,5 @@ constructor(
     suspend fun deleteAllTasks() {
         taskDao.deleteAll()
     }
+
 }

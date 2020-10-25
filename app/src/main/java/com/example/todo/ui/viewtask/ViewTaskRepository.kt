@@ -2,12 +2,10 @@ package com.example.todo.ui.viewtask
 
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
-import javax.inject.Inject
 
 class ViewTaskRepository
-@Inject
 constructor(
-    val taskDao: TaskDao
+    private val taskDao: TaskDao
 ) {
 
     suspend fun getTask(id: Int): TaskEntity? {

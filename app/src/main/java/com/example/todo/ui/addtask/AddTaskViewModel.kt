@@ -11,7 +11,7 @@ import javax.inject.Inject
 class AddTaskViewModel
 @Inject
 constructor(
-    val taskDao: TaskDao
+    private val taskDao: TaskDao
 ) : ViewModel() {
 
     fun insertTask(task: TaskEntity) {
@@ -20,4 +20,5 @@ constructor(
             repository.insertTask(task)
         }
     }
+
 }

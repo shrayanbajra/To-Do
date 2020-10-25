@@ -1,4 +1,4 @@
-package com.example.todo.app
+package com.example.todo.utils
 
 object Constants {
 

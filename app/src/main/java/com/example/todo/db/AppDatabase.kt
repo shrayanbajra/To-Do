@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.todo.app.Constants
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
+import com.example.todo.utils.Constants
 
 @Database(entities = [TaskEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
