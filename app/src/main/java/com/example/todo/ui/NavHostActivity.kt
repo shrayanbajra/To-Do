@@ -12,10 +12,15 @@ class NavHostActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initToolbar()
+        enableNavigateUp()
+
+    }
+
+    private fun initToolbar() {
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-        enableNavigateUp()
     }
 
     private fun enableNavigateUp() {
@@ -27,4 +32,5 @@ class NavHostActivity : DaggerAppCompatActivity() {
         val navController = this.findNavController(R.id.nav_host_fragment)
         return navController.navigateUp()
     }
+
 }
