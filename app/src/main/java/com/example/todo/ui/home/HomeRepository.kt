@@ -14,8 +14,4 @@ class HomeRepository(private val taskDao: TaskDao) {
         taskDao.update(taskEntity)
     }
 
-    suspend fun deleteAllTasks() {
-        taskDao.deleteAll()
-    }
-
 }

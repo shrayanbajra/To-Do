@@ -24,7 +24,4 @@ interface TaskDao {
     @Query("DELETE FROM task_table WHERE `Task ID` = :taskId")
     suspend fun delete(taskId: Int)
 
-    @Query("DELETE FROM task_table")
-    suspend fun deleteAll()
-
 }

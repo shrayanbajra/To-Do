@@ -27,9 +27,4 @@ constructor(
         }
     }
 
-    fun deleteAllTasks() {
-        viewModelScope.launch(IO) {
-            repository.deleteAllTasks()
-        }
-    }
 }
