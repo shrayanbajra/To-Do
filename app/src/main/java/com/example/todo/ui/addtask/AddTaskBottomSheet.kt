@@ -23,6 +23,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     private lateinit var tilTaskDescription: TextInputLayout
 
     private lateinit var btnSave: Button
+    private lateinit var btnCancel: Button
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -54,12 +55,14 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         tilTaskDescription = view.findViewById(R.id.til_task_description)
 
         btnSave = view.findViewById(R.id.btn_save)
+        btnCancel = view.findViewById(R.id.btn_cancel)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         btnSaveListener()
+        btnCancelListener()
     }
 
     private fun btnSaveListener() {
@@ -122,6 +125,10 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     private fun clearInputFields() {
         tilTaskTitle.editText?.text?.clear()
         tilTaskDescription.editText?.text?.clear()
+    }
+
+    private fun btnCancelListener() {
+        btnCancel.setOnClickListener { closeBottomSheet() }
     }
 
 }

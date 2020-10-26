@@ -24,5 +24,6 @@
     <string name="title_cant_be_blank">Title can\'t be blank</string>
     <string name="tasks">Tasks</string>
     <string name="completed">Completed</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
