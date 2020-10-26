@@ -44,6 +44,10 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.bottom_sheet_add_task, container, false)
     }
 
+    override fun getTheme(): Int {
+        return R.style.Custom_RoundedTop_BottomSheetDialog
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
