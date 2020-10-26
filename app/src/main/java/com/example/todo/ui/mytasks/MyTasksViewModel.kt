@@ -1,4 +1,4 @@
-package com.example.todo.ui.home
+package com.example.todo.ui.mytasks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -9,13 +9,13 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeViewModel
+class MyTasksViewModel
 @Inject
 constructor(
     taskDao: TaskDao
 ) : ViewModel() {
 
-    private val repository = HomeRepository(taskDao)
+    private val repository = MyTasksRepository(taskDao)
 
     fun getAll(): LiveData<List<TaskEntity>> {
         return repository.getAll()

@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/myTasksFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.todo.ui.home.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home">
+        android:id="@+id/myTasksFragment"
+        android:name="com.example.todo.ui.mytasks.MyTasksFragment"
+        android:label="My Tasks"
+        tools:layout="@layout/fragment_my_tasks">
 
         <action
-            android:id="@+id/action_homeFragment_to_viewTaskFragment"
+            android:id="@+id/action_myTasksFragment_to_viewTaskFragment"
             app:destination="@id/viewTaskFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -33,7 +33,7 @@
 
         <action
             android:id="@+id/action_viewTaskFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/myTasksFragment" />
     </fragment>
 
 </navigation>

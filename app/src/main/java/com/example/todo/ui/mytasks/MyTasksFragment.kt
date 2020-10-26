@@ -1,4 +1,4 @@
-package com.example.todo.ui.home
+package com.example.todo.ui.mytasks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,9 +18,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class HomeFragment : DaggerFragment() {
+class MyTasksFragment : DaggerFragment() {
 
     private lateinit var mTvTasksTitle: TextView
+
     private lateinit var mRvTasks: RecyclerView
     private val mTasksAdapter = TasksAdapter(getTaskClickListener())
 
@@ -37,9 +38,9 @@ class HomeFragment : DaggerFragment() {
         }
     }
 
-    private fun navigateToViewTaskFragment(itemId: Int) {
-        val action = HomeFragmentDirections
-            .actionHomeFragmentToViewTaskFragment(taskId = itemId)
+    private fun navigateToViewTaskFragment(taskId: Int) {
+        val action = MyTasksFragmentDirections
+            .actionMyTasksFragmentToViewTaskFragment(taskId = taskId)
         findNavController().navigate(action)
     }
 
@@ -48,15 +49,15 @@ class HomeFragment : DaggerFragment() {
     @Inject
     lateinit var mProviderFactory: ViewModelProviderFactory
 
-    private val mViewModel: HomeViewModel by lazy {
-        ViewModelProvider(this, mProviderFactory)[HomeViewModel::class.java]
+    private val mViewModel: MyTasksViewModel by lazy {
+        ViewModelProvider(this, mProviderFactory)[MyTasksViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_my_tasks, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,21 +88,21 @@ class HomeFragment : DaggerFragment() {
         mViewModel.getAll().observe(viewLifecycleOwner, { tasks ->
 
             if (tasks.isEmpty()) {
-                hideRemainingTasksSection()
+                hideMyTasksSection()
             } else {
-                showRemainingTasksSection()
+                showMyTasksSection()
                 mTasksAdapter.setTasks(tasks)
             }
 
         })
     }
 
-    private fun hideRemainingTasksSection() {
+    private fun hideMyTasksSection() {
         mTvTasksTitle.visibility = View.GONE
         mRvTasks.visibility = View.GONE
     }
 
-    private fun showRemainingTasksSection() {
+    private fun showMyTasksSection() {
         mTvTasksTitle.visibility = View.VISIBLE
         mRvTasks.visibility = View.VISIBLE
     }

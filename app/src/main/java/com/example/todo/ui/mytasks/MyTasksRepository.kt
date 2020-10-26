@@ -1,10 +1,10 @@
-package com.example.todo.ui.home
+package com.example.todo.ui.mytasks
 
 import androidx.lifecycle.LiveData
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity
 
-class HomeRepository(private val taskDao: TaskDao) {
+class MyTasksRepository(private val taskDao: TaskDao) {
 
     fun getAll(): LiveData<List<TaskEntity>> {
         return taskDao.getAll()

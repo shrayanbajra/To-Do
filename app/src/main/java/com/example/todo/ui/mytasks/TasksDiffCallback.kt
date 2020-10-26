@@ -1,4 +1,4 @@
-package com.example.todo.ui.home
+package com.example.todo.ui.mytasks
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.todo.db.task.TaskEntity
