@@ -31,9 +31,6 @@
             app:argType="integer"
             android:defaultValue="-1" />
 
-        <action
-            android:id="@+id/action_viewTaskFragment_to_homeFragment"
-            app:destination="@id/myTasksFragment" />
     </fragment>
 
 </navigation>

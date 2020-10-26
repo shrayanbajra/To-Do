@@ -11,15 +11,12 @@ import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
+import com.example.todo.utils.Constants.NO_TASK_ID
 import com.example.todo.utils.shortSnackbar
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class ViewTaskFragment : DaggerFragment() {
-
-    companion object {
-        private const val NO_TASK_ID = -1
-    }
 
     private var taskId: Int = NO_TASK_ID
 

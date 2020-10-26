@@ -7,4 +7,6 @@ object Constants {
     const val STATUS_NOT_DONE = 0
     const val STATUS_DONE = 1
 
+    const val NO_TASK_ID = -1
+
 }
