@@ -1,6 +1,5 @@
 package com.example.todo.ui.mytasks.sortbybottomsheet
 
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.data.Criteria
+import com.example.todo.utils.DisplayUtils
 
 
 class CriteriaAdapter(
@@ -52,17 +52,10 @@ class CriteriaAdapter(
     }
 
     private fun updatePadding(holder: CriteriaViewHolder) {
-        val eightDp = getDpValue(holder.itemView, 8f).toInt()
-        val sixteenDp = getDpValue(holder.itemView, 16f).toInt()
-        val thirtyTwoDp = getDpValue(holder.itemView, 32f).toInt()
+        val eightDp = DisplayUtils.getDpValue(holder.itemView, 8f).toInt()
+        val sixteenDp = DisplayUtils.getDpValue(holder.itemView, 16f).toInt()
+        val thirtyTwoDp = DisplayUtils.getDpValue(holder.itemView, 32f).toInt()
         holder.tvCriteria.setPadding(sixteenDp, eightDp, sixteenDp, thirtyTwoDp)
-    }
-
-    private fun getDpValue(view: View, value: Float): Float {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, value,
-            view.context.resources.displayMetrics
-        )
     }
 
     override fun getItemCount(): Int {
