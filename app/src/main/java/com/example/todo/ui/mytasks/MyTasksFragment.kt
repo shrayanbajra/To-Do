@@ -68,6 +68,9 @@ class MyTasksFragment : DaggerFragment() {
 
         if (item.itemId == R.id.item_sort) {
 
+            val sortByBottomSheet = SortByBottomSheet()
+            sortByBottomSheet.show(activity?.supportFragmentManager!!, sortByBottomSheet.tag)
+
             val sortedTasks = getSortedTasks()
             mTasksAdapter.setTasks(sortedTasks)
 
