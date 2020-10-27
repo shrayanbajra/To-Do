@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.data.Criteria
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SortByBottomSheet : BottomSheetDialogFragment() {
@@ -47,13 +48,21 @@ class SortByBottomSheet : BottomSheetDialogFragment() {
 
         ivClose.setOnClickListener { closeBottomSheet() }
 
-        val criteria = listOf("Alphabetically", "Completed")
+        val criteria = getCriteria()
         mCriteriaAdapter.setCriteria(criteria)
 
     }
 
     private fun closeBottomSheet() {
         dialog?.dismiss()
+    }
+
+    private fun getCriteria(): List<Criteria> {
+        val criteria1 = Criteria(
+            iconResource = R.drawable.ic_sort_alphabetically, title = "Alphabetically"
+        )
+        val criteria2 = Criteria(iconResource = R.drawable.ic_circle_pressed, title = "Completed")
+        return listOf(criteria1, criteria2)
     }
 
 }

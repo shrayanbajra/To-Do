@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.data.Criteria
+
 
 class CriteriaAdapter : RecyclerView.Adapter<CriteriaAdapter.CriteriaViewHolder>() {
 
-    private val criteria = arrayListOf<String>()
+    private val criteria = arrayListOf<Criteria>()
 
-    fun setCriteria(criteria: List<String>) {
+    fun setCriteria(criteria: List<Criteria>) {
         this.criteria.clear()
         this.criteria.addAll(criteria)
         notifyDataSetChanged()
@@ -27,7 +29,10 @@ class CriteriaAdapter : RecyclerView.Adapter<CriteriaAdapter.CriteriaViewHolder>
     override fun onBindViewHolder(holder: CriteriaViewHolder, position: Int) {
         val currentCriteria = criteria[position]
 
-        holder.tvCriteria.text = currentCriteria
+        holder.tvCriteria.text = currentCriteria.title
+        holder.tvCriteria.setCompoundDrawablesWithIntrinsicBounds(
+            currentCriteria.iconResource, 0, 0, 0
+        )
         if (isLastItem(position)) {
             hideDivider(holder)
             updatePadding(holder)

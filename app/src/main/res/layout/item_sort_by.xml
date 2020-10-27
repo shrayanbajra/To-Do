@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -8,15 +9,17 @@
         android:id="@+id/tv_criteria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawablePadding="16dp"
         android:gravity="center_vertical"
         android:minHeight="36dp"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:paddingEnd="16dp"
-        android:text="@string/criteria_for_sort_by"
+        android:paddingBottom="8dp"
+        android:text="@string/alphabetically"
         android:textColor="@color/grey_700"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_sort_alphabetically" />
 
     <View
         android:id="@+id/divider"

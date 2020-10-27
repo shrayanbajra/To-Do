@@ -28,5 +28,6 @@
     <string name="sort">Sort</string>
     <string name="criteria_for_sort_by">Criteria for sort by</string>
     <string name="close">Close</string>
+    <string name="alphabetically">Alphabetically</string>
 
 </resources>
