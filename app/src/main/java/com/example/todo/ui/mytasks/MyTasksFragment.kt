@@ -12,7 +12,6 @@ import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.ui.addtask.AddTaskBottomSheet
-import com.example.todo.utils.shortToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -67,9 +66,26 @@ class MyTasksFragment : DaggerFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.item_sort)
-            shortToast("Let's sort")
+        if (item.itemId == R.id.item_sort) {
+
+            val sortedTasks = getSortedTasks()
+            mTasksAdapter.setTasks(sortedTasks)
+
+            return true
+
+        }
+
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getSortedTasks(): MutableList<TaskEntity> {
+        val tasks = mTasksAdapter.getTasks().toMutableList()
+        tasks.sortWith { task1, task2 ->
+            val firstTitle = task1.title
+            val secondTitle = task2.title
+            firstTitle.compareTo(secondTitle)
+        }
+        return tasks
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,7 +113,7 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun observeTasks() {
-        mViewModel.getAll().observe(viewLifecycleOwner, { tasks ->
+        mViewModel.getTasks().observe(viewLifecycleOwner, { tasks ->
 
             if (tasks.isEmpty()) {
                 hideMyTasksSection()

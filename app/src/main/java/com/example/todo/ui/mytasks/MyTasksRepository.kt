@@ -6,7 +6,7 @@ import com.example.todo.db.task.TaskEntity
 
 class MyTasksRepository(private val taskDao: TaskDao) {
 
-    fun getAll(): LiveData<List<TaskEntity>> {
+    fun getTasks(): LiveData<List<TaskEntity>> {
         return taskDao.getAll()
     }
 

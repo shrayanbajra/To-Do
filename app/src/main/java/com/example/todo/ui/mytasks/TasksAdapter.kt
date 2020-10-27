@@ -18,6 +18,10 @@ class TasksAdapter(
 
     private val tasks = arrayListOf<TaskEntity>()
 
+    fun getTasks(): List<TaskEntity> {
+        return tasks
+    }
+
     fun setTasks(tasks: List<TaskEntity>) {
         val diffCallback = TasksDiffCallback(this.tasks, tasks)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
