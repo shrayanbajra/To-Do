@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
@@ -13,6 +14,8 @@ class SortByBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var mRvCriteria: RecyclerView
     private val mCriteriaAdapter = CriteriaAdapter()
+
+    private lateinit var ivClose: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +31,7 @@ class SortByBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ivClose = view.findViewById(R.id.iv_close)
         initRvCriteria(view)
 
     }
@@ -41,9 +45,15 @@ class SortByBottomSheet : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        ivClose.setOnClickListener { closeBottomSheet() }
+
         val criteria = listOf("Alphabetically", "Completed")
         mCriteriaAdapter.setCriteria(criteria)
 
+    }
+
+    private fun closeBottomSheet() {
+        dialog?.dismiss()
     }
 
 }

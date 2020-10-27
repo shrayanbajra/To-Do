@@ -27,5 +27,6 @@
     <string name="cancel">Cancel</string>
     <string name="sort">Sort</string>
     <string name="criteria_for_sort_by">Criteria for sort by</string>
+    <string name="close">Close</string>
 
 </resources>
