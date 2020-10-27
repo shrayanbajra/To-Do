@@ -12,6 +12,8 @@ import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.ui.addtask.AddTaskBottomSheet
+import com.example.todo.ui.mytasks.sortbybottomsheet.OnCriteriaSelectedListener
+import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
