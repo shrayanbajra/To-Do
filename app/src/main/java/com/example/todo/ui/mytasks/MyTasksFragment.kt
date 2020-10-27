@@ -66,19 +66,31 @@ class MyTasksFragment : DaggerFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.item_sort) {
+        return if (item.itemId == R.id.item_sort) {
 
-            val sortByBottomSheet = SortByBottomSheet()
-            sortByBottomSheet.show(activity?.supportFragmentManager!!, sortByBottomSheet.tag)
+            showSortByBottomSheet()
+            true
 
-            val sortedTasks = getSortedTasks()
-            mTasksAdapter.setTasks(sortedTasks)
+        } else
+            super.onOptionsItemSelected(item)
+    }
 
-            return true
+    private fun showSortByBottomSheet() {
+        val sortByBottomSheet = SortByBottomSheet(getOnCriteriaSelectedListener())
+        sortByBottomSheet.show(activity?.supportFragmentManager!!, sortByBottomSheet.tag)
+    }
+
+    private fun getOnCriteriaSelectedListener(): OnCriteriaSelectedListener {
+        return object : OnCriteriaSelectedListener {
+
+            override fun onSelected(title: String) {
+                if (title == getString(R.string.alphabetically)) {
+                    val sortedTasks = getSortedTasks()
+                    mTasksAdapter.setTasks(sortedTasks)
+                }
+            }
 
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun getSortedTasks(): MutableList<TaskEntity> {

@@ -11,12 +11,26 @@ import com.example.todo.R
 import com.example.todo.data.Criteria
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SortByBottomSheet : BottomSheetDialogFragment() {
+class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener) :
+    BottomSheetDialogFragment() {
 
     private lateinit var mRvCriteria: RecyclerView
-    private val mCriteriaAdapter = CriteriaAdapter()
+    private val mCriteriaAdapter = CriteriaAdapter(getOnCriteriaSelectedListener())
 
-    private lateinit var ivClose: ImageView
+    private fun getOnCriteriaSelectedListener(): OnCriteriaSelectedListener {
+        return object : OnCriteriaSelectedListener {
+
+            override fun onSelected(title: String) {
+                if (title == getString(R.string.alphabetically)) {
+                    selectedListener.onSelected(title)
+                    closeBottomSheet()
+                }
+            }
+
+        }
+    }
+
+    private lateinit var mIvClose: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +46,7 @@ class SortByBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ivClose = view.findViewById(R.id.iv_close)
+        mIvClose = view.findViewById(R.id.iv_close)
         initRvCriteria(view)
 
     }
@@ -46,7 +60,7 @@ class SortByBottomSheet : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        ivClose.setOnClickListener { closeBottomSheet() }
+        mIvClose.setOnClickListener { closeBottomSheet() }
 
         val criteria = getCriteria()
         mCriteriaAdapter.setCriteria(criteria)

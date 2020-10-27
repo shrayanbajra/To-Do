@@ -10,7 +10,10 @@ import com.example.todo.R
 import com.example.todo.data.Criteria
 
 
-class CriteriaAdapter : RecyclerView.Adapter<CriteriaAdapter.CriteriaViewHolder>() {
+class CriteriaAdapter(
+    private val selectedListener: OnCriteriaSelectedListener
+) :
+    RecyclerView.Adapter<CriteriaAdapter.CriteriaViewHolder>() {
 
     private val criteria = arrayListOf<Criteria>()
 
@@ -36,6 +39,9 @@ class CriteriaAdapter : RecyclerView.Adapter<CriteriaAdapter.CriteriaViewHolder>
         if (isLastItem(position)) {
             hideDivider(holder)
             updatePadding(holder)
+        }
+        holder.itemView.setOnClickListener {
+            selectedListener.onSelected(currentCriteria.title)
         }
     }
 
