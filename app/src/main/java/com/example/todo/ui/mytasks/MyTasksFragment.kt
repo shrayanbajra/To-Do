@@ -1,5 +1,7 @@
 package com.example.todo.ui.mytasks
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
@@ -14,6 +16,7 @@ import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.example.todo.ui.mytasks.sortbybottomsheet.OnCriteriaSelectedListener
 import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
+import com.example.todo.utils.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -45,6 +48,10 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private lateinit var mBtnAddTask: FloatingActionButton
+
+    private val mSharedPref: SharedPreferences? by lazy {
+        activity?.getSharedPreferences(Constants.PREF_MY_TASKS, MODE_PRIVATE)
+    }
 
     @Inject
     lateinit var mProviderFactory: ViewModelProviderFactory
@@ -86,13 +93,28 @@ class MyTasksFragment : DaggerFragment() {
         return object : OnCriteriaSelectedListener {
 
             override fun onSelected(title: String) {
+
                 if (title == getString(R.string.alphabetically)) {
+
+                    saveSortingOrderInSharedPref(value = Constants.VALUE_ALPHABETICALLY)
                     val sortedTasks = getSortedTasks()
                     mTasksAdapter.setTasks(sortedTasks)
+
+                } else if (title == getString(R.string.completed)) {
+
+                    saveSortingOrderInSharedPref(value = Constants.VALUE_COMPLETED)
+
                 }
+
             }
 
         }
+    }
+
+    private fun saveSortingOrderInSharedPref(value: String) {
+        val editor = mSharedPref?.edit()
+        editor?.putString(Constants.KEY_SORTING_ORDER, value)
+        editor?.apply()
     }
 
     private fun getSortedTasks(): MutableList<TaskEntity> {
@@ -116,9 +138,11 @@ class MyTasksFragment : DaggerFragment() {
 
     private fun initRvTasks(view: View) {
         mRvTasks = view.findViewById(R.id.rv_remaining_tasks)
-        mRvTasks.layoutManager = LinearLayoutManager(context)
-        mRvTasks.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        mRvTasks.adapter = mTasksAdapter
+        mRvTasks.apply {
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            adapter = mTasksAdapter
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -133,10 +157,16 @@ class MyTasksFragment : DaggerFragment() {
         mViewModel.getTasks().observe(viewLifecycleOwner, { tasks ->
 
             if (tasks.isEmpty()) {
+
                 hideMyTasksSection()
+
             } else {
+
                 showMyTasksSection()
                 mTasksAdapter.setTasks(tasks)
+
+                sortTasks()
+
             }
 
         })
@@ -150,6 +180,21 @@ class MyTasksFragment : DaggerFragment() {
     private fun showMyTasksSection() {
         mTvTasksTitle.visibility = View.VISIBLE
         mRvTasks.visibility = View.VISIBLE
+    }
+
+    private fun sortTasks() {
+        val sortingOrder = getSortingOrder()
+        if (sortingOrder == Constants.VALUE_ALPHABETICALLY) {
+
+            val sortedTasks = getSortedTasks()
+            mTasksAdapter.setTasks(sortedTasks)
+
+        }
+    }
+
+    private fun getSortingOrder(): String {
+        return mSharedPref?.getString(Constants.KEY_SORTING_ORDER, Constants.EMPTY_STRING)
+            ?: Constants.EMPTY_STRING
     }
 
     private fun btnAddTaskListener() {
