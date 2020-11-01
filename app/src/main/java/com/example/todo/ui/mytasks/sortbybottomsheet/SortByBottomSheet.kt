@@ -21,10 +21,8 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
         return object : OnCriteriaSelectedListener {
 
             override fun onSelected(title: String) {
-                if (title == getString(R.string.alphabetically)) {
-                    selectedListener.onSelected(title)
-                    closeBottomSheet()
-                }
+                selectedListener.onSelected(title)
+                closeBottomSheet()
             }
 
         }
@@ -73,9 +71,13 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
 
     private fun getCriteria(): List<Criteria> {
         val criteria1 = Criteria(
-            iconResource = R.drawable.ic_sort_alphabetically, title = "Alphabetically"
+            iconResource = R.drawable.ic_sort_alphabetically,
+            title = getString(R.string.alphabetically)
         )
-        val criteria2 = Criteria(iconResource = R.drawable.ic_circle_pressed, title = "Completed")
+        val criteria2 = Criteria(
+            iconResource = R.drawable.ic_circle_pressed,
+            title = getString(R.string.completed)
+        )
         return listOf(criteria1, criteria2)
     }
 
