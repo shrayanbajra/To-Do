@@ -6,9 +6,13 @@ object Constants {
 
     const val PREF_MY_TASKS = "pref_my_tasks"
 
-    const val KEY_SORTING_ORDER = "key_sorting_order"
+    const val KEY_SORTING_CRITERIA = "key_sorting_criteria"
     const val VALUE_ALPHABETICALLY = "value_alphabetically"
     const val VALUE_COMPLETED = "value_completed"
+
+    const val KEY_SORTING_ORDER = "key_sorting_order"
+    const val VALUE_ASCENDING = "value_ascending"
+    const val VALUE_DESCENDING = "value_descending"
 
     const val STATUS_NOT_DONE = 0
     const val STATUS_DONE = 1

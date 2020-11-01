@@ -30,5 +30,6 @@
     <string name="close">Close</string>
     <string name="alphabetically">Alphabetically</string>
     <string name="sorted_alphabetically">Sorted alphabetically</string>
+    <string name="arrow_icon">Arrow icon</string>
 
 </resources>

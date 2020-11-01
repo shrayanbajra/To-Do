@@ -51,8 +51,10 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
 
     private fun initRvCriteria(view: View) {
         mRvCriteria = view.findViewById(R.id.rv_criteria)
-        mRvCriteria.layoutManager = LinearLayoutManager(context)
-        mRvCriteria.adapter = mCriteriaAdapter
+        mRvCriteria.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = mCriteriaAdapter
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
