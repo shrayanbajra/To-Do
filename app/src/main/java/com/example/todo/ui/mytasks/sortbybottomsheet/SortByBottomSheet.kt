@@ -73,10 +73,12 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
 
     private fun getCriteria(): List<Criteria> {
         val criteria1 = Criteria(
+            isSelected = true,
             iconResource = R.drawable.ic_sort_alphabetically,
             title = getString(R.string.alphabetically)
         )
         val criteria2 = Criteria(
+            isSelected = true,
             iconResource = R.drawable.ic_circle_pressed,
             title = getString(R.string.completed)
         )

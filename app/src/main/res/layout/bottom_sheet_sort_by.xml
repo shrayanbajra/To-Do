@@ -39,6 +39,8 @@
         android:id="@+id/rv_criteria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="32dp"
+        android:clipToPadding="false"
         android:layout_below="@id/tv_title" />
 
 </RelativeLayout>

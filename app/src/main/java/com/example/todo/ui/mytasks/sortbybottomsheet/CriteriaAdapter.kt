@@ -3,11 +3,11 @@ package com.example.todo.ui.mytasks.sortbybottomsheet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.data.Criteria
-import com.example.todo.utils.DisplayUtils
 
 
 class CriteriaAdapter(
@@ -36,10 +36,15 @@ class CriteriaAdapter(
         holder.tvCriteria.setCompoundDrawablesWithIntrinsicBounds(
             currentCriteria.iconResource, 0, 0, 0
         )
-        if (isLastItem(position)) {
+
+        if (currentCriteria.isSelected)
+            holder.ivSelectedStatus.visibility = View.VISIBLE
+        else
+            holder.ivSelectedStatus.visibility = View.GONE
+
+        if (isLastItem(position))
             hideDivider(holder)
-            updatePadding(holder)
-        }
+
         holder.itemView.setOnClickListener {
             selectedListener.onSelected(currentCriteria.title)
         }
@@ -48,14 +53,7 @@ class CriteriaAdapter(
     private fun isLastItem(position: Int) = position == itemCount - 1
 
     private fun hideDivider(holder: CriteriaViewHolder) {
-        holder.divider.visibility = View.GONE
-    }
-
-    private fun updatePadding(holder: CriteriaViewHolder) {
-        val eightDp = DisplayUtils.getDpValue(holder.itemView, 8f).toInt()
-        val sixteenDp = DisplayUtils.getDpValue(holder.itemView, 16f).toInt()
-        val thirtyTwoDp = DisplayUtils.getDpValue(holder.itemView, 32f).toInt()
-        holder.tvCriteria.setPadding(sixteenDp, eightDp, sixteenDp, thirtyTwoDp)
+        holder.divider.visibility = View.INVISIBLE
     }
 
     override fun getItemCount(): Int {
@@ -65,6 +63,7 @@ class CriteriaAdapter(
     class CriteriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val tvCriteria: TextView = itemView.findViewById(R.id.tv_criteria)
+        val ivSelectedStatus: ImageView = itemView.findViewById(R.id.iv_selected_status)
         val divider: View = itemView.findViewById(R.id.divider)
 
     }
