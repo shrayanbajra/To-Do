@@ -105,6 +105,7 @@ class MyTasksFragment : DaggerFragment() {
                     val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
                     mTasksAdapter.setTasks(sortedTasks)
 
+
                 } else if (title == getString(R.string.completed)) {
 
                     saveSortingCriteriaInSharedPref(sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED)
