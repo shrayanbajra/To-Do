@@ -1,6 +1,5 @@
 package com.example.todo.ui.mytasks
 
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
@@ -53,9 +52,8 @@ class MyTasksFragment : DaggerFragment() {
 
     private lateinit var mBtnAddTask: FloatingActionButton
 
-    private val mSharedPref: SharedPreferences? by lazy {
-        activity?.getSharedPreferences(Constants.PREF_MY_TASKS, MODE_PRIVATE)
-    }
+    @Inject
+    lateinit var mSharedPref: SharedPreferences
 
     @Inject
     lateinit var mProviderFactory: ViewModelProviderFactory
@@ -105,7 +103,6 @@ class MyTasksFragment : DaggerFragment() {
                     val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
                     mTasksAdapter.setTasks(sortedTasks)
 
-
                 } else if (title == getString(R.string.completed)) {
 
                     saveSortingCriteriaInSharedPref(sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED)
@@ -118,7 +115,7 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun saveSortingCriteriaInSharedPref(sortingCriteria: Constants.SortingCriteria) {
-        val editor = mSharedPref?.edit()
+        val editor = mSharedPref.edit()
         editor?.putString(Constants.KEY_SORTING_CRITERIA, sortingCriteria.value)
         editor?.apply()
     }
@@ -202,7 +199,7 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun getSortingOrderFromSharedPref(): Constants.SortingOrder {
-        val value = mSharedPref?.getString(
+        val value = mSharedPref.getString(
             Constants.KEY_SORTING_ORDER,
             Constants.SortingOrder.VALUE_ASCENDING.value
         )
@@ -230,7 +227,7 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun setSortingOrderFromSharedPref(sortingOrder: Constants.SortingOrder) {
-        val editor = mSharedPref?.edit()
+        val editor = mSharedPref.edit()
         editor?.putString(Constants.KEY_SORTING_ORDER, sortingOrder.value)
         editor?.apply()
     }
@@ -276,7 +273,7 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun getSortingCriterion(): String {
-        return mSharedPref?.getString(Constants.KEY_SORTING_CRITERIA, Constants.EMPTY_STRING)
+        return mSharedPref.getString(Constants.KEY_SORTING_CRITERIA, Constants.EMPTY_STRING)
             ?: Constants.EMPTY_STRING
     }
 
