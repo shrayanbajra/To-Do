@@ -23,8 +23,6 @@ import javax.inject.Inject
 
 class MyTasksFragment : DaggerFragment() {
 
-    private lateinit var mTvTasksTitle: TextView
-
     private lateinit var mTvSortingOrder: TextView
     private lateinit var mIvSortingOrderIcon: ImageView
 
@@ -98,17 +96,15 @@ class MyTasksFragment : DaggerFragment() {
 
                 if (title == getString(R.string.alphabetically)) {
 
-                    saveSortingCriteriaInSharedPref(sortingCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY)
-                    val sortingOrder = getSortingOrderFromSharedPref()
-                    val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
-                    mTasksAdapter.setTasks(sortedTasks)
+                    val sortingCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY
+                    saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
+                    sortTasks(sortingCriteria = sortingCriteria.value)
 
                 } else if (title == getString(R.string.completed)) {
 
-                    saveSortingCriteriaInSharedPref(sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED)
-                    val sortingOrder = getSortingOrderFromSharedPref()
-                    val sortedTasks = getTasksSortedByCompletionStatus(sortingOrder)
-                    mTasksAdapter.setTasks(sortedTasks)
+                    val sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED
+                    saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
+                    sortTasks(sortingCriteria = sortingCriteria.value)
 
                 }
 
@@ -159,8 +155,6 @@ class MyTasksFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mTvTasksTitle = view.findViewById(R.id.tv_tasks_title)
 
         mTvSortingOrder = view.findViewById(R.id.tv_tasks_sorting_order)
         mIvSortingOrderIcon = view.findViewById(R.id.iv_tasks_sorting_order_icon)
@@ -272,22 +266,26 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun hideMyTasksSection() {
-        mTvTasksTitle.visibility = View.GONE
+        mTvSortingOrder.visibility = View.GONE
+        mIvSortingOrderIcon.visibility = View.GONE
         mRvTasks.visibility = View.GONE
     }
 
     private fun showMyTasksSection() {
-        mTvTasksTitle.visibility = View.VISIBLE
+        mTvSortingOrder.visibility = View.VISIBLE
+        mIvSortingOrderIcon.visibility = View.VISIBLE
         mRvTasks.visibility = View.VISIBLE
     }
 
-    private fun sortTasks() {
-        val sortingCriterion = getSortingCriterion()
+    private fun sortTasks(sortingCriteria: String? = null) {
+        val sortingCriterion = sortingCriteria ?: getSortingCriterion()
         if (sortingCriterion == Constants.SortingCriteria.VALUE_ALPHABETICALLY.value) {
 
             val sortingOrder = getSortingOrderFromSharedPref()
             val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
             mTasksAdapter.setTasks(sortedTasks)
+
+            updateTvSortingOrder(text = getString(R.string.sorted_alphabetically))
 
         } else if (sortingCriterion == Constants.SortingCriteria.VALUE_COMPLETED.value) {
 
@@ -295,13 +293,18 @@ class MyTasksFragment : DaggerFragment() {
             val sortedTasks = getTasksSortedByCompletionStatus(sortingOrder)
             mTasksAdapter.setTasks(sortedTasks)
 
-        }
+            updateTvSortingOrder(text = getString(R.string.sorted_by_completion_status))
 
+        }
     }
 
     private fun getSortingCriterion(): String {
         return mSharedPref.getString(Constants.KEY_SORTING_CRITERIA, Constants.EMPTY_STRING)
             ?: Constants.EMPTY_STRING
+    }
+
+    private fun updateTvSortingOrder(text: String) {
+        mTvSortingOrder.text = text
     }
 
     private fun btnAddTaskListener() {

@@ -32,5 +32,6 @@
     <string name="sorted_alphabetically">Sorted alphabetically</string>
     <string name="arrow_icon">Arrow icon</string>
     <string name="selected_status">Selected status</string>
+    <string name="sorted_by_completion_status">Sorted by completion status</string>
 
 </resources>

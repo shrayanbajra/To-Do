@@ -11,46 +11,36 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_tasks_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:text="@string/tasks"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <TextView
             android:id="@+id/tv_tasks_sorting_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="4dp"
+            android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/iv_tasks_sorting_order_icon"
-            android:layout_toEndOf="@id/tv_tasks_title"
             android:gravity="end|center_vertical"
-            android:text="@string/sorted_alphabetically"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textSize="14sp"
+            tools:text="@string/sorted_alphabetically" />
 
         <ImageView
             android:id="@+id/iv_tasks_sorting_order_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
             android:layout_alignTop="@id/tv_tasks_sorting_order"
             android:layout_alignBottom="@id/tv_tasks_sorting_order"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_arrow_up"
-            android:contentDescription="@string/arrow_icon" />
+            android:contentDescription="@string/arrow_icon"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:src="@drawable/ic_arrow_up" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_remaining_tasks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tv_tasks_title"
+            android:layout_below="@id/tv_tasks_sorting_order"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="4dp" />
