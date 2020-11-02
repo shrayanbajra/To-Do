@@ -41,7 +41,7 @@ class TaskDaoTest {
     }
 
     @Test
-    fun insertTask() = runBlockingTest {
+    fun insert() = runBlockingTest {
 
         val task = TaskEntity(
             status = TaskStatus.NOT_DONE.value,
@@ -57,7 +57,81 @@ class TaskDaoTest {
     }
 
     @Test
-    fun deleteTask() = runBlockingTest {
+    fun update() = runBlockingTest {
+
+        val commonId = 10
+
+        val task = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = "Learn testing",
+            description = "Learn unit testing"
+        )
+        task.id = commonId
+        taskDao.insert(task)
+
+        val modifiedTask = TaskEntity(
+            status = TaskStatus.DONE.value,
+            title = "Learn testing",
+            description = "Learn unit testing and integration testing"
+        )
+        modifiedTask.id = commonId
+        taskDao.update(modifiedTask)
+
+        val retrievedTask = taskDao.get(commonId)
+
+        assertThat(retrievedTask).isEqualTo(modifiedTask)
+
+    }
+
+    @Test
+    fun get() = runBlockingTest {
+
+        val taskId = 10
+        val task = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = "Learn testing",
+            description = "Learn unit testing"
+        )
+        task.id = taskId
+        taskDao.insert(task)
+
+        val retrievedTask = taskDao.get(taskId)
+
+        assertThat(retrievedTask).isEqualTo(task)
+
+    }
+
+    @Test
+    fun getAll() = runBlockingTest {
+
+        val firstId = 1
+        val task1 = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = "Learn testing",
+            description = "Learn unit testing"
+        )
+        task1.id = firstId
+        taskDao.insert(task1)
+
+        val secondId = 2
+        val task2 = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = "Learn testing",
+            description = "Learn unit testing"
+        )
+        task2.id = secondId
+        taskDao.insert(task2)
+
+        val allTasks = taskDao.getAll().getOrAwaitValue().toMutableList()
+        allTasks.remove(task1)
+        allTasks.remove(task2)
+
+        assertThat(allTasks).isEmpty()
+
+    }
+
+    @Test
+    fun delete() = runBlockingTest {
 
         val task = TaskEntity(
             status = TaskStatus.NOT_DONE.value,
