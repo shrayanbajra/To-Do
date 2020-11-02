@@ -106,6 +106,9 @@ class MyTasksFragment : DaggerFragment() {
                 } else if (title == getString(R.string.completed)) {
 
                     saveSortingCriteriaInSharedPref(sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED)
+                    val sortingOrder = getSortingOrderFromSharedPref()
+                    val sortedTasks = getTasksSortedByCompletionStatus(sortingOrder)
+                    mTasksAdapter.setTasks(sortedTasks)
 
                 }
 
@@ -132,6 +135,23 @@ class MyTasksFragment : DaggerFragment() {
                 firstTitle.compareTo(secondTitle)
             else
                 secondTitle.compareTo(firstTitle)
+
+        }
+        return tasks
+    }
+
+    private fun getTasksSortedByCompletionStatus(sortingOrder: Constants.SortingOrder = Constants.SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
+        val tasks = mTasksAdapter.getTasks().toMutableList()
+        tasks.sortWith { task1, task2 ->
+
+            val firstTaskStatus = task1.isTaskDone()
+            val secondTaskStatus = task2.isTaskDone()
+
+            val isAscending = sortingOrder == Constants.SortingOrder.VALUE_ASCENDING
+            if (isAscending)
+                firstTaskStatus.compareTo(secondTaskStatus)
+            else
+                secondTaskStatus.compareTo(firstTaskStatus)
 
         }
         return tasks
@@ -269,7 +289,14 @@ class MyTasksFragment : DaggerFragment() {
             val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
             mTasksAdapter.setTasks(sortedTasks)
 
+        } else if (sortingCriterion == Constants.SortingCriteria.VALUE_COMPLETED.value) {
+
+            val sortingOrder = getSortingOrderFromSharedPref()
+            val sortedTasks = getTasksSortedByCompletionStatus(sortingOrder)
+            mTasksAdapter.setTasks(sortedTasks)
+
         }
+
     }
 
     private fun getSortingCriterion(): String {
