@@ -5,10 +5,14 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.todo.db.TodoDatabase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class TaskDaoTest {
@@ -27,6 +31,18 @@ class TaskDaoTest {
     @After
     fun tearDown() {
         database.close()
+    }
+
+    @Test
+    fun insertTask() = runBlockingTest {
+
+        val task = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = "Take steam",
+            description = "Take hot water steam"
+        )
+        taskDao.insert(task)
+
     }
 
 }
