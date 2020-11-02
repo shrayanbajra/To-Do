@@ -56,4 +56,23 @@ class TaskDaoTest {
 
     }
 
+    @Test
+    fun deleteTask() = runBlockingTest {
+
+        val task = TaskEntity(
+            status = TaskStatus.NOT_DONE.value,
+            title = "Take steam",
+            description = "Take hot water steam"
+        )
+        task.id = 1
+        taskDao.insert(task)
+
+        taskDao.delete(task.id)
+
+        val allTasks = taskDao.getAll().getOrAwaitValue()
+
+        assertThat(allTasks).doesNotContain(task)
+
+    }
+
 }
