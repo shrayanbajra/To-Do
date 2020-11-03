@@ -13,12 +13,12 @@ class NavHostActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initToolbar()
+        setupToolbar()
         enableNavigateUp()
 
     }
 
-    private fun initToolbar() {
+    private fun setupToolbar() {
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
     }

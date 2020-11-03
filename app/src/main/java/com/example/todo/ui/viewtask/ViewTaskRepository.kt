@@ -8,8 +8,8 @@ constructor(
     private val taskDao: TaskDao
 ) {
 
-    suspend fun getTask(id: Int): TaskEntity? {
-        return taskDao.get(id)
+    suspend fun getTask(taskId: Int): TaskEntity? {
+        return taskDao.get(taskId)
     }
 
     suspend fun updateTask(task: TaskEntity) {

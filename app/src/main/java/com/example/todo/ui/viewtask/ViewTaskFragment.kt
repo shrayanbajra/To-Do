@@ -74,11 +74,11 @@ class ViewTaskFragment : DaggerFragment() {
             if (task == null)
                 shortSnackbar(getString(R.string.couldnt_get_task_details))
             else
-                populateEditTexts(task)
+                setValuesInTitleAndDescription(task)
         })
     }
 
-    private fun populateEditTexts(task: TaskEntity) {
+    private fun setValuesInTitleAndDescription(task: TaskEntity) {
         etTaskTitle.setText(task.title)
         etTaskDescription.setText(task.description)
     }

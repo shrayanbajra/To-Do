@@ -18,10 +18,10 @@ constructor(
 
     private val repository = ViewTaskRepository(taskDao)
 
-    fun getTask(id: Int): LiveData<TaskEntity?> {
+    fun getTask(taskId: Int): LiveData<TaskEntity?> {
         val task = SingleEventLiveData<TaskEntity>()
         viewModelScope.launch(IO) {
-            task.postValue(repository.getTask(id))
+            task.postValue(repository.getTask(taskId))
         }
         return task
     }
