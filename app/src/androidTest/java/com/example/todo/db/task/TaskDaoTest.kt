@@ -45,8 +45,8 @@ class TaskDaoTest {
 
         val task = TaskEntity(
             status = TaskStatus.NOT_DONE.value,
-            title = "Take steam",
-            description = "Take hot water steam"
+            title = "Learn testing",
+            description = "Learn unit testing"
         )
         taskDao.insert(task)
 
@@ -135,8 +135,8 @@ class TaskDaoTest {
 
         val task = TaskEntity(
             status = TaskStatus.NOT_DONE.value,
-            title = "Take steam",
-            description = "Take hot water steam"
+            title = "Learn testing",
+            description = "Learn unit testing"
         )
         task.id = 1
         taskDao.insert(task)

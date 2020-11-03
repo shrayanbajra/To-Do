@@ -18,7 +18,7 @@
         android:paddingBottom="8dp"
         android:text="@string/alphabetically"
         android:textColor="@color/grey_700"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:drawableStartCompat="@drawable/ic_sort_alphabetically" />
 
     <ImageView
