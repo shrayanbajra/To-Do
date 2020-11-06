@@ -14,9 +14,11 @@ import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.ui.addtask.AddTaskBottomSheet
-import com.example.todo.ui.mytasks.sortbybottomsheet.OnCriteriaSelectedListener
+import com.example.todo.ui.mytasks.sortbybottomsheet.CriteriaAdapter
 import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
 import com.example.todo.utils.Constants
+import com.example.todo.utils.SortingCriteria
+import com.example.todo.utils.SortingOrder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -89,29 +91,29 @@ class MyTasksFragment : DaggerFragment() {
         sortByBottomSheet.show(activity?.supportFragmentManager!!, sortByBottomSheet.tag)
     }
 
-    private fun getOnCriteriaSelectedListener(): OnCriteriaSelectedListener {
-        return object : OnCriteriaSelectedListener {
+    private fun getOnCriteriaSelectedListener(): CriteriaAdapter.OnCriteriaSelectedListener {
+        return object : CriteriaAdapter.OnCriteriaSelectedListener {
 
             override fun onSelected(title: String) {
 
                 when (title) {
                     getString(R.string.alphabetically) -> {
 
-                        val sortingCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY
+                        val sortingCriteria = SortingCriteria.VALUE_ALPHABETICALLY
                         saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
                         sortTasks(sortingCriteria = sortingCriteria.value)
 
                     }
                     getString(R.string.completed) -> {
 
-                        val sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED
+                        val sortingCriteria = SortingCriteria.VALUE_COMPLETED
                         saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
                         sortTasks(sortingCriteria = sortingCriteria.value)
 
                     }
                     getString(R.string.date_added) -> {
 
-                        val sortingCriteria = Constants.SortingCriteria.VALUE_DATE_ADDED
+                        val sortingCriteria = SortingCriteria.VALUE_DATE_ADDED
                         saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
                         sortTasks(sortingCriteria = sortingCriteria.value)
 
@@ -123,20 +125,20 @@ class MyTasksFragment : DaggerFragment() {
         }
     }
 
-    private fun saveSortingCriteriaInSharedPref(sortingCriteria: Constants.SortingCriteria) {
+    private fun saveSortingCriteriaInSharedPref(sortingCriteria: SortingCriteria) {
         val editor = mSharedPref.edit()
         editor?.putString(Constants.KEY_SORTING_CRITERIA, sortingCriteria.value)
         editor?.apply()
     }
 
-    private fun getAlphabeticallySortedTasks(sortingOrder: Constants.SortingOrder = Constants.SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
+    private fun getAlphabeticallySortedTasks(sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
         val tasks = mTasksAdapter.getTasks().toMutableList()
         tasks.sortWith { task1, task2 ->
 
             val firstTitle = task1.title
             val secondTitle = task2.title
 
-            val isAscending = sortingOrder == Constants.SortingOrder.VALUE_ASCENDING
+            val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
             if (isAscending)
                 firstTitle.compareTo(secondTitle)
             else
@@ -146,14 +148,14 @@ class MyTasksFragment : DaggerFragment() {
         return tasks
     }
 
-    private fun getTasksSortedByCompletionStatus(sortingOrder: Constants.SortingOrder = Constants.SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
+    private fun getTasksSortedByCompletionStatus(sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
         val tasks = mTasksAdapter.getTasks().toMutableList()
         tasks.sortWith { task1, task2 ->
 
             val firstTaskStatus = task1.isTaskDone()
             val secondTaskStatus = task2.isTaskDone()
 
-            val isAscending = sortingOrder == Constants.SortingOrder.VALUE_ASCENDING
+            val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
             if (isAscending)
                 firstTaskStatus.compareTo(secondTaskStatus)
             else
@@ -163,14 +165,14 @@ class MyTasksFragment : DaggerFragment() {
         return tasks
     }
 
-    private fun getTasksSortedByDateAdded(sortingOrder: Constants.SortingOrder = Constants.SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
+    private fun getTasksSortedByDateAdded(sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
         val tasks = mTasksAdapter.getTasks().toMutableList()
         tasks.sortWith { task1, task2 ->
 
             val firstTaskAddedDate = task1.dateAdded
             val secondTaskAddedDate = task2.dateAdded
 
-            val isAscending = sortingOrder == Constants.SortingOrder.VALUE_ASCENDING
+            val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
             if (isAscending)
                 firstTaskAddedDate.compareTo(secondTaskAddedDate)
             else
@@ -213,8 +215,8 @@ class MyTasksFragment : DaggerFragment() {
         btnAddTaskListener()
     }
 
-    private fun updateSortingOrderIcon(sortingOrder: Constants.SortingOrder) {
-        val imageResource: Int = if (sortingOrder == Constants.SortingOrder.VALUE_ASCENDING)
+    private fun updateSortingOrderIcon(sortingOrder: SortingOrder) {
+        val imageResource: Int = if (sortingOrder == SortingOrder.VALUE_ASCENDING)
             R.drawable.ic_arrow_up
         else
             R.drawable.ic_arrow_down
@@ -239,35 +241,35 @@ class MyTasksFragment : DaggerFragment() {
 
     }
 
-    private fun getSortingOrderFromSharedPref(): Constants.SortingOrder {
+    private fun getSortingOrderFromSharedPref(): SortingOrder {
         val value = mSharedPref.getString(
             Constants.KEY_SORTING_ORDER,
-            Constants.SortingOrder.VALUE_ASCENDING.value
+            SortingOrder.VALUE_ASCENDING.value
         )
-            ?: Constants.SortingOrder.VALUE_ASCENDING.value
+            ?: SortingOrder.VALUE_ASCENDING.value
 
-        val isAscending = value == Constants.SortingOrder.VALUE_ASCENDING.value
+        val isAscending = value == SortingOrder.VALUE_ASCENDING.value
         return if (isAscending)
-            Constants.SortingOrder.VALUE_ASCENDING
+            SortingOrder.VALUE_ASCENDING
         else
-            Constants.SortingOrder.VALUE_DESCENDING
+            SortingOrder.VALUE_DESCENDING
 
     }
 
-    private fun getToggledSortingOrder(sortingOrder: Constants.SortingOrder): Constants.SortingOrder {
-        val isAscending = sortingOrder == Constants.SortingOrder.VALUE_ASCENDING
+    private fun getToggledSortingOrder(sortingOrder: SortingOrder): SortingOrder {
+        val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
         return if (isAscending) {
 
-            Constants.SortingOrder.VALUE_DESCENDING
+            SortingOrder.VALUE_DESCENDING
 
         } else {
 
-            Constants.SortingOrder.VALUE_ASCENDING
+            SortingOrder.VALUE_ASCENDING
 
         }
     }
 
-    private fun setSortingOrderFromSharedPref(sortingOrder: Constants.SortingOrder) {
+    private fun setSortingOrderFromSharedPref(sortingOrder: SortingOrder) {
         val editor = mSharedPref.edit()
         editor?.putString(Constants.KEY_SORTING_ORDER, sortingOrder.value)
         editor?.apply()
@@ -306,7 +308,7 @@ class MyTasksFragment : DaggerFragment() {
 
     private fun sortTasks(sortingCriteria: String? = null) {
         when (sortingCriteria ?: getSortingCriterion()) {
-            Constants.SortingCriteria.VALUE_ALPHABETICALLY.value -> {
+            SortingCriteria.VALUE_ALPHABETICALLY.value -> {
 
                 val sortingOrder = getSortingOrderFromSharedPref()
                 val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
@@ -315,7 +317,7 @@ class MyTasksFragment : DaggerFragment() {
                 updateTvSortingOrder(text = getString(R.string.sorted_alphabetically))
 
             }
-            Constants.SortingCriteria.VALUE_COMPLETED.value -> {
+            SortingCriteria.VALUE_COMPLETED.value -> {
 
                 val sortingOrder = getSortingOrderFromSharedPref()
                 val sortedTasks = getTasksSortedByCompletionStatus(sortingOrder)
@@ -324,7 +326,7 @@ class MyTasksFragment : DaggerFragment() {
                 updateTvSortingOrder(text = getString(R.string.sorted_by_completion_status))
 
             }
-            Constants.SortingCriteria.VALUE_DATE_ADDED.value -> {
+            SortingCriteria.VALUE_DATE_ADDED.value -> {
 
                 val sortingOrder = getSortingOrderFromSharedPref()
                 val sortedTasks = getTasksSortedByDateAdded(sortingOrder)

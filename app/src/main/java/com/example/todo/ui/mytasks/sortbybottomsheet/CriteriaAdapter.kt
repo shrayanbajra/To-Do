@@ -60,12 +60,16 @@ class CriteriaAdapter(
         return criteria.size
     }
 
-    class CriteriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CriteriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val tvCriteria: TextView = itemView.findViewById(R.id.tv_criteria)
         val ivSelectedStatus: ImageView = itemView.findViewById(R.id.iv_selected_status)
         val divider: View = itemView.findViewById(R.id.divider)
 
+    }
+
+    interface OnCriteriaSelectedListener {
+        fun onSelected(title: String)
     }
 
 }

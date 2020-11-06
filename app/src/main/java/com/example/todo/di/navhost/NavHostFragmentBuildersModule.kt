@@ -1,8 +1,10 @@
 package com.example.todo.di.navhost
 
 import com.example.todo.di.navhost.mytasks.MyTasksFragmentModule
+import com.example.todo.di.navhost.sortby.SortByBottomSheetModule
 import com.example.todo.ui.addtask.AddTaskBottomSheet
 import com.example.todo.ui.mytasks.MyTasksFragment
+import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
 import com.example.todo.ui.viewtask.ViewTaskFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,5 +20,8 @@ abstract class NavHostFragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeAddTaskBottomSheet(): AddTaskBottomSheet
+
+    @ContributesAndroidInjector(modules = [SortByBottomSheetModule::class])
+    abstract fun contributeSortByBottomSheet(): SortByBottomSheet
 
 }

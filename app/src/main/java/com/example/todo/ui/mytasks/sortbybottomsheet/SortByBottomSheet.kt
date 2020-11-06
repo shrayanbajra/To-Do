@@ -12,16 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.data.Criteria
 import com.example.todo.utils.Constants
+import com.example.todo.utils.SortingCriteria
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
-class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener) :
+class SortByBottomSheet(
+    private val selectedListener: CriteriaAdapter.OnCriteriaSelectedListener
+) :
     BottomSheetDialogFragment() {
 
     private lateinit var mRvCriteria: RecyclerView
     private val mCriteriaAdapter = CriteriaAdapter(getOnCriteriaSelectedListener())
 
-    private fun getOnCriteriaSelectedListener(): OnCriteriaSelectedListener {
-        return object : OnCriteriaSelectedListener {
+    private fun getOnCriteriaSelectedListener(): CriteriaAdapter.OnCriteriaSelectedListener {
+        return object : CriteriaAdapter.OnCriteriaSelectedListener {
 
             override fun onSelected(title: String) {
                 selectedListener.onSelected(title)
@@ -33,15 +38,19 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
 
     private lateinit var mIvClose: ImageView
 
-    private val mSharedPref: SharedPreferences? by lazy {
-        activity?.getSharedPreferences(Constants.PREF_MY_TASKS, Context.MODE_PRIVATE)
-    }
+    @Inject
+    lateinit var mSharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.bottom_sheet_sort_by, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun getTheme(): Int {
@@ -78,17 +87,17 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
         dialog?.dismiss()
     }
 
-    private fun getSortingCriteriaFromSharedPref(): Constants.SortingCriteria {
+    private fun getSortingCriteriaFromSharedPref(): SortingCriteria {
 
-        val defaultCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
+        val defaultCriteria = SortingCriteria.VALUE_ALPHABETICALLY.value
         val value = mSharedPref?.getString(Constants.KEY_SORTING_CRITERIA, defaultCriteria)
             ?: defaultCriteria
 
-        val defaultValue = Constants.SortingCriteria.VALUE_ALPHABETICALLY
+        val defaultValue = SortingCriteria.VALUE_ALPHABETICALLY
         return when (value) {
-            Constants.SortingCriteria.VALUE_ALPHABETICALLY.value -> Constants.SortingCriteria.VALUE_ALPHABETICALLY
-            Constants.SortingCriteria.VALUE_COMPLETED.value -> Constants.SortingCriteria.VALUE_COMPLETED
-            Constants.SortingCriteria.VALUE_DATE_ADDED.value -> Constants.SortingCriteria.VALUE_DATE_ADDED
+            SortingCriteria.VALUE_ALPHABETICALLY.value -> SortingCriteria.VALUE_ALPHABETICALLY
+            SortingCriteria.VALUE_COMPLETED.value -> SortingCriteria.VALUE_COMPLETED
+            SortingCriteria.VALUE_DATE_ADDED.value -> SortingCriteria.VALUE_DATE_ADDED
             else -> defaultValue
         }
 
@@ -96,24 +105,24 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
 
     private fun getCriteria(): List<Criteria> {
         val criteria1 = Criteria(
-            isSelected = getSelectedStatus(criteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY),
+            isSelected = getSelectedStatus(criteria = SortingCriteria.VALUE_ALPHABETICALLY),
             iconResource = R.drawable.ic_sort_alphabetically,
             title = getString(R.string.alphabetically)
         )
         val criteria2 = Criteria(
-            isSelected = getSelectedStatus(criteria = Constants.SortingCriteria.VALUE_COMPLETED),
+            isSelected = getSelectedStatus(criteria = SortingCriteria.VALUE_COMPLETED),
             iconResource = R.drawable.ic_circle_pressed,
             title = getString(R.string.completed)
         )
         val criteria3 = Criteria(
-            isSelected = getSelectedStatus(criteria = Constants.SortingCriteria.VALUE_DATE_ADDED),
+            isSelected = getSelectedStatus(criteria = SortingCriteria.VALUE_DATE_ADDED),
             iconResource = R.drawable.ic_circle_pressed,
             title = getString(R.string.date_added)
         )
         return listOf(criteria1, criteria2, criteria3)
     }
 
-    private fun getSelectedStatus(criteria: Constants.SortingCriteria): Boolean {
+    private fun getSelectedStatus(criteria: SortingCriteria): Boolean {
         val sortingCriteria = getSortingCriteriaFromSharedPref()
         return sortingCriteria == criteria
     }
