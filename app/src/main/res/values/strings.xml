@@ -35,5 +35,6 @@
     <string name="selected_status">Selected status</string>
     <string name="sorted_by_completion_status">Sorted by completion status</string>
     <string name="sorted_by_added_date">Sorted by added date</string>
+    <string name="icon_for_options_in_sort_by_bottom_sheet">Icon for options in sort by bottom sheet</string>
 
 </resources>

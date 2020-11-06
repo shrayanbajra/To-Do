@@ -30,30 +30,10 @@ class CriteriaAdapter(
     }
 
     override fun onBindViewHolder(holder: CriteriaViewHolder, position: Int) {
+
         val currentCriteria = criteria[position]
+        holder.bind(currentCriteria)
 
-        holder.tvCriteria.text = currentCriteria.title
-        holder.tvCriteria.setCompoundDrawablesWithIntrinsicBounds(
-            currentCriteria.iconResource, 0, 0, 0
-        )
-
-        if (currentCriteria.isSelected)
-            holder.ivSelectedStatus.visibility = View.VISIBLE
-        else
-            holder.ivSelectedStatus.visibility = View.GONE
-
-        if (isLastItem(position))
-            hideDivider(holder)
-
-        holder.itemView.setOnClickListener {
-            selectedListener.onSelected(currentCriteria.title)
-        }
-    }
-
-    private fun isLastItem(position: Int) = position == itemCount - 1
-
-    private fun hideDivider(holder: CriteriaViewHolder) {
-        holder.divider.visibility = View.INVISIBLE
     }
 
     override fun getItemCount(): Int {
@@ -62,9 +42,38 @@ class CriteriaAdapter(
 
     inner class CriteriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val tvCriteria: TextView = itemView.findViewById(R.id.tv_criteria)
-        val ivSelectedStatus: ImageView = itemView.findViewById(R.id.iv_selected_status)
-        val divider: View = itemView.findViewById(R.id.divider)
+        private val ivIcon: ImageView = itemView.findViewById(R.id.iv_icon)
+        private val tvCriteria: TextView = itemView.findViewById(R.id.tv_criteria)
+        private val ivSelectedStatus: ImageView = itemView.findViewById(R.id.iv_selected_status)
+        private val divider: View = itemView.findViewById(R.id.divider)
+
+        fun bind(currentCriteria: Criteria) {
+
+            ivIcon.setImageResource(currentCriteria.iconResource)
+            tvCriteria.text = currentCriteria.title
+
+            if (currentCriteria.isSelected) showTickMark()
+            else hideTickMark()
+
+            if (isLastItem(adapterPosition)) hideDivider()
+
+            itemView.setOnClickListener { selectedListener.onSelected(currentCriteria.title) }
+
+        }
+
+        private fun showTickMark() {
+            ivSelectedStatus.visibility = View.VISIBLE
+        }
+
+        private fun hideTickMark() {
+            ivSelectedStatus.visibility = View.GONE
+        }
+
+        private fun isLastItem(position: Int) = position == itemCount - 1
+
+        private fun hideDivider() {
+            divider.visibility = View.INVISIBLE
+        }
 
     }
 

@@ -89,16 +89,15 @@ class SortByBottomSheet(
 
     private fun getSortingCriteriaFromSharedPref(): SortingCriteria {
 
-        val defaultCriteria = SortingCriteria.VALUE_ALPHABETICALLY.value
-        val value = mSharedPref?.getString(Constants.KEY_SORTING_CRITERIA, defaultCriteria)
-            ?: defaultCriteria
+        val defaultCriteria = SortingCriteria.VALUE_ALPHABETICALLY
 
-        val defaultValue = SortingCriteria.VALUE_ALPHABETICALLY
+        val value = mSharedPref.getString(Constants.KEY_SORTING_CRITERIA, defaultCriteria.value)
+            ?: defaultCriteria.value
         return when (value) {
             SortingCriteria.VALUE_ALPHABETICALLY.value -> SortingCriteria.VALUE_ALPHABETICALLY
             SortingCriteria.VALUE_COMPLETED.value -> SortingCriteria.VALUE_COMPLETED
             SortingCriteria.VALUE_DATE_ADDED.value -> SortingCriteria.VALUE_DATE_ADDED
-            else -> defaultValue
+            else -> defaultCriteria
         }
 
     }
@@ -116,7 +115,7 @@ class SortByBottomSheet(
         )
         val criteria3 = Criteria(
             isSelected = getSelectedStatus(criteria = SortingCriteria.VALUE_DATE_ADDED),
-            iconResource = R.drawable.ic_circle_pressed,
+            iconResource = R.drawable.ic_add_to_calendar,
             title = getString(R.string.date_added)
         )
         return listOf(criteria1, criteria2, criteria3)
