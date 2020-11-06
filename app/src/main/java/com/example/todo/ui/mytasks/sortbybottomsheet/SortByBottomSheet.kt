@@ -79,11 +79,11 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
     }
 
     private fun getSortingCriteriaFromSharedPref(): Constants.SortingCriteria {
+
+        val defaultSortingCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
         val value = mSharedPref?.getString(
-            Constants.KEY_SORTING_CRITERIA,
-            Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
-        )
-            ?: Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
+            Constants.KEY_SORTING_CRITERIA, defaultSortingCriteria
+        ) ?: defaultSortingCriteria
 
         val isAlphabeticallySelected = value == Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
         return if (isAlphabeticallySelected)
@@ -104,7 +104,12 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
             iconResource = R.drawable.ic_circle_pressed,
             title = getString(R.string.completed)
         )
-        return listOf(criteria1, criteria2)
+        val criteria3 = Criteria(
+            isSelected = getSelectedStatus(criteria = Constants.SortingCriteria.VALUE_DATE_ADDED),
+            iconResource = R.drawable.ic_circle_pressed,
+            title = getString(R.string.date_added)
+        )
+        return listOf(criteria1, criteria2, criteria3)
     }
 
     private fun getSelectedStatus(criteria: Constants.SortingCriteria): Boolean {
