@@ -14,7 +14,10 @@ data class TaskEntity(
     var title: String = "",
 
     @ColumnInfo(name = "Task Description")
-    var description: String = ""
+    var description: String = "",
+
+    @ColumnInfo(name = "Date Added")
+    var dateAdded: Long = 0L
 
 ) {
 

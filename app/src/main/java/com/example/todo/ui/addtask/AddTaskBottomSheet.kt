@@ -113,7 +113,8 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         val task = TaskEntity(
             status = TaskStatus.NOT_DONE.value,
             title = title,
-            description = description
+            description = description,
+            dateAdded = System.currentTimeMillis()
         )
         viewModel.insertTask(task)
     }
