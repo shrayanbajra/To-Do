@@ -80,16 +80,17 @@ class SortByBottomSheet(private val selectedListener: OnCriteriaSelectedListener
 
     private fun getSortingCriteriaFromSharedPref(): Constants.SortingCriteria {
 
-        val defaultSortingCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
-        val value = mSharedPref?.getString(
-            Constants.KEY_SORTING_CRITERIA, defaultSortingCriteria
-        ) ?: defaultSortingCriteria
+        val defaultCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
+        val value = mSharedPref?.getString(Constants.KEY_SORTING_CRITERIA, defaultCriteria)
+            ?: defaultCriteria
 
-        val isAlphabeticallySelected = value == Constants.SortingCriteria.VALUE_ALPHABETICALLY.value
-        return if (isAlphabeticallySelected)
-            Constants.SortingCriteria.VALUE_ALPHABETICALLY
-        else
-            Constants.SortingCriteria.VALUE_COMPLETED
+        val defaultValue = Constants.SortingCriteria.VALUE_ALPHABETICALLY
+        return when (value) {
+            Constants.SortingCriteria.VALUE_ALPHABETICALLY.value -> Constants.SortingCriteria.VALUE_ALPHABETICALLY
+            Constants.SortingCriteria.VALUE_COMPLETED.value -> Constants.SortingCriteria.VALUE_COMPLETED
+            Constants.SortingCriteria.VALUE_DATE_ADDED.value -> Constants.SortingCriteria.VALUE_DATE_ADDED
+            else -> defaultValue
+        }
 
     }
 

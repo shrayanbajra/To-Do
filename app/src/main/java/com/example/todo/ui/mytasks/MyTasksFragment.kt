@@ -94,18 +94,28 @@ class MyTasksFragment : DaggerFragment() {
 
             override fun onSelected(title: String) {
 
-                if (title == getString(R.string.alphabetically)) {
+                when (title) {
+                    getString(R.string.alphabetically) -> {
 
-                    val sortingCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY
-                    saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
-                    sortTasks(sortingCriteria = sortingCriteria.value)
+                        val sortingCriteria = Constants.SortingCriteria.VALUE_ALPHABETICALLY
+                        saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
+                        sortTasks(sortingCriteria = sortingCriteria.value)
 
-                } else if (title == getString(R.string.completed)) {
+                    }
+                    getString(R.string.completed) -> {
 
-                    val sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED
-                    saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
-                    sortTasks(sortingCriteria = sortingCriteria.value)
+                        val sortingCriteria = Constants.SortingCriteria.VALUE_COMPLETED
+                        saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
+                        sortTasks(sortingCriteria = sortingCriteria.value)
 
+                    }
+                    getString(R.string.date_added) -> {
+
+                        val sortingCriteria = Constants.SortingCriteria.VALUE_DATE_ADDED
+                        saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
+                        sortTasks(sortingCriteria = sortingCriteria.value)
+
+                    }
                 }
 
             }
@@ -148,6 +158,23 @@ class MyTasksFragment : DaggerFragment() {
                 firstTaskStatus.compareTo(secondTaskStatus)
             else
                 secondTaskStatus.compareTo(firstTaskStatus)
+
+        }
+        return tasks
+    }
+
+    private fun getTasksSortedByDateAdded(sortingOrder: Constants.SortingOrder = Constants.SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
+        val tasks = mTasksAdapter.getTasks().toMutableList()
+        tasks.sortWith { task1, task2 ->
+
+            val firstTaskAddedDate = task1.dateAdded
+            val secondTaskAddedDate = task2.dateAdded
+
+            val isAscending = sortingOrder == Constants.SortingOrder.VALUE_ASCENDING
+            if (isAscending)
+                firstTaskAddedDate.compareTo(secondTaskAddedDate)
+            else
+                secondTaskAddedDate.compareTo(firstTaskAddedDate)
 
         }
         return tasks
@@ -278,23 +305,34 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun sortTasks(sortingCriteria: String? = null) {
-        val sortingCriterion = sortingCriteria ?: getSortingCriterion()
-        if (sortingCriterion == Constants.SortingCriteria.VALUE_ALPHABETICALLY.value) {
+        when (sortingCriteria ?: getSortingCriterion()) {
+            Constants.SortingCriteria.VALUE_ALPHABETICALLY.value -> {
 
-            val sortingOrder = getSortingOrderFromSharedPref()
-            val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
-            mTasksAdapter.setTasks(sortedTasks)
+                val sortingOrder = getSortingOrderFromSharedPref()
+                val sortedTasks = getAlphabeticallySortedTasks(sortingOrder)
+                mTasksAdapter.setTasks(sortedTasks)
 
-            updateTvSortingOrder(text = getString(R.string.sorted_alphabetically))
+                updateTvSortingOrder(text = getString(R.string.sorted_alphabetically))
 
-        } else if (sortingCriterion == Constants.SortingCriteria.VALUE_COMPLETED.value) {
+            }
+            Constants.SortingCriteria.VALUE_COMPLETED.value -> {
 
-            val sortingOrder = getSortingOrderFromSharedPref()
-            val sortedTasks = getTasksSortedByCompletionStatus(sortingOrder)
-            mTasksAdapter.setTasks(sortedTasks)
+                val sortingOrder = getSortingOrderFromSharedPref()
+                val sortedTasks = getTasksSortedByCompletionStatus(sortingOrder)
+                mTasksAdapter.setTasks(sortedTasks)
 
-            updateTvSortingOrder(text = getString(R.string.sorted_by_completion_status))
+                updateTvSortingOrder(text = getString(R.string.sorted_by_completion_status))
 
+            }
+            Constants.SortingCriteria.VALUE_DATE_ADDED.value -> {
+
+                val sortingOrder = getSortingOrderFromSharedPref()
+                val sortedTasks = getTasksSortedByDateAdded(sortingOrder)
+                mTasksAdapter.setTasks(sortedTasks)
+
+                updateTvSortingOrder(text = getString(R.string.sorted_by_added_date))
+
+            }
         }
     }
 
