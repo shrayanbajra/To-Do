@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -11,13 +12,15 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
-        tools:src="@drawable/ic_add_to_calendar"
-        android:contentDescription="@string/icon_for_options_in_sort_by_bottom_sheet" />
+        android:contentDescription="@string/icon_for_options_in_sort_by_bottom_sheet"
+        app:tint="@color/grey_700"
+        tools:src="@drawable/ic_add_to_calendar" />
 
     <TextView
         android:id="@+id/tv_criteria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_icon"
         android:gravity="center_vertical"
         android:minHeight="36dp"
         android:paddingStart="8dp"
@@ -26,7 +29,6 @@
         android:paddingBottom="8dp"
         android:text="@string/alphabetically"
         android:textColor="@color/grey_700"
-        android:layout_toEndOf="@id/iv_icon"
         android:textSize="14sp" />
 
     <ImageView
@@ -41,6 +43,7 @@
         android:paddingEnd="16dp"
         android:src="@drawable/ic_check"
         android:visibility="gone"
+        app:tint="@color/grey_700"
         tools:visibility="visible" />
 
     <View
