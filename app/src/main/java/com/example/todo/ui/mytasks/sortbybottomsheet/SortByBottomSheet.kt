@@ -13,6 +13,7 @@ import com.example.todo.R
 import com.example.todo.data.Criteria
 import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
+import com.example.todo.utils.closeBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -81,10 +82,6 @@ class SortByBottomSheet(
         val criteria = getCriteria()
         mCriteriaAdapter.setCriteria(criteria)
 
-    }
-
-    private fun closeBottomSheet() {
-        dialog?.dismiss()
     }
 
     private fun getSortingCriteriaFromSharedPref(): SortingCriteria {

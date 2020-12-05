@@ -11,6 +11,7 @@ import com.example.todo.R
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
+import com.example.todo.utils.closeBottomSheet
 import com.example.todo.utils.shortToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
@@ -121,10 +122,6 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     private fun showSuccessMessage() {
         shortToast(getString(R.string.task_saved))
-    }
-
-    private fun closeBottomSheet() {
-        dialog?.dismiss()
     }
 
     private fun clearInputFields() {
