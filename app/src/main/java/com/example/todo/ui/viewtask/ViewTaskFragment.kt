@@ -2,12 +2,12 @@ package com.example.todo.ui.viewtask
 
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.todo.R
+import com.example.todo.databinding.FragmentViewTaskBinding
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
@@ -18,10 +18,10 @@ import javax.inject.Inject
 
 class ViewTaskFragment : DaggerFragment() {
 
-    private var taskId: Int = NO_TASK_ID
+    private var _binding: FragmentViewTaskBinding? = null
+    private val mBinding get() = _binding!!
 
-    private lateinit var etTaskTitle: EditText
-    private lateinit var etTaskDescription: EditText
+    private var taskId: Int = NO_TASK_ID
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -30,27 +30,14 @@ class ViewTaskFragment : DaggerFragment() {
         ViewModelProvider(this, providerFactory)[ViewTaskViewModel::class.java]
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_view_task, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initViews(view)
-    }
-
-    private fun initViews(view: View) {
-        etTaskTitle = view.findViewById(R.id.et_task_title_view)
-        etTaskDescription = view.findViewById(R.id.et_task_description)
+    ): View {
+        setHasOptionsMenu(true)
+        _binding = FragmentViewTaskBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -79,8 +66,8 @@ class ViewTaskFragment : DaggerFragment() {
     }
 
     private fun setValuesInTitleAndDescription(task: TaskEntity) {
-        etTaskTitle.setText(task.title)
-        etTaskDescription.setText(task.description)
+        mBinding.etTaskTitle.setText(task.title)
+        mBinding.etTaskDescription.setText(task.description)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -112,11 +99,11 @@ class ViewTaskFragment : DaggerFragment() {
 
     private fun proceedToSaveTask() {
 
-        val taskTitle = etTaskTitle.text.toString().trim()
+        val taskTitle = mBinding.etTaskTitle.text.toString().trim()
         if (taskTitle.isBlank())
             shortSnackbar(getString(R.string.title_cant_be_blank))
         else {
-            val taskDescription = etTaskDescription.text.toString().trim()
+            val taskDescription = mBinding.etTaskDescription.text.toString().trim()
             saveChanges(taskTitle, taskDescription)
         }
 
@@ -139,6 +126,11 @@ class ViewTaskFragment : DaggerFragment() {
 
     private fun deleteTask() {
         viewModel.deleteTask(taskId)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
