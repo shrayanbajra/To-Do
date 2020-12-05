@@ -3,14 +3,12 @@ package com.example.todo.ui.mytasks
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.databinding.FragmentMyTasksBinding
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.ui.addtask.AddTaskBottomSheet
@@ -19,16 +17,14 @@ import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
 import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
 import com.example.todo.utils.SortingOrder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class MyTasksFragment : DaggerFragment() {
 
-    private lateinit var mTvSortingOrder: TextView
-    private lateinit var mIvSortingOrderIcon: ImageView
+    private var _binding: FragmentMyTasksBinding? = null
+    private val mBinding get() = _binding!!
 
-    private lateinit var mRvTasks: RecyclerView
     private val mTasksAdapter = TasksAdapter(getTaskClickListener())
 
     private fun getTaskClickListener(): TasksAdapter.TaskListener {
@@ -50,8 +46,6 @@ class MyTasksFragment : DaggerFragment() {
         findNavController().navigate(action)
     }
 
-    private lateinit var mBtnAddTask: FloatingActionButton
-
     @Inject
     lateinit var mSharedPref: SharedPreferences
 
@@ -63,11 +57,13 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_my_tasks, container, false)
+        _binding = FragmentMyTasksBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -185,17 +181,12 @@ class MyTasksFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mTvSortingOrder = view.findViewById(R.id.tv_tasks_sorting_order)
-        mIvSortingOrderIcon = view.findViewById(R.id.iv_tasks_sorting_order_icon)
+        initRvTasks()
 
-        initRvTasks(view)
-
-        mBtnAddTask = view.findViewById(R.id.btn_add_task)
     }
 
-    private fun initRvTasks(view: View) {
-        mRvTasks = view.findViewById(R.id.rv_remaining_tasks)
-        mRvTasks.apply {
+    private fun initRvTasks() {
+        mBinding.rvRemainingTasks.apply {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = mTasksAdapter
@@ -221,12 +212,12 @@ class MyTasksFragment : DaggerFragment() {
         else
             R.drawable.ic_arrow_down
 
-        mIvSortingOrderIcon.setImageResource(imageResource)
+        mBinding.ivTasksSortingOrderIcon.setImageResource(imageResource)
     }
 
     private fun sortingOrderClickListener() {
-        mTvSortingOrder.setOnClickListener(sortingOrderClickListener)
-        mIvSortingOrderIcon.setOnClickListener(sortingOrderClickListener)
+        mBinding.tvTasksSortingOrder.setOnClickListener(sortingOrderClickListener)
+        mBinding.ivTasksSortingOrderIcon.setOnClickListener(sortingOrderClickListener)
     }
 
     private val sortingOrderClickListener = View.OnClickListener {
@@ -290,15 +281,15 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun hideMyTasksSection() {
-        mTvSortingOrder.visibility = View.GONE
-        mIvSortingOrderIcon.visibility = View.GONE
-        mRvTasks.visibility = View.GONE
+        mBinding.tvTasksSortingOrder.visibility = View.GONE
+        mBinding.ivTasksSortingOrderIcon.visibility = View.GONE
+        mBinding.rvRemainingTasks.visibility = View.GONE
     }
 
     private fun showMyTasksSection() {
-        mTvSortingOrder.visibility = View.VISIBLE
-        mIvSortingOrderIcon.visibility = View.VISIBLE
-        mRvTasks.visibility = View.VISIBLE
+        mBinding.tvTasksSortingOrder.visibility = View.VISIBLE
+        mBinding.ivTasksSortingOrderIcon.visibility = View.VISIBLE
+        mBinding.rvRemainingTasks.visibility = View.VISIBLE
     }
 
     private fun sortTasks(sortingCriteria: String? = null) {
@@ -339,15 +330,21 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun updateTvSortingOrder(text: String) {
-        mTvSortingOrder.text = text
+        mBinding.tvTasksSortingOrder.text = text
     }
 
     private fun btnAddTaskListener() {
-        mBtnAddTask.setOnClickListener { showAddTaskBottomSheet() }
+        mBinding.btnAddTask.setOnClickListener { showAddTaskBottomSheet() }
     }
 
     private fun showAddTaskBottomSheet() {
         val bottomSheet = AddTaskBottomSheet()
         bottomSheet.show(activity?.supportFragmentManager!!, bottomSheet.javaClass.name)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
