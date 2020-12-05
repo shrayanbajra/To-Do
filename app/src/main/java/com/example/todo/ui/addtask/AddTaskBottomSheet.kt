@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.example.todo.R
+import com.example.todo.databinding.BottomSheetAddTaskBinding
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
@@ -20,11 +20,7 @@ import javax.inject.Inject
 
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
-    private lateinit var tilTaskTitle: TextInputLayout
-    private lateinit var tilTaskDescription: TextInputLayout
-
-    private lateinit var btnSave: Button
-    private lateinit var btnCancel: Button
+    private lateinit var mBinding: BottomSheetAddTaskBinding
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -41,26 +37,13 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.bottom_sheet_add_task, container, false)
+    ): View {
+        mBinding = BottomSheetAddTaskBinding.inflate(layoutInflater, container, false)
+        return mBinding.root
     }
 
     override fun getTheme(): Int {
         return R.style.Custom_RoundedTop_BottomSheetDialog
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initViews(view)
-    }
-
-    private fun initViews(view: View) {
-        tilTaskTitle = view.findViewById(R.id.til_task_title)
-        tilTaskDescription = view.findViewById(R.id.til_task_description)
-
-        btnSave = view.findViewById(R.id.btn_save)
-        btnCancel = view.findViewById(R.id.btn_cancel)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,12 +54,12 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun btnSaveListener() {
-        btnSave.setOnClickListener {
+        mBinding.btnSave.setOnClickListener {
 
             clearErrorsInInputFields()
 
-            val title: String = tilTaskTitle.editText?.text.toString().trim()
-            val description: String = tilTaskDescription.editText?.text.toString().trim()
+            val title: String = mBinding.tilTaskTitle.editText?.text.toString().trim()
+            val description: String = mBinding.tilTaskDescription.editText?.text.toString().trim()
 
             if (title.isBlank()) {
 
@@ -95,7 +78,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun clearErrorsInInputFields() {
-        if (hasErrorSet(tilTaskTitle)) clearError(tilTaskTitle)
+        if (hasErrorSet(mBinding.tilTaskTitle)) clearError(mBinding.tilTaskTitle)
     }
 
     private fun hasErrorSet(textInputLayout: TextInputLayout): Boolean {
@@ -107,7 +90,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun showErrorMessage() {
-        tilTaskTitle.error = getString(R.string.please_enter_task_title)
+        mBinding.tilTaskTitle.error = getString(R.string.please_enter_task_title)
     }
 
     private fun insertTask(title: String, description: String) {
@@ -125,12 +108,12 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun clearInputFields() {
-        tilTaskTitle.editText?.text?.clear()
-        tilTaskDescription.editText?.text?.clear()
+        mBinding.tilTaskTitle.editText?.text?.clear()
+        mBinding.tilTaskDescription.editText?.text?.clear()
     }
 
     private fun btnCancelListener() {
-        btnCancel.setOnClickListener { closeBottomSheet() }
+        mBinding.btnCancel.setOnClickListener { closeBottomSheet() }
     }
 
 }
