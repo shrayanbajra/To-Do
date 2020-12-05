@@ -20,7 +20,8 @@ import javax.inject.Inject
 
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
-    private lateinit var mBinding: BottomSheetAddTaskBinding
+    private val mBinding get() = _binding!!
+    private var _binding: BottomSheetAddTaskBinding? = null
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -38,7 +39,7 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = BottomSheetAddTaskBinding.inflate(layoutInflater, container, false)
+        _binding = BottomSheetAddTaskBinding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
 
@@ -114,6 +115,11 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     private fun btnCancelListener() {
         mBinding.btnCancel.setOnClickListener { closeBottomSheet() }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
