@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.data.Criteria
+import com.example.todo.databinding.BottomSheetSortByBinding
 import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
 import com.example.todo.utils.closeBottomSheet
@@ -23,7 +22,9 @@ class SortByBottomSheet(
 ) :
     BottomSheetDialogFragment() {
 
-    private lateinit var mRvCriteria: RecyclerView
+    private val mBinding get() = _binding!!
+    private var _binding: BottomSheetSortByBinding? = null
+
     private val mCriteriaAdapter = CriteriaAdapter(getOnCriteriaSelectedListener())
 
     private fun getOnCriteriaSelectedListener(): CriteriaAdapter.OnCriteriaSelectedListener {
@@ -37,16 +38,15 @@ class SortByBottomSheet(
         }
     }
 
-    private lateinit var mIvClose: ImageView
-
     @Inject
     lateinit var mSharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.bottom_sheet_sort_by, container, false)
+    ): View {
+        _binding = BottomSheetSortByBinding.inflate(layoutInflater, container, false)
+        return mBinding.root
     }
 
     override fun onAttach(context: Context) {
@@ -61,14 +61,12 @@ class SortByBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mIvClose = view.findViewById(R.id.iv_close)
-        initRvCriteria(view)
+        initRvCriteria()
 
     }
 
-    private fun initRvCriteria(view: View) {
-        mRvCriteria = view.findViewById(R.id.rv_criteria)
-        mRvCriteria.apply {
+    private fun initRvCriteria() {
+        mBinding.rvCriteria.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mCriteriaAdapter
         }
@@ -77,7 +75,7 @@ class SortByBottomSheet(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mIvClose.setOnClickListener { closeBottomSheet() }
+        mBinding.ivClose.setOnClickListener { closeBottomSheet() }
 
         val criteria = getCriteria()
         mCriteriaAdapter.setCriteria(criteria)
@@ -121,6 +119,11 @@ class SortByBottomSheet(
     private fun getSelectedStatus(criteria: SortingCriteria): Boolean {
         val sortingCriteria = getSortingCriteriaFromSharedPref()
         return sortingCriteria == criteria
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
