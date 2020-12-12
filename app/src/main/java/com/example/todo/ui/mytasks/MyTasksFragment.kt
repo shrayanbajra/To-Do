@@ -254,15 +254,21 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun hideMyTasksSection() {
-        mBinding.tvTasksSortingOrder.visibility = View.GONE
-        mBinding.ivTasksSortingOrderIcon.visibility = View.GONE
-        mBinding.rvRemainingTasks.visibility = View.GONE
+        mBinding.apply {
+            val hiddenVisibility = View.GONE
+            tvTasksSortingOrder.visibility = hiddenVisibility
+            ivTasksSortingOrderIcon.visibility = hiddenVisibility
+            rvRemainingTasks.visibility = hiddenVisibility
+        }
     }
 
     private fun showMyTasksSection() {
-        mBinding.tvTasksSortingOrder.visibility = View.VISIBLE
-        mBinding.ivTasksSortingOrderIcon.visibility = View.VISIBLE
-        mBinding.rvRemainingTasks.visibility = View.VISIBLE
+        mBinding.apply {
+            val shownVisibility = View.VISIBLE
+            tvTasksSortingOrder.visibility = shownVisibility
+            ivTasksSortingOrderIcon.visibility = shownVisibility
+            rvRemainingTasks.visibility = shownVisibility
+        }
     }
 
     private fun sortTasks(sortingCriteria: String? = null) {
@@ -312,7 +318,7 @@ class MyTasksFragment : DaggerFragment() {
 
     private fun showAddTaskBottomSheet() {
         val bottomSheet = AddTaskBottomSheet()
-        bottomSheet.show(activity?.supportFragmentManager!!, bottomSheet.javaClass.name)
+        bottomSheet.show(activity?.supportFragmentManager!!, bottomSheet.tag)
     }
 
     override fun onDestroyView() {
