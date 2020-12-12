@@ -61,6 +61,7 @@ class TasksHelperTest {
         sortedTasks.forEach { print(it.title + tab) }
 
         assertThat(sortedTasks).isEqualTo(expectedResult)
+        println(newLine)
 
     }
 
@@ -84,6 +85,7 @@ class TasksHelperTest {
         sortedTasks.forEach { print(it.title + tab) }
 
         assertThat(sortedTasks).isNotEqualTo(expectedResult)
+        println(newLine)
 
     }
 
@@ -108,6 +110,7 @@ class TasksHelperTest {
         sortedTasks.forEach { print(it.title + tab) }
 
         assertThat(sortedTasks).isEqualTo(expectedResult)
+        println(newLine)
 
     }
 
@@ -132,6 +135,7 @@ class TasksHelperTest {
         sortedTasks.forEach { print(it.title + tab) }
 
         assertThat(sortedTasks).isNotEqualTo(expectedResult)
+        println(newLine)
 
     }
 
@@ -166,6 +170,7 @@ class TasksHelperTest {
         }
 
         assertThat(sortedTasks).isEqualTo(expectedResult)
+        println(newLine)
 
     }
 
@@ -199,6 +204,7 @@ class TasksHelperTest {
         }
 
         assertThat(sortedTasks).isNotEqualTo(expectedResult)
+        println(newLine)
 
     }
 
@@ -233,6 +239,7 @@ class TasksHelperTest {
         }
 
         assertThat(sortedTasks).isEqualTo(expectedResult)
+        println(newLine)
 
     }
 
@@ -267,6 +274,106 @@ class TasksHelperTest {
         }
 
         assertThat(sortedTasks).isNotEqualTo(expectedResult)
+        println(newLine)
+
+    }
+
+    @Test
+    fun date_added_sorting_ascending_success_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task1, task3)
+        val expectedResult = arrayListOf(task3, task1, task2)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByDateAdded(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_ASCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        print(newLine)
+        print("Actual Result  : ")
+        sortedTasks.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        assertThat(sortedTasks).isEqualTo(expectedResult)
+        println(newLine)
+
+    }
+
+    @Test
+    fun date_added_sorting_ascending_fail_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task1, task3)
+        val expectedResult = arrayListOf(task3, task2, task1)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByDateAdded(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_ASCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        print("\nActual Result  : ")
+        sortedTasks.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        assertThat(sortedTasks).isNotEqualTo(expectedResult)
+        println(newLine)
+
+    }
+
+    @Test
+    fun date_added_sorting_descending_success_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task1, task3)
+        val expectedResult = arrayListOf(task2, task1, task3)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByDateAdded(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_DESCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        print(newLine)
+        print("Actual Result  : ")
+        sortedTasks.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        assertThat(sortedTasks).isEqualTo(expectedResult)
+        println(newLine)
+
+    }
+
+    @Test
+    fun date_added_sorting_descending_fail_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task1, task3)
+        val expectedResult = arrayListOf(task2, task3, task1)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByDateAdded(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_DESCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        print(newLine)
+        print("Actual Result  : ")
+        sortedTasks.forEach { print(it.title + " Date Added: ${it.dateAdded}" + tab) }
+
+        assertThat(sortedTasks).isNotEqualTo(expectedResult)
+        println(newLine)
 
     }
 

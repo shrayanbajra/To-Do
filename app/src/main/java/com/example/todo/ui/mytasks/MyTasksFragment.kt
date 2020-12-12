@@ -138,37 +138,17 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun getTasksSortedByCompletionStatus(sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
-        val tasks = mTasksAdapter.getTasks().toMutableList()
-        tasks.sortWith { task1, task2 ->
 
-            val firstTaskStatus = task1.isTaskDone()
-            val secondTaskStatus = task2.isTaskDone()
+        val tasks = ArrayList<TaskEntity>(mTasksAdapter.getTasks())
+        return TasksHelper.getTasksSortedByCompletionStatus(tasks, sortingOrder)
 
-            val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
-            if (isAscending)
-                firstTaskStatus.compareTo(secondTaskStatus)
-            else
-                secondTaskStatus.compareTo(firstTaskStatus)
-
-        }
-        return tasks
     }
 
     private fun getTasksSortedByDateAdded(sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
-        val tasks = mTasksAdapter.getTasks().toMutableList()
-        tasks.sortWith { task1, task2 ->
 
-            val firstTaskAddedDate = task1.dateAdded
-            val secondTaskAddedDate = task2.dateAdded
+        val tasks = ArrayList<TaskEntity>(mTasksAdapter.getTasks())
+        return TasksHelper.getTasksSortedByDateAdded(tasks, sortingOrder)
 
-            val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
-            if (isAscending)
-                firstTaskAddedDate.compareTo(secondTaskAddedDate)
-            else
-                secondTaskAddedDate.compareTo(firstTaskAddedDate)
-
-        }
-        return tasks
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

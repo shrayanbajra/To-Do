@@ -33,4 +33,19 @@ object TasksHelper {
         return tasks
     }
 
+    fun getTasksSortedByDateAdded(
+        tasks: ArrayList<TaskEntity>,
+        sortingOrder: SortingOrder
+    ): MutableList<TaskEntity> {
+
+        val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
+        if (isAscending)
+            tasks.sortBy { it.dateAdded }
+        else
+            tasks.sortByDescending { it.dateAdded }
+
+        return tasks
+
+    }
+
 }
