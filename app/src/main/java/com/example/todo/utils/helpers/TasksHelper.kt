@@ -19,4 +19,18 @@ object TasksHelper {
         return tasks
     }
 
+    fun getTasksSortedByCompletionStatus(
+        tasks: ArrayList<TaskEntity>,
+        sortingOrder: SortingOrder
+    ): MutableList<TaskEntity> {
+
+        val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
+        if (isAscending)
+            tasks.sortBy { it.isTaskDone() }
+        else
+            tasks.sortByDescending { it.isTaskDone() }
+
+        return tasks
+    }
+
 }

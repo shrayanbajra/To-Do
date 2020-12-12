@@ -135,4 +135,139 @@ class TasksHelperTest {
 
     }
 
+    @Test
+    fun completion_status_sorting_ascending_success_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task3)
+        val expectedResult = arrayListOf(task2, task3)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByCompletionStatus(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_ASCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        print(newLine)
+        print("Actual Result  : ")
+        sortedTasks.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        assertThat(sortedTasks).isEqualTo(expectedResult)
+
+    }
+
+    @Test
+    fun completion_status_sorting_ascending_fail_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task3)
+        val expectedResult = arrayListOf(task3, task2)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByCompletionStatus(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_ASCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        print("\nActual Result  : ")
+        sortedTasks.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        assertThat(sortedTasks).isNotEqualTo(expectedResult)
+
+    }
+
+    @Test
+    fun completion_status_sorting_descending_success_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task3)
+        val expectedResult = arrayListOf(task3, task2)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByCompletionStatus(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_DESCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        print(newLine)
+        print("Actual Result  : ")
+        sortedTasks.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        assertThat(sortedTasks).isEqualTo(expectedResult)
+
+    }
+
+    @Test
+    fun completion_status_sorting_descending_fail_test() {
+
+        // Arrange
+        val tasks = arrayListOf(task2, task3)
+        val expectedResult = arrayListOf(task2, task3)
+
+        // Act
+        val sortedTasks = tasksHelper.getTasksSortedByCompletionStatus(
+            tasks = tasks, sortingOrder = SortingOrder.VALUE_DESCENDING
+        )
+
+        // Assert
+        print("Expected Result: ")
+        expectedResult.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        print(newLine)
+        print("Actual Result  : ")
+        sortedTasks.forEach {
+            val taskStatus =
+                if (it.isTaskDone()) "Done"
+                else "Not Done"
+            print(it.title + " Status: $taskStatus" + tab)
+        }
+
+        assertThat(sortedTasks).isNotEqualTo(expectedResult)
+
+    }
+
 }
