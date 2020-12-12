@@ -12,7 +12,7 @@ import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.utils.Constants.NO_TASK_ID
-import com.example.todo.utils.shortSnackbar
+import com.example.todo.utils.extensions.shortSnackbar
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 

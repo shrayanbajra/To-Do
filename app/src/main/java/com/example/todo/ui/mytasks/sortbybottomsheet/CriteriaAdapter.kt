@@ -36,9 +36,7 @@ class CriteriaAdapter(
 
     }
 
-    override fun getItemCount(): Int {
-        return criteria.size
-    }
+    override fun getItemCount() = criteria.size
 
     inner class CriteriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

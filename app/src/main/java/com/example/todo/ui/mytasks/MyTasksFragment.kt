@@ -17,6 +17,7 @@ import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
 import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
 import com.example.todo.utils.SortingOrder
+import com.example.todo.utils.helpers.TasksHelper
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -127,21 +128,13 @@ class MyTasksFragment : DaggerFragment() {
         editor?.apply()
     }
 
-    private fun getAlphabeticallySortedTasks(sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {
-        val tasks = mTasksAdapter.getTasks().toMutableList()
-        tasks.sortWith { task1, task2 ->
+    private fun getAlphabeticallySortedTasks(
+        sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING
+    ): ArrayList<TaskEntity> {
 
-            val firstTitle = task1.title
-            val secondTitle = task2.title
+        val tasks = ArrayList<TaskEntity>(mTasksAdapter.getTasks())
+        return TasksHelper.getAlphabeticallySortedTasks(tasks, sortingOrder)
 
-            val isAscending = sortingOrder == SortingOrder.VALUE_ASCENDING
-            if (isAscending)
-                firstTitle.compareTo(secondTitle)
-            else
-                secondTitle.compareTo(firstTitle)
-
-        }
-        return tasks
     }
 
     private fun getTasksSortedByCompletionStatus(sortingOrder: SortingOrder = SortingOrder.VALUE_ASCENDING): MutableList<TaskEntity> {

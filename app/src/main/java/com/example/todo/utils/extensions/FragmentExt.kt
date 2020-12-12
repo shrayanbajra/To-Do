@@ -1,4 +1,4 @@
-package com.example.todo.utils
+package com.example.todo.utils.extensions
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
