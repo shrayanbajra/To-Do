@@ -1,7 +1,7 @@
 package com.example.todo.utils
 
 enum class SortingCriteria(val value: String) {
-    VALUE_ALPHABETICALLY("value_alphabetically"),
-    VALUE_COMPLETED("value_completed"),
-    VALUE_DATE_ADDED("value_date_added")
+    ALPHABETICALLY("alphabetically"),
+    COMPLETION_STATUS("completion_status"),
+    DATE_ADDED("date_added")
 }

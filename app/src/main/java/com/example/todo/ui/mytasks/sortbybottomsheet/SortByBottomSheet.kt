@@ -84,14 +84,14 @@ class SortByBottomSheet(
 
     private fun getSortingCriteriaFromSharedPref(): SortingCriteria {
 
-        val defaultCriteria = SortingCriteria.VALUE_ALPHABETICALLY
+        val defaultCriteria = SortingCriteria.ALPHABETICALLY
 
         val value = mSharedPref.getString(Constants.KEY_SORTING_CRITERIA, defaultCriteria.value)
             ?: defaultCriteria.value
         return when (value) {
-            SortingCriteria.VALUE_ALPHABETICALLY.value -> SortingCriteria.VALUE_ALPHABETICALLY
-            SortingCriteria.VALUE_COMPLETED.value -> SortingCriteria.VALUE_COMPLETED
-            SortingCriteria.VALUE_DATE_ADDED.value -> SortingCriteria.VALUE_DATE_ADDED
+            SortingCriteria.ALPHABETICALLY.value -> SortingCriteria.ALPHABETICALLY
+            SortingCriteria.COMPLETION_STATUS.value -> SortingCriteria.COMPLETION_STATUS
+            SortingCriteria.DATE_ADDED.value -> SortingCriteria.DATE_ADDED
             else -> defaultCriteria
         }
 
@@ -99,17 +99,17 @@ class SortByBottomSheet(
 
     private fun getCriteria(): List<Criteria> {
         val criteria1 = Criteria(
-            isSelected = getSelectedStatus(criteria = SortingCriteria.VALUE_ALPHABETICALLY),
+            isSelected = getSelectedStatus(criteria = SortingCriteria.ALPHABETICALLY),
             iconResource = R.drawable.ic_sort_alphabetically,
             title = getString(R.string.alphabetically)
         )
         val criteria2 = Criteria(
-            isSelected = getSelectedStatus(criteria = SortingCriteria.VALUE_COMPLETED),
+            isSelected = getSelectedStatus(criteria = SortingCriteria.COMPLETION_STATUS),
             iconResource = R.drawable.ic_circle_pressed,
             title = getString(R.string.completed)
         )
         val criteria3 = Criteria(
-            isSelected = getSelectedStatus(criteria = SortingCriteria.VALUE_DATE_ADDED),
+            isSelected = getSelectedStatus(criteria = SortingCriteria.DATE_ADDED),
             iconResource = R.drawable.ic_add_to_calendar,
             title = getString(R.string.date_added)
         )

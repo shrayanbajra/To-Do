@@ -96,21 +96,21 @@ class MyTasksFragment : DaggerFragment() {
                 when (title) {
                     getString(R.string.alphabetically) -> {
 
-                        val sortingCriteria = SortingCriteria.VALUE_ALPHABETICALLY
+                        val sortingCriteria = SortingCriteria.ALPHABETICALLY
                         saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
                         sortTasks(sortingCriteria = sortingCriteria.value)
 
                     }
                     getString(R.string.completed) -> {
 
-                        val sortingCriteria = SortingCriteria.VALUE_COMPLETED
+                        val sortingCriteria = SortingCriteria.COMPLETION_STATUS
                         saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
                         sortTasks(sortingCriteria = sortingCriteria.value)
 
                     }
                     getString(R.string.date_added) -> {
 
-                        val sortingCriteria = SortingCriteria.VALUE_DATE_ADDED
+                        val sortingCriteria = SortingCriteria.DATE_ADDED
                         saveSortingCriteriaInSharedPref(sortingCriteria = sortingCriteria)
                         sortTasks(sortingCriteria = sortingCriteria.value)
 
@@ -275,19 +275,19 @@ class MyTasksFragment : DaggerFragment() {
 
         val sortingOrder = getSortingOrderFromSharedPref()
         val sortedTasks = when (sortingCriteria ?: getSortingCriterion()) {
-            SortingCriteria.VALUE_ALPHABETICALLY.value -> {
+            SortingCriteria.ALPHABETICALLY.value -> {
 
                 updateTvSortingOrder(text = getString(R.string.sorted_alphabetically))
                 getAlphabeticallySortedTasks(sortingOrder)
 
             }
-            SortingCriteria.VALUE_COMPLETED.value -> {
+            SortingCriteria.COMPLETION_STATUS.value -> {
 
                 updateTvSortingOrder(text = getString(R.string.sorted_by_completion_status))
                 getTasksSortedByCompletionStatus(sortingOrder)
 
             }
-            SortingCriteria.VALUE_DATE_ADDED.value -> {
+            SortingCriteria.DATE_ADDED.value -> {
 
                 updateTvSortingOrder(text = getString(R.string.sorted_by_added_date))
                 getTasksSortedByDateAdded(sortingOrder)
