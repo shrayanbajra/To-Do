@@ -3,6 +3,7 @@ package com.example.todo.ui.mytasks
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -123,9 +124,9 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun saveSortingCriteriaInSharedPref(sortingCriteria: SortingCriteria) {
-        val editor = mSharedPref.edit()
-        editor?.putString(Constants.KEY_SORTING_CRITERIA, sortingCriteria.value)
-        editor?.apply()
+        mSharedPref.edit {
+            putString(Constants.KEY_SORTING_CRITERIA, sortingCriteria.value)
+        }
     }
 
     private fun getAlphabeticallySortedTasks(
@@ -229,13 +230,13 @@ class MyTasksFragment : DaggerFragment() {
     }
 
     private fun setSortingOrderFromSharedPref(sortingOrder: SortingOrder) {
-        val editor = mSharedPref.edit()
-        editor?.putString(Constants.KEY_SORTING_ORDER, sortingOrder.value)
-        editor?.apply()
+        mSharedPref.edit {
+            putString(Constants.KEY_SORTING_ORDER, sortingOrder.value)
+        }
     }
 
     private fun observeTasks() {
-        mViewModel.getTasks().observe(viewLifecycleOwner, { tasks ->
+        mViewModel.getTasks().observe(viewLifecycleOwner) { tasks ->
 
             if (tasks.isEmpty()) {
 
@@ -250,7 +251,7 @@ class MyTasksFragment : DaggerFragment() {
 
             }
 
-        })
+        }
     }
 
     private fun hideMyTasksSection() {
