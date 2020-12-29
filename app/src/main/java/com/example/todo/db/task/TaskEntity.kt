@@ -3,6 +3,7 @@ package com.example.todo.db.task
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.DateFormat
 
 @Entity(tableName = "task_table")
 data class TaskEntity(
@@ -17,13 +18,16 @@ data class TaskEntity(
     var description: String = "",
 
     @ColumnInfo(name = "Date Added")
-    var dateAdded: Long = 0L
+    val dateAdded: Long = 0L
 
 ) {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "Task ID")
-    var id: Int = 0
+    val id: Int = 0
+
+    val dateAddedInFormattedForm: String
+        get() = DateFormat.getDateTimeInstance().format(dateAdded)
 
     fun isTaskDone(): Boolean {
         return status == TaskStatus.DONE.value
