@@ -18,7 +18,7 @@ data class TaskEntity(
     var description: String = "",
 
     @ColumnInfo(name = "Date Added")
-    val dateAdded: Long = 0L
+    val dateAdded: Long = System.currentTimeMillis()
 
 ) {
 
