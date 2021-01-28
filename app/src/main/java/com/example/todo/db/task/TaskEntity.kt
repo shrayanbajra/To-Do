@@ -24,7 +24,7 @@ data class TaskEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "Task ID")
-    val id: Int = 0
+    var id: Int = 0
 
     val dateAddedInFormattedForm: String
         get() = DateFormat.getDateTimeInstance().format(dateAdded)
