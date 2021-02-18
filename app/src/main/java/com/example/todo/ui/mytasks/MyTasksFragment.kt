@@ -240,11 +240,11 @@ class MyTasksFragment : DaggerFragment() {
 
             if (tasks.isEmpty()) {
 
-                hideMyTasksSection()
+                showEmptyState()
 
             } else {
 
-                showMyTasksSection()
+                showTasks()
                 mTasksAdapter.setTasks(tasks)
 
                 sortTasks()
@@ -254,21 +254,28 @@ class MyTasksFragment : DaggerFragment() {
         }
     }
 
-    private fun hideMyTasksSection() {
+    private fun showEmptyState() {
         mBinding.apply {
+
+            llEmptyState.visibility = View.VISIBLE
+
             val hiddenVisibility = View.GONE
             tvTasksSortingOrder.visibility = hiddenVisibility
             ivTasksSortingOrderIcon.visibility = hiddenVisibility
             rvRemainingTasks.visibility = hiddenVisibility
+
         }
     }
 
-    private fun showMyTasksSection() {
+    private fun showTasks() {
         mBinding.apply {
+
             val shownVisibility = View.VISIBLE
             tvTasksSortingOrder.visibility = shownVisibility
             ivTasksSortingOrderIcon.visibility = shownVisibility
             rvRemainingTasks.visibility = shownVisibility
+
+            llEmptyState.visibility = View.GONE
         }
     }
 

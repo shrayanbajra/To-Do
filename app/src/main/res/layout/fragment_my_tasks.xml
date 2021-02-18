@@ -6,6 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".ui.mytasks.MyTasksFragment">
 
+    <LinearLayout
+        android:id="@+id/ll_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_empty_state_icon"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/beach_chair"
+            android:paddingHorizontal="150dp"
+            android:paddingTop="200dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_beach_chair" />
+
+        <TextView
+            android:id="@+id/iv_empty_state_message"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="@string/there_are_no_tasks"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,10 +47,10 @@
             android:id="@+id/tv_tasks_sorting_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_toStartOf="@id/iv_tasks_sorting_order_icon"
             android:gravity="end|center_vertical"
             android:textSize="14sp"
@@ -27,12 +60,12 @@
             android:id="@+id/iv_tasks_sorting_order_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="2dp"
             android:layout_alignTop="@id/tv_tasks_sorting_order"
             android:layout_alignBottom="@id/tv_tasks_sorting_order"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/arrow_icon"
             android:paddingStart="4dp"
+            android:paddingTop="2dp"
             android:paddingEnd="4dp"
             android:src="@drawable/ic_arrow_up" />
 
