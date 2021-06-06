@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,7 +20,7 @@
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
         android:text="@string/sort"
-        android:textColor="@color/grey_700"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="14sp" />
 
     <ImageView
@@ -33,14 +34,15 @@
         android:contentDescription="@string/close"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:src="@drawable/ic_close" />
+        android:src="@drawable/ic_close"
+        app:tint="?attr/colorOnSurface" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_criteria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="32dp"
+        android:layout_below="@id/tv_title"
         android:clipToPadding="false"
-        android:layout_below="@id/tv_title" />
+        android:paddingBottom="32dp" />
 
 </RelativeLayout>
