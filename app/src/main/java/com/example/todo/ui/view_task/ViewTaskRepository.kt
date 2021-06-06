@@ -1,4 +1,4 @@
-package com.example.todo.ui.viewtask
+package com.example.todo.ui.view_task
 
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity

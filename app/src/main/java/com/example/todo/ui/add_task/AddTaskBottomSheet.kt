@@ -1,4 +1,4 @@
-package com.example.todo.ui.addtask
+package com.example.todo.ui.add_task
 
 import android.content.Context
 import android.os.Bundle

@@ -2,10 +2,10 @@ package com.example.todo.di.navhost
 
 import com.example.todo.di.navhost.mytasks.MyTasksFragmentModule
 import com.example.todo.di.navhost.sortby.SortByBottomSheetModule
-import com.example.todo.ui.addtask.AddTaskBottomSheet
-import com.example.todo.ui.mytasks.MyTasksFragment
-import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
-import com.example.todo.ui.viewtask.ViewTaskFragment
+import com.example.todo.ui.add_task.AddTaskBottomSheet
+import com.example.todo.ui.my_tasks.MyTasksFragment
+import com.example.todo.ui.my_tasks.sort_by_bottom_sheet.SortByBottomSheet
+import com.example.todo.ui.view_task.ViewTaskFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

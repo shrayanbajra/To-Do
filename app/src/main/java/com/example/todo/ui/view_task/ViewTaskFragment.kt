@@ -1,4 +1,4 @@
-package com.example.todo.ui.viewtask
+package com.example.todo.ui.view_task
 
 import android.os.Bundle
 import android.view.*

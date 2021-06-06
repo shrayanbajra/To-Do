@@ -1,4 +1,4 @@
-package com.example.todo.ui.addtask
+package com.example.todo.ui.add_task
 
 import com.example.todo.db.task.TaskDao
 import com.example.todo.db.task.TaskEntity

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.mytasks.sortbybottomsheet.SortByBottomSheet">
+    tools:context=".ui.my_tasks.sort_by_bottom_sheet.SortByBottomSheet">
 
     <TextView
         android:id="@+id/tv_title"

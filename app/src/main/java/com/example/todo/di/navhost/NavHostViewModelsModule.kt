@@ -2,9 +2,9 @@ package com.example.todo.di.navhost
 
 import androidx.lifecycle.ViewModel
 import com.example.todo.di.app.utils.ViewModelKey
-import com.example.todo.ui.addtask.AddTaskViewModel
-import com.example.todo.ui.mytasks.MyTasksViewModel
-import com.example.todo.ui.viewtask.ViewTaskViewModel
+import com.example.todo.ui.add_task.AddTaskViewModel
+import com.example.todo.ui.my_tasks.MyTasksViewModel
+import com.example.todo.ui.view_task.ViewTaskViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

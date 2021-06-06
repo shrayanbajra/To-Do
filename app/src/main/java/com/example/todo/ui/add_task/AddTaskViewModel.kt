@@ -1,4 +1,4 @@
-package com.example.todo.ui.addtask
+package com.example.todo.ui.add_task
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

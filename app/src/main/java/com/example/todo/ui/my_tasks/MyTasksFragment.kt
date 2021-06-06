@@ -1,4 +1,4 @@
-package com.example.todo.ui.mytasks
+package com.example.todo.ui.my_tasks
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,9 +12,9 @@ import com.example.todo.R
 import com.example.todo.databinding.FragmentMyTasksBinding
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.di.app.utils.ViewModelProviderFactory
-import com.example.todo.ui.addtask.AddTaskBottomSheet
-import com.example.todo.ui.mytasks.sortbybottomsheet.CriteriaAdapter
-import com.example.todo.ui.mytasks.sortbybottomsheet.SortByBottomSheet
+import com.example.todo.ui.add_task.AddTaskBottomSheet
+import com.example.todo.ui.my_tasks.sort_by_bottom_sheet.CriteriaAdapter
+import com.example.todo.ui.my_tasks.sort_by_bottom_sheet.SortByBottomSheet
 import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
 import com.example.todo.utils.SortingOrder

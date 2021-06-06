@@ -1,4 +1,4 @@
-package com.example.todo.ui.mytasks.sortbybottomsheet
+package com.example.todo.ui.my_tasks.sort_by_bottom_sheet
 
 import android.view.LayoutInflater
 import android.view.View

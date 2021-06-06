@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/myTasksFragment"
-        android:name="com.example.todo.ui.mytasks.MyTasksFragment"
+        android:name="com.example.todo.ui.my_tasks.MyTasksFragment"
         android:label="My Tasks"
         tools:layout="@layout/fragment_my_tasks">
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/viewTaskFragment"
-        android:name="com.example.todo.ui.viewtask.ViewTaskFragment"
+        android:name="com.example.todo.ui.view_task.ViewTaskFragment"
         android:label="View Task"
         tools:layout="@layout/fragment_view_task">
 

@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addtask.AddTaskBottomSheet">
+    tools:context=".ui.add_task.AddTaskBottomSheet">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_task_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:minHeight="48dp"
-        app:boxBackgroundColor="@android:color/white"
+        app:boxBackgroundColor="?attr/colorOnPrimarySurface"
         app:boxBackgroundMode="filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        app:boxBackgroundColor="@android:color/white"
+        app:boxBackgroundColor="?attr/colorOnPrimarySurface"
         app:boxBackgroundMode="filled"
         app:layout_constraintEnd_toEndOf="@id/til_task_title"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,25 +60,26 @@
         android:id="@+id/btn_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/save"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintVertical_bias="0.00"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_cancel"
         app:layout_constraintStart_toStartOf="@id/til_task_description"
-        app:layout_constraintTop_toBottomOf="@id/til_task_description" />
+        app:layout_constraintTop_toBottomOf="@id/til_task_description"
+        app:layout_constraintVertical_bias="0.00" />
 
     <Button
         android:id="@+id/btn_cancel"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="@id/btn_save"
         app:layout_constraintEnd_toEndOf="@id/til_task_description"
         app:layout_constraintStart_toEndOf="@id/btn_save"
-        app:layout_constraintBottom_toBottomOf="@id/btn_save"
         app:layout_constraintTop_toTopOf="@id/btn_save" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
