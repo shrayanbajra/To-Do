@@ -3,6 +3,7 @@ package com.example.todo.ui.my_tasks
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -75,13 +76,35 @@ class MyTasksFragment : DaggerFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        return if (item.itemId == R.id.item_sort) {
+        return when (item.itemId) {
+            R.id.item_light_theme -> {
 
-            showSortByBottomSheet()
-            true
+                setThemeToLightMode()
+                true
 
-        } else
-            super.onOptionsItemSelected(item)
+            }
+            R.id.item_dark_theme -> {
+
+                setThemeToDarkMode()
+                true
+
+            }
+            R.id.item_sort -> {
+
+                showSortByBottomSheet()
+                true
+
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setThemeToLightMode() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    private fun setThemeToDarkMode() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     private fun showSortByBottomSheet() {

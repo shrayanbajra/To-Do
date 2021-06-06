@@ -38,5 +38,8 @@
     <string name="icon_for_options_in_sort_by_bottom_sheet">Icon for options in sort by bottom sheet</string>
     <string name="beach_chair">Beach Chair</string>
     <string name="there_are_no_tasks">There are no tasks</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="light_theme">Light Theme</string>
 
 </resources>
