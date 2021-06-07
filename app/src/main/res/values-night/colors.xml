@@ -2,7 +2,7 @@
 <resources>
 
     <color name="colorPrimary">@color/purple_200</color>
-    <color name="colorOnPrimary">@color/white_50</color>
+    <color name="colorOnPrimary">@color/black_900</color>
     <color name="colorPrimaryVariant">@color/purple_600</color>
 
     <color name="colorSecondary">@color/green_200</color>
@@ -12,7 +12,7 @@
     <color name="colorSurface">@color/black_800</color>
     <color name="colorOnSurface">@color/white_50</color>
 
-    <color name="colorBackground">@color/black_800</color>
+    <color name="colorBackground">@color/black_900</color>
     <color name="colorOnBackground">@color/white_50</color>
 
     <color name="colorError">@color/red_200</color>

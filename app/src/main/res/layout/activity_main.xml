@@ -9,9 +9,10 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize" />
+        android:layout_height="?actionBarSize"
+        android:elevation="4dp" />
 
     <fragment
         android:id="@+id/nav_host_fragment"

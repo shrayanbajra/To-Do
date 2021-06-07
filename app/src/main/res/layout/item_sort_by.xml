@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/icon_for_options_in_sort_by_bottom_sheet"
-        app:tint="@color/grey_700"
+        app:tint="?attr/colorOnSurface"
         tools:src="@drawable/ic_add_to_calendar" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
         android:text="@string/alphabetically"
-        android:textColor="@color/grey_700"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="14sp" />
 
     <ImageView
@@ -43,7 +43,7 @@
         android:paddingEnd="16dp"
         android:src="@drawable/ic_check"
         android:visibility="gone"
-        app:tint="@color/grey_700"
+        app:tint="?attr/colorOnSurface"
         tools:visibility="visible" />
 
     <View
@@ -51,6 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.75dp"
         android:layout_below="@id/tv_criteria"
-        android:background="@color/grey_300" />
+        android:background="?attr/colorOnSurface" />
 
 </RelativeLayout>
