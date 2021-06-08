@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.DayNight" parent="AppTheme.Dark" />
+
+    <style name="AppTheme.Dark" parent="AppTheme">
+
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorOnPrimary">@color/black_900</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+
+        <item name="colorSecondary">@color/green_200</item>
+        <item name="colorOnSecondary">@color/black_900</item>
+        <item name="colorSecondaryVariant">@color/green_900</item>
+
+        <item name="android:colorBackground">@color/black_800</item>
+        <item name="colorOnBackground">@color/white_50</item>
+
+        <item name="colorSurface">@color/black_800</item>
+        <item name="colorOnSurface">@color/white_50</item>
+
+        <item name="colorError">@color/red_200</item>
+        <item name="colorOnError">@color/black_900</item>
+
+    </style>
+
+</resources>

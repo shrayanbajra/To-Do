@@ -1,27 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
-
-        <item name="backgroundColor">@color/colorBackground</item>
-        <item name="colorOnBackground">@color/colorOnBackground</item>
-
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
-
-        <item name="colorError">@color/colorError</item>
-        <item name="colorOnError">@color/colorOnError</item>
-
-    </style>
-
     <!--BottomSheet-->
     <style name="Custom.RoundedTop.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Custom.RoundedTop.BottomSheet</item>

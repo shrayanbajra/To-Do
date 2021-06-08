@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">@color/purple_500</color>
-    <color name="colorOnPrimary">@color/white_50</color>
-    <color name="colorPrimaryVariant">@color/purple_700</color>
+    <!--Black-->
+    <color name="black_800">#121212</color>
+    <color name="black_900">#000000</color>
 
-    <color name="colorSecondary">@color/green_200</color>
-    <color name="colorOnSecondary">@color/black_900</color>
-    <color name="colorSecondaryVariant">@color/green_900</color>
-
-    <color name="colorSurface">@color/white_50</color>
-    <color name="colorOnSurface">@color/black_900</color>
-
-    <color name="colorBackground">@color/white_50</color>
-    <color name="colorOnBackground">@color/black_900</color>
-
-    <color name="colorError">@color/red_600</color>
-    <color name="colorOnError">@color/white_50</color>
+    <!--Green-->
+    <color name="green_200">#03dac6</color>
+    <color name="green_900">#018786</color>
 
     <!--Grey-->
     <color name="grey_300">#e0e0e0</color>
     <color name="grey_400">#bdbdbd</color>
     <color name="grey_600">#757575</color>
     <color name="grey_700">#616161</color>
+
+    <!--Purple-->
+    <color name="purple_200">#bb86fc</color>
+    <color name="purple_500">#6200ee</color>
+    <color name="purple_700">#3700b3</color>
+
+    <!--Red-->
+    <color name="red_200">#cf6679</color>
+    <color name="red_600">#b00020</color>
+
+    <!--White-->
+    <color name="white_50">#ffffff</color>
 
 </resources>

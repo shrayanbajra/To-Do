@@ -28,8 +28,8 @@
 
         <argument
             android:name="taskId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
 
     </fragment>
 
