@@ -13,6 +13,7 @@ import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
 import com.example.todo.utils.Constants.NO_TASK_ID
 import com.example.todo.utils.extensions.shortSnackbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -84,9 +85,7 @@ class ViewTaskFragment : DaggerFragment() {
                 true
             }
             R.id.item_delete_task -> {
-                deleteTask()
-                shortSnackbar("Task Deleted")
-                findNavController().popBackStack()
+                proceedToDeletingTask()
                 true
             }
             else -> {
@@ -95,6 +94,21 @@ class ViewTaskFragment : DaggerFragment() {
                 ) || super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    private fun proceedToDeletingTask() {
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.delete))
+            .setMessage(resources.getString(R.string.are_you_sure_want_to_delete_this_task))
+            .setNegativeButton(resources.getString(R.string.cancel)) { _, _ -> /* Empty Block */ }
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                deleteTask()
+                shortSnackbar(getString(R.string.task_deleted))
+                findNavController().popBackStack()
+            }
+            .show()
+
     }
 
     private fun proceedToSaveTask() {

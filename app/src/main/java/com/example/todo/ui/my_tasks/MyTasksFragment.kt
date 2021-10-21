@@ -43,6 +43,7 @@ class MyTasksFragment : DaggerFragment() {
             override fun onCheckboxToggled(task: TaskEntity, adapterPosition: Int) {
                 mViewModel.updateTask(task = task)
             }
+
         }
     }
 
@@ -120,7 +121,7 @@ class MyTasksFragment : DaggerFragment() {
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.select_theme))
-            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
 
                 val checkedItemValue = themeOptions[selectedTheme]
