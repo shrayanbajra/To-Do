@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bg_recycler_view_divider_item_decoration.xml" value="0.24444444444444444" />
+        <entry key="app/src/main/res/layout/bottom_sheet_add_task.xml" value="0.25" />
         <entry key="app/src/main/res/layout/bottom_sheet_sort_by.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_sort_by.xml" value="0.25" />
       </map>

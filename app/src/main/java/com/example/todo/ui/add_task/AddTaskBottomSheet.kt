@@ -43,10 +43,6 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
         return mBinding.root
     }
 
-    override fun getTheme(): Int {
-        return R.style.Custom_RoundedTop_BottomSheetDialog
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
