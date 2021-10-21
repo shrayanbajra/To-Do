@@ -108,8 +108,7 @@ class MyTasksFragment : DaggerFragment() {
 
     private fun showThemeSelectionDialog() {
 
-        val stringArrayRes = R.array.theme_options
-        val themeOptions = resources.getStringArray(stringArrayRes)
+        val themeOptions = resources.getStringArray(R.array.theme_options)
         var selectedTheme = when (ThemeHelper.getSelectedTheme()) {
 
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> 0
@@ -131,7 +130,7 @@ class MyTasksFragment : DaggerFragment() {
 
             }
             // Single-choice items (initialized with checked item)
-            .setSingleChoiceItems(stringArrayRes, selectedTheme) { dialog, selectedItemIndex ->
+            .setSingleChoiceItems(themeOptions, selectedTheme) { dialog, selectedItemIndex ->
 
                 selectedTheme = selectedItemIndex
                 Timber.d("Selected item has been updated -> Index: $selectedItemIndex")
