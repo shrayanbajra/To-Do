@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet_add_task.xml" value="0.25" />
         <entry key="app/src/main/res/layout/bottom_sheet_sort_by.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_sort_by.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/menu_my_tasks_fragment.xml" value="0.2" />
       </map>
     </option>
   </component>

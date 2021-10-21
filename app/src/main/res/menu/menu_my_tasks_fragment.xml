@@ -3,21 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/item_light_theme"
-        android:icon="@drawable/ic_light_theme"
-        android:title="@string/light_theme"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/item_dark_theme"
-        android:icon="@drawable/ic_night_theme"
-        android:title="@string/dark_theme"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/item_sort"
         android:icon="@drawable/ic_sort"
         android:title="@string/sort"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/item_select_theme"
+        android:title="@string/select_theme"
+        app:showAsAction="never" />
 
 </menu>

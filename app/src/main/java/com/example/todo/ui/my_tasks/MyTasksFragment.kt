@@ -20,7 +20,10 @@ import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
 import com.example.todo.utils.SortingOrder
 import com.example.todo.utils.helpers.TasksHelper
+import com.example.todo.utils.helpers.ThemeHelper
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.DaggerFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class MyTasksFragment : DaggerFragment() {
@@ -77,39 +80,79 @@ class MyTasksFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-            R.id.item_light_theme -> {
 
-                setThemeToLightMode()
-                true
-
-            }
-            R.id.item_dark_theme -> {
-
-                setThemeToDarkMode()
-                true
-
-            }
             R.id.item_sort -> {
 
                 showSortByBottomSheet()
                 true
 
             }
+
+            R.id.item_select_theme -> {
+
+                showThemeSelectionDialog()
+                true
+
+            }
+
             else -> super.onOptionsItemSelected(item)
+
         }
     }
 
-    private fun setThemeToLightMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    }
-
-    private fun setThemeToDarkMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-    }
 
     private fun showSortByBottomSheet() {
         val sortByBottomSheet = SortByBottomSheet(getOnCriteriaSelectedListener())
         sortByBottomSheet.show(activity?.supportFragmentManager!!, sortByBottomSheet.tag)
+    }
+
+    private fun showThemeSelectionDialog() {
+
+        val stringArrayRes = R.array.theme_options
+        val themeOptions = resources.getStringArray(stringArrayRes)
+        var selectedTheme = when (ThemeHelper.getSelectedTheme()) {
+
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> 0
+            AppCompatDelegate.MODE_NIGHT_NO -> 1
+            AppCompatDelegate.MODE_NIGHT_YES -> 2
+            else -> 0
+
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.select_theme))
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+
+                val checkedItemValue = themeOptions[selectedTheme]
+                Timber.d("Selected Item -> Index: $selectedTheme,  Value: $checkedItemValue")
+
+                changeTheme(checkedItemValue)
+
+            }
+            // Single-choice items (initialized with checked item)
+            .setSingleChoiceItems(stringArrayRes, selectedTheme) { dialog, selectedItemIndex ->
+
+                selectedTheme = selectedItemIndex
+                Timber.d("Selected item has been updated -> Index: $selectedItemIndex")
+
+            }
+            .show()
+
+    }
+
+    private fun changeTheme(checkedItemValue: String?) {
+        when (checkedItemValue) {
+
+            resources.getString(R.string.follow_system) -> ThemeHelper.setThemeToFollowSystem()
+
+            resources.getString(R.string.light_theme) -> ThemeHelper.setThemeToLightMode()
+
+            resources.getString(R.string.dark_theme) -> ThemeHelper.setThemeToDarkMode()
+
+            else -> ThemeHelper.setThemeToFollowSystem()
+
+        }
     }
 
     private fun getOnCriteriaSelectedListener(): CriteriaAdapter.OnCriteriaSelectedListener {
