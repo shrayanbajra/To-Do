@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/iv_icon"
@@ -46,12 +46,5 @@
         android:visibility="gone"
         app:tint="?attr/colorOnSurface"
         tools:visibility="visible" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.75dp"
-        android:layout_below="@id/tv_criteria"
-        android:background="?attr/colorOnSurface" />
 
 </RelativeLayout>

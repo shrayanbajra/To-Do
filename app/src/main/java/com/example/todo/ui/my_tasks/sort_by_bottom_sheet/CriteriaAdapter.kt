@@ -43,17 +43,16 @@ class CriteriaAdapter(
         private val ivIcon: ImageView = itemView.findViewById(R.id.iv_icon)
         private val tvCriteria: TextView = itemView.findViewById(R.id.tv_criteria)
         private val ivSelectedStatus: ImageView = itemView.findViewById(R.id.iv_selected_status)
-        private val divider: View = itemView.findViewById(R.id.divider)
 
         fun bind(currentCriteria: Criteria) {
 
             ivIcon.setImageResource(currentCriteria.iconResource)
             tvCriteria.text = currentCriteria.title
 
-            if (currentCriteria.isSelected) showTickMark()
-            else hideTickMark()
-
-            if (isLastItem(adapterPosition)) hideDivider()
+            if (currentCriteria.isSelected)
+                showTickMark()
+            else
+                hideTickMark()
 
             itemView.setOnClickListener { selectedListener.onSelected(currentCriteria.title) }
 
@@ -65,12 +64,6 @@ class CriteriaAdapter(
 
         private fun hideTickMark() {
             ivSelectedStatus.visibility = View.GONE
-        }
-
-        private fun isLastItem(position: Int) = position == itemCount - 1
-
-        private fun hideDivider() {
-            divider.visibility = View.INVISIBLE
         }
 
     }

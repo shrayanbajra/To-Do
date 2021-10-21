@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
 import com.example.todo.data.Criteria
 import com.example.todo.databinding.BottomSheetSortByBinding
 import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
 import com.example.todo.utils.extensions.closeBottomSheet
+import com.example.todo.utils.extensions.setupWithDefaultLinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -54,22 +54,24 @@ class SortByBottomSheet(
         super.onAttach(context)
     }
 
-    override fun getTheme(): Int {
-        return R.style.Custom_RoundedTop_BottomSheetDialog
-    }
+//    override fun getTheme(): Int {
+//        return R.style.Custom_RoundedTop_BottomSheetDialog
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRvCriteria()
+        initRvCriteria(view.context)
 
     }
 
-    private fun initRvCriteria() {
+    private fun initRvCriteria(context: Context) {
+
         mBinding.rvCriteria.apply {
-            layoutManager = LinearLayoutManager(context)
+            setupWithDefaultLinearLayoutManager(context)
             adapter = mCriteriaAdapter
         }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
