@@ -4,10 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bg_recycler_view_divider_item_decoration.xml" value="0.24444444444444444" />
+        <entry key="app/src/main/res/drawable/ic_add_to_calendar.xml" value="0.23703703703703705" />
+        <entry key="app/src/main/res/drawable/ic_circle_checked.xml" value="0.23703703703703705" />
+        <entry key="app/src/main/res/drawable/ic_circle_pressed.xml" value="0.23703703703703705" />
+        <entry key="app/src/main/res/drawable/ic_circle_unchecked.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/layout/bottom_sheet_add_task.xml" value="0.25" />
         <entry key="app/src/main/res/layout/bottom_sheet_sort_by.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_sort_by.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu_my_tasks_fragment.xml" value="0.2" />
+        <entry key="app/src/main/res/menu/menu_view_task_fragment.xml" value="0.1925925925925926" />
       </map>
     </option>
   </component>
