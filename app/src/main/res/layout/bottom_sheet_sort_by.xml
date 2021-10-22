@@ -43,6 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title"
         android:clipToPadding="false"
-        android:paddingBottom="32dp" />
+        android:paddingBottom="16dp" />
 
 </RelativeLayout>
