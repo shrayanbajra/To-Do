@@ -11,8 +11,8 @@ import com.example.todo.databinding.BottomSheetAddTaskBinding
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
-import com.example.todo.utils.extensions.closeBottomSheet
-import com.example.todo.utils.extensions.shortToast
+import com.example.todo.framework.extensions.closeBottomSheet
+import com.example.todo.framework.extensions.shortToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import dagger.android.support.AndroidSupportInjection

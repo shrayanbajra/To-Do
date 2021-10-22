@@ -1,4 +1,4 @@
-package com.example.todo.utils.extensions
+package com.example.todo.framework.extensions
 
 import android.content.Context
 import androidx.core.content.ContextCompat

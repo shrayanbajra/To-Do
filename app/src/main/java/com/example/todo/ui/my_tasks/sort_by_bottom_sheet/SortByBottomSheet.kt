@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import com.example.todo.R
 import com.example.todo.data.Criteria
 import com.example.todo.databinding.BottomSheetSortByBinding
+import com.example.todo.framework.extensions.closeBottomSheet
+import com.example.todo.framework.extensions.setupWithDefaultLinearLayoutManager
 import com.example.todo.utils.Constants
 import com.example.todo.utils.SortingCriteria
-import com.example.todo.utils.extensions.closeBottomSheet
-import com.example.todo.utils.extensions.setupWithDefaultLinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
