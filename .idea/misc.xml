@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/bottom_sheet_add_task.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_sort_by.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_my_tasks_fragment.xml" value="0.20717948717948717" />
       </map>

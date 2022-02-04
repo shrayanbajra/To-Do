@@ -11,11 +11,14 @@ import com.example.todo.databinding.BottomSheetAddTaskBinding
 import com.example.todo.db.task.TaskEntity
 import com.example.todo.db.task.TaskStatus
 import com.example.todo.di.app.utils.ViewModelProviderFactory
-import com.example.todo.framework.extensions.closeBottomSheet
-import com.example.todo.framework.extensions.shortToast
+import com.example.todo.framework.extensions.*
+import com.example.todo.utils.Logger
+import com.example.todo.utils.helpers.DateFormatter
+import com.example.todo.utils.helpers.DatePickerHelper
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import dagger.android.support.AndroidSupportInjection
+import java.util.*
 import javax.inject.Inject
 
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
@@ -25,6 +28,8 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
+
+    private var dueDate: Date? = null
 
     private val viewModel by lazy {
         ViewModelProvider(this, providerFactory)[AddTaskViewModel::class.java]
@@ -46,8 +51,54 @@ class AddTaskBottomSheet : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        setDueDateAsToday()
+        btnDueDateListener()
+
         btnSaveListener()
         btnCancelListener()
+
+    }
+
+    private fun setDueDateAsToday() {
+        dueDate = Date()
+        mBinding.btnDueDate.text = DateFormatter().getFormattedDueDate(
+            context = requireContext(), date = Date()
+        )
+    }
+
+    private fun btnDueDateListener() {
+        mBinding.btnDueDate.setOnClickListener {
+
+            val dueDateAsCalendar = Calendar.getInstance().apply {
+                timeInMillis = dueDate?.time ?: System.currentTimeMillis()
+            }
+
+            showDueDatePicker(dueDateAsCalendar)
+
+        }
+    }
+
+    private fun showDueDatePicker(dueDateAsCalendar: Calendar) {
+        val datePicker = DatePickerHelper().getDueDatePicker(
+            context = requireContext(),
+            calendar = dueDateAsCalendar
+        ) { _, year, month, dayOfMonth ->
+
+            val calendar = Calendar.getInstance()
+            calendar.setYear(year)
+            calendar.setMonth(month)
+            calendar.setDayOfMonth(dayOfMonth)
+
+            dueDate = Date(calendar.timeInMillis)
+            val formattedDueDate = DateFormatter().getFormattedDueDate(
+                context = requireContext(), date = dueDate ?: Date()
+            )
+            mBinding.btnDueDate.text = formattedDueDate
+
+            Logger.d("$dayOfMonth $month $year")
+
+        }
+        datePicker.show()
     }
 
     private fun btnSaveListener() {

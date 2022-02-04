@@ -60,16 +60,27 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/btn_due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="4dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:layout_constraintStart_toStartOf="@id/til_task_description"
+        app:layout_constraintTop_toBottomOf="@id/til_task_description"
+        tools:text="@string/due_date" />
+
+    <Button
         android:id="@+id/btn_cancel"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/cancel"
         app:layout_constraintEnd_toStartOf="@id/btn_save"
         app:layout_constraintStart_toStartOf="@id/til_task_description"
-        app:layout_constraintTop_toBottomOf="@id/til_task_description" />
+        app:layout_constraintTop_toBottomOf="@id/btn_due_date" />
 
     <Button
         android:id="@+id/btn_save"
