@@ -1,5 +1,7 @@
 # To-Do #
 
+To run this app, clone the project and after successful build in the Android Studio we can sipmly run the project onto a physical device or an emulator
+
 ## Screenshots ##
 ### Splash Screen | My Tasks ###
 <img src="screenshots/0_splash_screen.jpg" align="left" width="300" height="640">
