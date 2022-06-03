@@ -1,6 +1,6 @@
 # To-Do #
 
-### Instructions ###
+## Instructions ##
 1. Clone the repo at `https://github.com/shrayanbajra/To-Do.git`
 2. Build the app in Android Studio
 3. Run the app on a physical device or an emulator
